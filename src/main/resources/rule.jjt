@@ -1,0 +1,40 @@
+options {
+  STATIC = false;
+  MULTI=true;
+  VISITOR=true;
+  VISITOR_DATA_TYPE="StringBuilder";
+  VISITOR_RETURN_TYPE="void";
+}
+PARSER_BEGIN(RuleParser)
+package io.leaderli.rule.tree;
+import java.io.StringReader;
+public class RuleParser{
+    public static void main(String[] args) throws Exception {
+      RuleParser demo = new RuleParser(new StringReader("str aa;"));
+      SimpleNode node = demo.Start();
+      node.dump(" ");
+    }
+ }
+PARSER_END(RuleParser)
+
+SKIP : {
+" "
+}
+TOKEN : {
+    <TYPE:"str"|"number">|
+    <NAME: (["a"-"z"]|["A"-"Z"]|["0"-"9"]|"_")+>|
+    <SEMICOLON: ";">
+}
+
+
+SimpleNode Start() :{}{
+    (var()) +<EOF>{
+        return jjtThis;
+    }
+}
+void var():{Token t;}{
+    t=<TYPE>{jjtThis.jjtSetType(t.image);}
+    t=<NAME>{jjtThis.jjtSetValue(t.image);}
+    <SEMICOLON>
+}
+
