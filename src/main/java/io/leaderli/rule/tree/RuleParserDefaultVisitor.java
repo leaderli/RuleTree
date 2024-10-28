@@ -23,8 +23,8 @@ public class RuleParserDefaultVisitor implements RuleParserVisitor {
         defaultVisit(node, data);
     }
 
-    public void visit(ASTtest_num node, StringBuilder data) {
+    public void visit(ASTtest node, StringBuilder data) {
         defaultVisit(node, data);
     }
 }
-/* JavaCC - OriginalChecksum=d922862a2102bd451bfbaa2662e0b41d (do not edit this line) */
+/* JavaCC - OriginalChecksum=853ac1e1e8479fbe2ffcb0aca3b5cfa0 (do not edit this line) */

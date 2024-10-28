@@ -9,10 +9,9 @@ PARSER_BEGIN(RuleParser)
 package io.leaderli.rule.tree;
 import java.io.StringReader;
 public class RuleParser{
-    public static void main(String[] args) throws Exception {
-      RuleParser demo = new RuleParser(new StringReader("str aa;"));
-      SimpleNode node = demo.Start();
-      node.dump(" ");
+    public static SimpleNode test(String expr) throws ParseException {
+        RuleParser demo = new RuleParser(new StringReader(expr));
+        return (SimpleNode) demo.test().jjtGetChild(0);
     }
  }
 PARSER_END(RuleParser)
@@ -36,7 +35,14 @@ SimpleNode Start() :{}{
     }
 }
 void num():{Token t;}{
-    t=<NUM>{jjtThis.jjtSetValue(t.image);}
+    t=<NUM>{
+        String value = t.image;
+        if(value.endsWith("%")){
+            jjtThis.jjtSetValue(Double.parseDouble(value.substring(0, value.length()-1)) / 100);
+        }else {
+            jjtThis.jjtSetValue(Double.parseDouble(value));
+        }
+    }
 }
 void var():{Token t;}{
     <TYPE>
@@ -47,8 +53,8 @@ void var():{Token t;}{
 
 // test
 
-SimpleNode test_num() :{}{
-    num()<EOF>{
+SimpleNode test() :{}{
+    (num()|var()) <EOF>{
         return jjtThis;
     }
 }

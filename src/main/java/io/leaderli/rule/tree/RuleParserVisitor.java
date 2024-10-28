@@ -10,6 +10,6 @@ public interface RuleParserVisitor {
 
     public void visit(ASTvar node, StringBuilder data);
 
-    public void visit(ASTtest_num node, StringBuilder data);
+    public void visit(ASTtest node, StringBuilder data);
 }
-/* JavaCC - OriginalChecksum=37c10fbf4c6ac7750f3df9e4aad945eb (do not edit this line) */
+/* JavaCC - OriginalChecksum=a3887e38b9fa836f89cc916b166e4acf (do not edit this line) */

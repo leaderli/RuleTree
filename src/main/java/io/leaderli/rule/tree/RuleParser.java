@@ -7,10 +7,9 @@ import java.io.StringReader;
 public class RuleParser/* @bgen(jjtree) */ implements RuleParserTreeConstants, RuleParserConstants {/* @bgen(jjtree) */
     protected JJTRuleParserState jjtree = new JJTRuleParserState();
 
-    public static void main(String[] args) throws Exception {
-        RuleParser demo = new RuleParser(new StringReader("str aa;"));
-        SimpleNode node = demo.Start();
-        node.dump(" ");
+    public static SimpleNode test(String expr) throws ParseException {
+        RuleParser demo = new RuleParser(new StringReader(expr));
+        return (SimpleNode) demo.test().jjtGetChild(0);
     }
 
     final public SimpleNode Start() throws ParseException {/* @bgen(jjtree) Start */
@@ -77,7 +76,12 @@ public class RuleParser/* @bgen(jjtree) */ implements RuleParserTreeConstants, R
             t = jj_consume_token(NUM);
             jjtree.closeNodeScope(jjtn000, true);
             jjtc000 = false;
-            jjtn000.jjtSetValue(t.image);
+            String value = t.image;
+            if (value.endsWith("%")) {
+                jjtn000.jjtSetValue(Double.parseDouble(value.substring(0, value.length() - 1)) / 100);
+            } else {
+                jjtn000.jjtSetValue(Double.parseDouble(value));
+            }
         } finally {
             if (jjtc000) {
                 jjtree.closeNodeScope(jjtn000, true);
@@ -103,12 +107,25 @@ public class RuleParser/* @bgen(jjtree) */ implements RuleParserTreeConstants, R
     }
 
     // test
-    final public SimpleNode test_num() throws ParseException {/* @bgen(jjtree) test_num */
-        ASTtest_num jjtn000 = new ASTtest_num(JJTTEST_NUM);
+    final public SimpleNode test() throws ParseException {/* @bgen(jjtree) test */
+        ASTtest jjtn000 = new ASTtest(JJTTEST);
         boolean jjtc000 = true;
         jjtree.openNodeScope(jjtn000);
         try {
-            num();
+            switch ((jj_ntk == -1) ? jj_ntk_f() : jj_ntk) {
+            case NUM: {
+                num();
+                break;
+            }
+            case TYPE: {
+                var();
+                break;
+            }
+            default:
+                jj_la1[1] = jj_gen;
+                jj_consume_token(-1);
+                throw new ParseException();
+            }
             jj_consume_token(0);
             jjtree.closeNodeScope(jjtn000, true);
             jjtc000 = false;
@@ -156,14 +173,14 @@ public class RuleParser/* @bgen(jjtree) */ implements RuleParserTreeConstants, R
     public Token jj_nt;
     private int jj_ntk;
     private int jj_gen;
-    final private int[] jj_la1 = new int[1];
+    final private int[] jj_la1 = new int[2];
     static private int[] jj_la1_0;
     static {
         jj_la1_init_0();
     }
 
     private static void jj_la1_init_0() {
-        jj_la1_0 = new int[] { 0x4, };
+        jj_la1_0 = new int[] { 0x4, 0x14, };
     }
 
     /** Constructor with InputStream. */
@@ -182,7 +199,7 @@ public class RuleParser/* @bgen(jjtree) */ implements RuleParserTreeConstants, R
         token = new Token();
         jj_ntk = -1;
         jj_gen = 0;
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 2; i++)
             jj_la1[i] = -1;
     }
 
@@ -203,7 +220,7 @@ public class RuleParser/* @bgen(jjtree) */ implements RuleParserTreeConstants, R
         jj_ntk = -1;
         jjtree.reset();
         jj_gen = 0;
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 2; i++)
             jj_la1[i] = -1;
     }
 
@@ -214,7 +231,7 @@ public class RuleParser/* @bgen(jjtree) */ implements RuleParserTreeConstants, R
         token = new Token();
         jj_ntk = -1;
         jj_gen = 0;
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 2; i++)
             jj_la1[i] = -1;
     }
 
@@ -234,7 +251,7 @@ public class RuleParser/* @bgen(jjtree) */ implements RuleParserTreeConstants, R
         jj_ntk = -1;
         jjtree.reset();
         jj_gen = 0;
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 2; i++)
             jj_la1[i] = -1;
     }
 
@@ -244,7 +261,7 @@ public class RuleParser/* @bgen(jjtree) */ implements RuleParserTreeConstants, R
         token = new Token();
         jj_ntk = -1;
         jj_gen = 0;
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 2; i++)
             jj_la1[i] = -1;
     }
 
@@ -255,7 +272,7 @@ public class RuleParser/* @bgen(jjtree) */ implements RuleParserTreeConstants, R
         jj_ntk = -1;
         jjtree.reset();
         jj_gen = 0;
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 2; i++)
             jj_la1[i] = -1;
     }
 
@@ -317,7 +334,7 @@ public class RuleParser/* @bgen(jjtree) */ implements RuleParserTreeConstants, R
             la1tokens[jj_kind] = true;
             jj_kind = -1;
         }
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 2; i++) {
             if (jj_la1[i] == jj_gen) {
                 for (int j = 0; j < 32; j++) {
                     if ((jj_la1_0[i] & (1 << j)) != 0) {
