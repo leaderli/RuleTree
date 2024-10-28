@@ -2,21 +2,19 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=true,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package io.leaderli.rule.tree;
 
-public
-class ASTStart extends SimpleNode {
-  public ASTStart(int id) {
-    super(id);
-  }
+public class ASTStart extends SimpleNode {
+    public ASTStart(int id) {
+        super(id);
+    }
 
-  public ASTStart(RuleParser p, int id) {
-    super(p, id);
-  }
+    public ASTStart(RuleParser p, int id) {
+        super(p, id);
+    }
 
+    /** Accept the visitor. **/
+    public void jjtAccept(RuleParserVisitor visitor, StringBuilder data) {
 
-  /** Accept the visitor. **/
-  public void jjtAccept(RuleParserVisitor visitor, StringBuilder data) {
-
-    visitor.visit(this, data);
-  }
+        visitor.visit(this, data);
+    }
 }
-/* JavaCC - OriginalChecksum=515ff213c7d50c4996a8cbeeccec5acf (do not edit this line) */
+/* JavaCC - OriginalChecksum=e30829382933be1079978168bc325147 (do not edit this line) */

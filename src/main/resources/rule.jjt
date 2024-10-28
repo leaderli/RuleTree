@@ -22,7 +22,10 @@ SKIP : {
 }
 TOKEN : {
     <TYPE:"str"|"number">|
-    <NAME: (["a"-"z"]|["A"-"Z"]|["0"-"9"]|"_")+>|
+    <NAME: (["a"-"z"]|["A"-"Z"]|"_")(["a"-"z"]|["A"-"Z"]|["0"-"9"]|"_")*>|
+    <NUM:<INT>(<FLOAT>)? ("%")?> |
+    < #INT: "0"|(["1"-"9"] (["0"-"9"])*) >|
+    < #FLOAT:  "." (["0"-"9"])+ >|
     <SEMICOLON: ";">
 }
 
@@ -32,9 +35,20 @@ SimpleNode Start() :{}{
         return jjtThis;
     }
 }
+void num():{Token t;}{
+    t=<NUM>{jjtThis.jjtSetValue(t.image);}
+}
 void var():{Token t;}{
-    t=<TYPE>{jjtThis.jjtSetType(t.image);}
+    <TYPE>
     t=<NAME>{jjtThis.jjtSetValue(t.image);}
     <SEMICOLON>
 }
 
+
+// test
+
+SimpleNode test_num() :{}{
+    num()<EOF>{
+        return jjtThis;
+    }
+}

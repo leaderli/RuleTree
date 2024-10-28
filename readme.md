@@ -10,3 +10,8 @@
 10. 支持的操作符 `>、>=、=、!=、<、<=、+、-`
 11. 支持的变量类型 `num、str`，所有数字都会转换为`double`来使用
 
+# 构建
+
+```shell
+mvn clean generate-sources formatter:format
+```

@@ -4,7 +4,7 @@ package io.leaderli.rule.tree;
 
 import java.io.StringReader;
 
-public class RuleParser/*@bgen(jjtree)*/ implements RuleParserTreeConstants, RuleParserConstants {/*@bgen(jjtree)*/
+public class RuleParser/* @bgen(jjtree) */ implements RuleParserTreeConstants, RuleParserConstants {/* @bgen(jjtree) */
     protected JJTRuleParserState jjtree = new JJTRuleParserState();
 
     public static void main(String[] args) throws Exception {
@@ -13,29 +13,29 @@ public class RuleParser/*@bgen(jjtree)*/ implements RuleParserTreeConstants, Rul
         node.dump(" ");
     }
 
-    final public SimpleNode Start() throws ParseException {/*@bgen(jjtree) Start */
+    final public SimpleNode Start() throws ParseException {/* @bgen(jjtree) Start */
         ASTStart jjtn000 = new ASTStart(JJTSTART);
         boolean jjtc000 = true;
         jjtree.openNodeScope(jjtn000);
         try {
-            label_1:
-            while (true) {
+            label_1: while (true) {
                 var();
                 switch ((jj_ntk == -1) ? jj_ntk_f() : jj_ntk) {
-                    case TYPE: {
-                        ;
-                        break;
-                    }
-                    default:
-                        jj_la1[0] = jj_gen;
-                        break label_1;
+                case TYPE: {
+                    ;
+                    break;
+                }
+                default:
+                    jj_la1[0] = jj_gen;
+                    break label_1;
                 }
             }
             jj_consume_token(0);
             jjtree.closeNodeScope(jjtn000, true);
             jjtc000 = false;
             {
-                if ("" != null) return jjtn000;
+                if ("" != null)
+                    return jjtn000;
             }
         } catch (Throwable jjte000) {
             if (jjtc000) {
@@ -46,16 +46,19 @@ public class RuleParser/*@bgen(jjtree)*/ implements RuleParserTreeConstants, Rul
             }
             if (jjte000 instanceof RuntimeException) {
                 {
-                    if (true) throw (RuntimeException) jjte000;
+                    if (true)
+                        throw (RuntimeException) jjte000;
                 }
             }
             if (jjte000 instanceof ParseException) {
                 {
-                    if (true) throw (ParseException) jjte000;
+                    if (true)
+                        throw (ParseException) jjte000;
                 }
             }
             {
-                if (true) throw (Error) jjte000;
+                if (true)
+                    throw (Error) jjte000;
             }
         } finally {
             if (jjtc000) {
@@ -65,14 +68,30 @@ public class RuleParser/*@bgen(jjtree)*/ implements RuleParserTreeConstants, Rul
         throw new Error("Missing return statement in function");
     }
 
-    final public void var() throws ParseException {/*@bgen(jjtree) var */
+    final public void num() throws ParseException {/* @bgen(jjtree) num */
+        ASTnum jjtn000 = new ASTnum(JJTNUM);
+        boolean jjtc000 = true;
+        jjtree.openNodeScope(jjtn000);
+        Token t;
+        try {
+            t = jj_consume_token(NUM);
+            jjtree.closeNodeScope(jjtn000, true);
+            jjtc000 = false;
+            jjtn000.jjtSetValue(t.image);
+        } finally {
+            if (jjtc000) {
+                jjtree.closeNodeScope(jjtn000, true);
+            }
+        }
+    }
+
+    final public void var() throws ParseException {/* @bgen(jjtree) var */
         ASTvar jjtn000 = new ASTvar(JJTVAR);
         boolean jjtc000 = true;
         jjtree.openNodeScope(jjtn000);
         Token t;
         try {
-            t = jj_consume_token(TYPE);
-            jjtn000.jjtSetType(t.image);
+            jj_consume_token(TYPE);
             t = jj_consume_token(NAME);
             jjtn000.jjtSetValue(t.image);
             jj_consume_token(SEMICOLON);
@@ -83,42 +102,76 @@ public class RuleParser/*@bgen(jjtree)*/ implements RuleParserTreeConstants, Rul
         }
     }
 
-    /**
-     * Generated Token Manager.
-     */
+    // test
+    final public SimpleNode test_num() throws ParseException {/* @bgen(jjtree) test_num */
+        ASTtest_num jjtn000 = new ASTtest_num(JJTTEST_NUM);
+        boolean jjtc000 = true;
+        jjtree.openNodeScope(jjtn000);
+        try {
+            num();
+            jj_consume_token(0);
+            jjtree.closeNodeScope(jjtn000, true);
+            jjtc000 = false;
+            {
+                if ("" != null)
+                    return jjtn000;
+            }
+        } catch (Throwable jjte000) {
+            if (jjtc000) {
+                jjtree.clearNodeScope(jjtn000);
+                jjtc000 = false;
+            } else {
+                jjtree.popNode();
+            }
+            if (jjte000 instanceof RuntimeException) {
+                {
+                    if (true)
+                        throw (RuntimeException) jjte000;
+                }
+            }
+            if (jjte000 instanceof ParseException) {
+                {
+                    if (true)
+                        throw (ParseException) jjte000;
+                }
+            }
+            {
+                if (true)
+                    throw (Error) jjte000;
+            }
+        } finally {
+            if (jjtc000) {
+                jjtree.closeNodeScope(jjtn000, true);
+            }
+        }
+        throw new Error("Missing return statement in function");
+    }
+
+    /** Generated Token Manager. */
     public RuleParserTokenManager token_source;
     SimpleCharStream jj_input_stream;
-    /**
-     * Current token.
-     */
+    /** Current token. */
     public Token token;
-    /**
-     * Next token.
-     */
+    /** Next token. */
     public Token jj_nt;
     private int jj_ntk;
     private int jj_gen;
     final private int[] jj_la1 = new int[1];
     static private int[] jj_la1_0;
-
     static {
         jj_la1_init_0();
     }
 
     private static void jj_la1_init_0() {
-        jj_la1_0 = new int[]{0x4,};
+        jj_la1_0 = new int[] { 0x4, };
     }
 
-    /**
-     * Constructor with InputStream.
-     */
+    /** Constructor with InputStream. */
     public RuleParser(java.io.InputStream stream) {
         this(stream, null);
     }
 
-    /**
-     * Constructor with InputStream and supplied encoding
-     */
+    /** Constructor with InputStream and supplied encoding */
     public RuleParser(java.io.InputStream stream, String encoding) {
         try {
             jj_input_stream = new SimpleCharStream(stream, encoding, 1, 1);
@@ -129,19 +182,16 @@ public class RuleParser/*@bgen(jjtree)*/ implements RuleParserTreeConstants, Rul
         token = new Token();
         jj_ntk = -1;
         jj_gen = 0;
-        for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+        for (int i = 0; i < 1; i++)
+            jj_la1[i] = -1;
     }
 
-    /**
-     * Reinitialise.
-     */
+    /** Reinitialise. */
     public void ReInit(java.io.InputStream stream) {
         ReInit(stream, null);
     }
 
-    /**
-     * Reinitialise.
-     */
+    /** Reinitialise. */
     public void ReInit(java.io.InputStream stream, String encoding) {
         try {
             jj_input_stream.ReInit(stream, encoding, 1, 1);
@@ -153,24 +203,22 @@ public class RuleParser/*@bgen(jjtree)*/ implements RuleParserTreeConstants, Rul
         jj_ntk = -1;
         jjtree.reset();
         jj_gen = 0;
-        for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+        for (int i = 0; i < 1; i++)
+            jj_la1[i] = -1;
     }
 
-    /**
-     * Constructor.
-     */
+    /** Constructor. */
     public RuleParser(java.io.Reader stream) {
         jj_input_stream = new SimpleCharStream(stream, 1, 1);
         token_source = new RuleParserTokenManager(jj_input_stream);
         token = new Token();
         jj_ntk = -1;
         jj_gen = 0;
-        for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+        for (int i = 0; i < 1; i++)
+            jj_la1[i] = -1;
     }
 
-    /**
-     * Reinitialise.
-     */
+    /** Reinitialise. */
     public void ReInit(java.io.Reader stream) {
         if (jj_input_stream == null) {
             jj_input_stream = new SimpleCharStream(stream, 1, 1);
@@ -186,36 +234,37 @@ public class RuleParser/*@bgen(jjtree)*/ implements RuleParserTreeConstants, Rul
         jj_ntk = -1;
         jjtree.reset();
         jj_gen = 0;
-        for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+        for (int i = 0; i < 1; i++)
+            jj_la1[i] = -1;
     }
 
-    /**
-     * Constructor with generated Token Manager.
-     */
+    /** Constructor with generated Token Manager. */
     public RuleParser(RuleParserTokenManager tm) {
         token_source = tm;
         token = new Token();
         jj_ntk = -1;
         jj_gen = 0;
-        for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+        for (int i = 0; i < 1; i++)
+            jj_la1[i] = -1;
     }
 
-    /**
-     * Reinitialise.
-     */
+    /** Reinitialise. */
     public void ReInit(RuleParserTokenManager tm) {
         token_source = tm;
         token = new Token();
         jj_ntk = -1;
         jjtree.reset();
         jj_gen = 0;
-        for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+        for (int i = 0; i < 1; i++)
+            jj_la1[i] = -1;
     }
 
     private Token jj_consume_token(int kind) throws ParseException {
         Token oldToken;
-        if ((oldToken = token).next != null) token = token.next;
-        else token = token.next = token_source.getNextToken();
+        if ((oldToken = token).next != null)
+            token = token.next;
+        else
+            token = token.next = token_source.getNextToken();
         jj_ntk = -1;
         if (token.kind == kind) {
             jj_gen++;
@@ -226,26 +275,25 @@ public class RuleParser/*@bgen(jjtree)*/ implements RuleParserTreeConstants, Rul
         throw generateParseException();
     }
 
-
-    /**
-     * Get the next Token.
-     */
+    /** Get the next Token. */
     final public Token getNextToken() {
-        if (token.next != null) token = token.next;
-        else token = token.next = token_source.getNextToken();
+        if (token.next != null)
+            token = token.next;
+        else
+            token = token.next = token_source.getNextToken();
         jj_ntk = -1;
         jj_gen++;
         return token;
     }
 
-    /**
-     * Get the specific Token.
-     */
+    /** Get the specific Token. */
     final public Token getToken(int index) {
         Token t = token;
         for (int i = 0; i < index; i++) {
-            if (t.next != null) t = t.next;
-            else t = t.next = token_source.getNextToken();
+            if (t.next != null)
+                t = t.next;
+            else
+                t = t.next = token_source.getNextToken();
         }
         return t;
     }
@@ -261,12 +309,10 @@ public class RuleParser/*@bgen(jjtree)*/ implements RuleParserTreeConstants, Rul
     private int[] jj_expentry;
     private int jj_kind = -1;
 
-    /**
-     * Generate ParseException.
-     */
+    /** Generate ParseException. */
     public ParseException generateParseException() {
         jj_expentries.clear();
-        boolean[] la1tokens = new boolean[5];
+        boolean[] la1tokens = new boolean[8];
         if (jj_kind >= 0) {
             la1tokens[jj_kind] = true;
             jj_kind = -1;
@@ -280,7 +326,7 @@ public class RuleParser/*@bgen(jjtree)*/ implements RuleParserTreeConstants, Rul
                 }
             }
         }
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 8; i++) {
             if (la1tokens[i]) {
                 jj_expentry = new int[1];
                 jj_expentry[0] = i;
@@ -296,22 +342,16 @@ public class RuleParser/*@bgen(jjtree)*/ implements RuleParserTreeConstants, Rul
 
     private boolean trace_enabled;
 
-    /**
-     * Trace enabled.
-     */
+    /** Trace enabled. */
     final public boolean trace_enabled() {
         return trace_enabled;
     }
 
-    /**
-     * Enable tracing.
-     */
+    /** Enable tracing. */
     final public void enable_tracing() {
     }
 
-    /**
-     * Disable tracing.
-     */
+    /** Disable tracing. */
     final public void disable_tracing() {
     }
 
