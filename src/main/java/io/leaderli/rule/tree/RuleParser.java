@@ -389,13 +389,10 @@ public class RuleParser/* @bgen(jjtree) */ implements RuleParserTreeConstants, R
                 num();
                 break;
             }
-            case IDENTIFIER: {
-                compare2();
-                break;
-            }
             case TRUE:
             case FALSE:
             case NOT:
+            case IDENTIFIER:
             case 31: {
                 expr();
                 break;

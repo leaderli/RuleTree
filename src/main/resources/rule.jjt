@@ -102,7 +102,7 @@ void compare2():{Token name;}{
 // test
 
 SimpleNode test() :{}{
-    (num()|compare2()|expr()) <EOF>{
+    (num()|expr()) <EOF>{
         return jjtThis;
     }
 }
