@@ -4,7 +4,7 @@ package io.leaderli.rule.tree;
 public interface RuleParserTreeConstants {
     public int JJTSTART = 0;
     public int JJTRULE = 1;
-    public int JJTEXPR = 2;
+    public int JJTVOID = 2;
     public int JJTAND = 3;
     public int JJTOR = 4;
     public int JJTTERM = 5;
@@ -14,7 +14,7 @@ public interface RuleParserTreeConstants {
     public int JJTCOMPARE2 = 9;
     public int JJTTEST = 10;
 
-    public String[] jjtNodeName = { "Start", "rule", "expr", "and", "or", "term", "neg", "num", "str", "compare2",
+    public String[] jjtNodeName = { "Start", "rule", "void", "and", "or", "term", "neg", "num", "str", "compare2",
             "test", };
 }
-/* JavaCC - OriginalChecksum=65ba6fc6981189f85a5dc745c397f4d9 (do not edit this line) */
+/* JavaCC - OriginalChecksum=3cce52b320d2e2af9f3de523b077b7eb (do not edit this line) */

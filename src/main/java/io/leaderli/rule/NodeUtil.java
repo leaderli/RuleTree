@@ -1,4 +1,7 @@
-package io.leaderli.rule.tree;
+package io.leaderli.rule;
+
+import io.leaderli.rule.tree.RuleParserTreeConstants;
+import io.leaderli.rule.tree.SimpleNode;
 
 public class NodeUtil {
 

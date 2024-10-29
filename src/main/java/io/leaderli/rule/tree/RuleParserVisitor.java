@@ -8,8 +8,6 @@ public interface RuleParserVisitor {
 
     public void visit(ASTrule node, StringBuilder data);
 
-    public void visit(ASTexpr node, StringBuilder data);
-
     public void visit(ASTand node, StringBuilder data);
 
     public void visit(ASTor node, StringBuilder data);
@@ -26,4 +24,4 @@ public interface RuleParserVisitor {
 
     public void visit(ASTtest node, StringBuilder data);
 }
-/* JavaCC - OriginalChecksum=80c03da6169a6f6e886d57d22ce3a659 (do not edit this line) */
+/* JavaCC - OriginalChecksum=763300e6ab8cbf054f35a21c10330fe3 (do not edit this line) */

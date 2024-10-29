@@ -17,4 +17,4 @@ public class ASTcompare2 extends SimpleNode {
         visitor.visit(this, data);
     }
 }
-/* JavaCC - OriginalChecksum=4ceaddbfa6c91ed15852a96e63fe93fb (do not edit this line) */
+/* JavaCC - OriginalChecksum=696863b9e30886722c29cf1d494a6ed6 (do not edit this line) */

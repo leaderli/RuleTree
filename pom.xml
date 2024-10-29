@@ -42,11 +42,11 @@
                             <filesets>
                                 <fileset>
                                     <directory>src/main/java</directory>
-                                    <excludes>
-                                        <exclude>
-                                            io/leaderli/rule/tree/NodeUtil.java
-                                        </exclude>
-                                    </excludes>
+                                    <includes>
+                                        <include>
+                                            io/leaderli/rule/tree/
+                                        </include>
+                                    </includes>
                                 </fileset>
                             </filesets>
                         </configuration>

@@ -17,4 +17,4 @@ public class ASTand extends SimpleNode {
         visitor.visit(this, data);
     }
 }
-/* JavaCC - OriginalChecksum=df9ba7ff72cfd8f7bc8b88f954596708 (do not edit this line) */
+/* JavaCC - OriginalChecksum=c4c1905f15f96dd6098d61debf66cfcf (do not edit this line) */

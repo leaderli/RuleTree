@@ -65,7 +65,7 @@ void rule():{Token t;}{
     t=<INT> { jjtThis.jjtSetValue(Integer.parseInt(t.image));}
     expr()
 }
-void expr():{}{
+void expr()#void:{}{
     term() (
          <AND>#and term()
        | <OR>#or term()
@@ -77,7 +77,7 @@ void term():{}{
        | <FALSE>{jjtThis.jjtSetValue(false);}
        | compare2(){jjtThis.jjtSetValue("compare2");}
        | "(" expr() ")"{jjtThis.jjtSetValue("()");}
-       | <NOT> expr()#neg
+       | <NOT> term() #neg
 }
 void num():{Token t;}{
    ( t=<INT>|t=<DOUBLE>|t=<PERCENT>){

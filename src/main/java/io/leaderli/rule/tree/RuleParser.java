@@ -107,84 +107,52 @@ public class RuleParser/* @bgen(jjtree) */ implements RuleParserTreeConstants, R
         }
     }
 
-    final public void expr() throws ParseException {/* @bgen(jjtree) expr */
-        ASTexpr jjtn000 = new ASTexpr(JJTEXPR);
-        boolean jjtc000 = true;
-        jjtree.openNodeScope(jjtn000);
-        try {
-            term();
-            label_2: while (true) {
-                switch ((jj_ntk == -1) ? jj_ntk_f() : jj_ntk) {
-                case AND:
-                case OR: {
-                    ;
-                    break;
-                }
-                default:
-                    jj_la1[1] = jj_gen;
-                    break label_2;
-                }
-                switch ((jj_ntk == -1) ? jj_ntk_f() : jj_ntk) {
-                case AND: {
-                    ASTand jjtn001 = new ASTand(JJTAND);
-                    boolean jjtc001 = true;
-                    jjtree.openNodeScope(jjtn001);
-                    try {
-                        jj_consume_token(AND);
-                    } finally {
-                        if (jjtc001) {
-                            jjtree.closeNodeScope(jjtn001, true);
-                        }
+    final public void expr() throws ParseException {
+        term();
+        label_2: while (true) {
+            switch ((jj_ntk == -1) ? jj_ntk_f() : jj_ntk) {
+            case AND:
+            case OR: {
+                ;
+                break;
+            }
+            default:
+                jj_la1[1] = jj_gen;
+                break label_2;
+            }
+            switch ((jj_ntk == -1) ? jj_ntk_f() : jj_ntk) {
+            case AND: {
+                ASTand jjtn001 = new ASTand(JJTAND);
+                boolean jjtc001 = true;
+                jjtree.openNodeScope(jjtn001);
+                try {
+                    jj_consume_token(AND);
+                } finally {
+                    if (jjtc001) {
+                        jjtree.closeNodeScope(jjtn001, true);
                     }
-                    term();
-                    break;
                 }
-                case OR: {
-                    ASTor jjtn002 = new ASTor(JJTOR);
-                    boolean jjtc002 = true;
-                    jjtree.openNodeScope(jjtn002);
-                    try {
-                        jj_consume_token(OR);
-                    } finally {
-                        if (jjtc002) {
-                            jjtree.closeNodeScope(jjtn002, true);
-                        }
+                term();
+                break;
+            }
+            case OR: {
+                ASTor jjtn002 = new ASTor(JJTOR);
+                boolean jjtc002 = true;
+                jjtree.openNodeScope(jjtn002);
+                try {
+                    jj_consume_token(OR);
+                } finally {
+                    if (jjtc002) {
+                        jjtree.closeNodeScope(jjtn002, true);
                     }
-                    term();
-                    break;
                 }
-                default:
-                    jj_la1[2] = jj_gen;
-                    jj_consume_token(-1);
-                    throw new ParseException();
-                }
+                term();
+                break;
             }
-        } catch (Throwable jjte000) {
-            if (jjtc000) {
-                jjtree.clearNodeScope(jjtn000);
-                jjtc000 = false;
-            } else {
-                jjtree.popNode();
-            }
-            if (jjte000 instanceof RuntimeException) {
-                {
-                    if (true)
-                        throw (RuntimeException) jjte000;
-                }
-            }
-            if (jjte000 instanceof ParseException) {
-                {
-                    if (true)
-                        throw (ParseException) jjte000;
-                }
-            }
-            {
-                if (true)
-                    throw (Error) jjte000;
-            }
-        } finally {
-            if (jjtc000) {
-                jjtree.closeNodeScope(jjtn000, true);
+            default:
+                jj_la1[2] = jj_gen;
+                jj_consume_token(-1);
+                throw new ParseException();
             }
         }
     }
@@ -231,7 +199,7 @@ public class RuleParser/* @bgen(jjtree) */ implements RuleParserTreeConstants, R
                 boolean jjtc001 = true;
                 jjtree.openNodeScope(jjtn001);
                 try {
-                    expr();
+                    term();
                 } catch (Throwable jjte001) {
                     if (jjtc001) {
                         jjtree.clearNodeScope(jjtn001);

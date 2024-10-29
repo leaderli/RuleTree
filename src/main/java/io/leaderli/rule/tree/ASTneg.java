@@ -17,4 +17,4 @@ public class ASTneg extends SimpleNode {
         visitor.visit(this, data);
     }
 }
-/* JavaCC - OriginalChecksum=dc29fbd72ab697a1c3f103b4124b91da (do not edit this line) */
+/* JavaCC - OriginalChecksum=5c9900aea399d6e9636f97d59c326e62 (do not edit this line) */

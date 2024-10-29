@@ -19,10 +19,6 @@ public class RuleParserDefaultVisitor implements RuleParserVisitor {
         defaultVisit(node, data);
     }
 
-    public void visit(ASTexpr node, StringBuilder data) {
-        defaultVisit(node, data);
-    }
-
     public void visit(ASTand node, StringBuilder data) {
         defaultVisit(node, data);
     }
@@ -55,4 +51,4 @@ public class RuleParserDefaultVisitor implements RuleParserVisitor {
         defaultVisit(node, data);
     }
 }
-/* JavaCC - OriginalChecksum=8ec6e5850b85f94cecaa5c109f1ef237 (do not edit this line) */
+/* JavaCC - OriginalChecksum=3300b358d5f66e84f3f207d4791e5004 (do not edit this line) */

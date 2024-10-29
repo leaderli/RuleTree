@@ -1,9 +1,8 @@
 package io.leaderli.rule.tree;
 
+import io.leaderli.rule.NodeUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import java.io.StringReader;
 
 class RuleParserTest {
 
@@ -54,6 +53,7 @@ class RuleParserTest {
         NodeUtil.dump(RuleParser.test("true and false"));
         NodeUtil.dump(RuleParser.test("false or true"));
         NodeUtil.dump(RuleParser.test("not false or true"));
+        NodeUtil.dump(RuleParser.test("not (false or true)"));
 
     }
 }
