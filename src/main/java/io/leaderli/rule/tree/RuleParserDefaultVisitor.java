@@ -15,11 +15,39 @@ public class RuleParserDefaultVisitor implements RuleParserVisitor {
         defaultVisit(node, data);
     }
 
+    public void visit(ASTrule node, StringBuilder data) {
+        defaultVisit(node, data);
+    }
+
+    public void visit(ASTexpr node, StringBuilder data) {
+        defaultVisit(node, data);
+    }
+
+    public void visit(ASTand node, StringBuilder data) {
+        defaultVisit(node, data);
+    }
+
+    public void visit(ASTor node, StringBuilder data) {
+        defaultVisit(node, data);
+    }
+
+    public void visit(ASTterm node, StringBuilder data) {
+        defaultVisit(node, data);
+    }
+
+    public void visit(ASTneg node, StringBuilder data) {
+        defaultVisit(node, data);
+    }
+
     public void visit(ASTnum node, StringBuilder data) {
         defaultVisit(node, data);
     }
 
-    public void visit(ASTvar node, StringBuilder data) {
+    public void visit(ASTstr node, StringBuilder data) {
+        defaultVisit(node, data);
+    }
+
+    public void visit(ASTcompare2 node, StringBuilder data) {
         defaultVisit(node, data);
     }
 
@@ -27,4 +55,4 @@ public class RuleParserDefaultVisitor implements RuleParserVisitor {
         defaultVisit(node, data);
     }
 }
-/* JavaCC - OriginalChecksum=853ac1e1e8479fbe2ffcb0aca3b5cfa0 (do not edit this line) */
+/* JavaCC - OriginalChecksum=8ec6e5850b85f94cecaa5c109f1ef237 (do not edit this line) */

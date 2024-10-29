@@ -44,7 +44,7 @@
                                     <directory>src/main/java</directory>
                                     <excludes>
                                         <exclude>
-<!--                                            io/leaderli/rule/tree/SimpleNode.java-->
+                                            io/leaderli/rule/tree/NodeUtil.java
                                         </exclude>
                                     </excludes>
                                 </fileset>
