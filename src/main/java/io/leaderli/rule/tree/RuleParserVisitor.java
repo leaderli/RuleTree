@@ -2,36 +2,38 @@
 package io.leaderli.rule.tree;
 
 public interface RuleParserVisitor {
-    public void visit(SimpleNode node, StringBuilder data);
+    public void visit(SimpleNode node, io.leaderli.rule.RuleContext data);
 
-    public void visit(ASTStart node, StringBuilder data);
+    public void visit(ASTStart node, io.leaderli.rule.RuleContext data);
 
-    public void visit(ASTrule node, StringBuilder data);
+    public void visit(ASTrule node, io.leaderli.rule.RuleContext data);
 
-    public void visit(ASTand node, StringBuilder data);
+    public void visit(ASTand node, io.leaderli.rule.RuleContext data);
 
-    public void visit(ASTor node, StringBuilder data);
+    public void visit(ASTor node, io.leaderli.rule.RuleContext data);
 
-    public void visit(ASTterm node, StringBuilder data);
+    public void visit(ASTterm node, io.leaderli.rule.RuleContext data);
 
-    public void visit(ASTneg node, StringBuilder data);
+    public void visit(ASTneg node, io.leaderli.rule.RuleContext data);
 
-    public void visit(ASTtime_value node, StringBuilder data);
+    public void visit(ASTtime_value node, io.leaderli.rule.RuleContext data);
 
-    public void visit(ASTint_value node, StringBuilder data);
+    public void visit(ASTint_value node, io.leaderli.rule.RuleContext data);
 
-    public void visit(ASTdouble_value node, StringBuilder data);
+    public void visit(ASTdouble_value node, io.leaderli.rule.RuleContext data);
 
-    public void visit(ASTpercent_value node, StringBuilder data);
+    public void visit(ASTpercent_value node, io.leaderli.rule.RuleContext data);
 
-    public void visit(ASTcompare node, StringBuilder data);
+    public void visit(ASTarr node, io.leaderli.rule.RuleContext data);
 
-    public void visit(ASToperator node, StringBuilder data);
+    public void visit(ASTcompare node, io.leaderli.rule.RuleContext data);
 
-    public void visit(ASTstr_operator node, StringBuilder data);
+    public void visit(ASToperator node, io.leaderli.rule.RuleContext data);
 
-    public void visit(ASTvar node, StringBuilder data);
+    public void visit(ASTstr_operator node, io.leaderli.rule.RuleContext data);
 
-    public void visit(ASTtest node, StringBuilder data);
+    public void visit(ASTvar node, io.leaderli.rule.RuleContext data);
+
+    public void visit(ASTtest node, io.leaderli.rule.RuleContext data);
 }
-/* JavaCC - OriginalChecksum=065337774c761b2d7eca8eb59afbdbdd (do not edit this line) */
+/* JavaCC - OriginalChecksum=3f06101919dd8c76e22d68da63ed4c91 (do not edit this line) */

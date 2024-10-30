@@ -12,9 +12,9 @@ public class ASTrule extends SimpleNode {
     }
 
     /** Accept the visitor. **/
-    public void jjtAccept(RuleParserVisitor visitor, StringBuilder data) {
+    public void jjtAccept(RuleParserVisitor visitor, io.leaderli.rule.RuleContext data) {
 
         visitor.visit(this, data);
     }
 }
-/* JavaCC - OriginalChecksum=5f13b805323c7171d0be3fece7a3b7c1 (do not edit this line) */
+/* JavaCC - OriginalChecksum=f22bd9bcd5e2ef7f3e535c60162de9bc (do not edit this line) */

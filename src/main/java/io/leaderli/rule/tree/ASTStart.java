@@ -12,9 +12,9 @@ public class ASTStart extends SimpleNode {
     }
 
     /** Accept the visitor. **/
-    public void jjtAccept(RuleParserVisitor visitor, StringBuilder data) {
+    public void jjtAccept(RuleParserVisitor visitor, io.leaderli.rule.RuleContext data) {
 
         visitor.visit(this, data);
     }
 }
-/* JavaCC - OriginalChecksum=e30829382933be1079978168bc325147 (do not edit this line) */
+/* JavaCC - OriginalChecksum=f824ee3f699c3ed1231502433d38cbba (do not edit this line) */

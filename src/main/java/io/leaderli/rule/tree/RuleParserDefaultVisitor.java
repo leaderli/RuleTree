@@ -2,73 +2,77 @@
 package io.leaderli.rule.tree;
 
 public class RuleParserDefaultVisitor implements RuleParserVisitor {
-    public void defaultVisit(SimpleNode node, StringBuilder data) {
+    public void defaultVisit(SimpleNode node, io.leaderli.rule.RuleContext data) {
         node.childrenAccept(this, data);
         return;
     }
 
-    public void visit(SimpleNode node, StringBuilder data) {
+    public void visit(SimpleNode node, io.leaderli.rule.RuleContext data) {
         defaultVisit(node, data);
     }
 
-    public void visit(ASTStart node, StringBuilder data) {
+    public void visit(ASTStart node, io.leaderli.rule.RuleContext data) {
         defaultVisit(node, data);
     }
 
-    public void visit(ASTrule node, StringBuilder data) {
+    public void visit(ASTrule node, io.leaderli.rule.RuleContext data) {
         defaultVisit(node, data);
     }
 
-    public void visit(ASTand node, StringBuilder data) {
+    public void visit(ASTand node, io.leaderli.rule.RuleContext data) {
         defaultVisit(node, data);
     }
 
-    public void visit(ASTor node, StringBuilder data) {
+    public void visit(ASTor node, io.leaderli.rule.RuleContext data) {
         defaultVisit(node, data);
     }
 
-    public void visit(ASTterm node, StringBuilder data) {
+    public void visit(ASTterm node, io.leaderli.rule.RuleContext data) {
         defaultVisit(node, data);
     }
 
-    public void visit(ASTneg node, StringBuilder data) {
+    public void visit(ASTneg node, io.leaderli.rule.RuleContext data) {
         defaultVisit(node, data);
     }
 
-    public void visit(ASTtime_value node, StringBuilder data) {
+    public void visit(ASTtime_value node, io.leaderli.rule.RuleContext data) {
         defaultVisit(node, data);
     }
 
-    public void visit(ASTint_value node, StringBuilder data) {
+    public void visit(ASTint_value node, io.leaderli.rule.RuleContext data) {
         defaultVisit(node, data);
     }
 
-    public void visit(ASTdouble_value node, StringBuilder data) {
+    public void visit(ASTdouble_value node, io.leaderli.rule.RuleContext data) {
         defaultVisit(node, data);
     }
 
-    public void visit(ASTpercent_value node, StringBuilder data) {
+    public void visit(ASTpercent_value node, io.leaderli.rule.RuleContext data) {
         defaultVisit(node, data);
     }
 
-    public void visit(ASTcompare node, StringBuilder data) {
+    public void visit(ASTarr node, io.leaderli.rule.RuleContext data) {
         defaultVisit(node, data);
     }
 
-    public void visit(ASToperator node, StringBuilder data) {
+    public void visit(ASTcompare node, io.leaderli.rule.RuleContext data) {
         defaultVisit(node, data);
     }
 
-    public void visit(ASTstr_operator node, StringBuilder data) {
+    public void visit(ASToperator node, io.leaderli.rule.RuleContext data) {
         defaultVisit(node, data);
     }
 
-    public void visit(ASTvar node, StringBuilder data) {
+    public void visit(ASTstr_operator node, io.leaderli.rule.RuleContext data) {
         defaultVisit(node, data);
     }
 
-    public void visit(ASTtest node, StringBuilder data) {
+    public void visit(ASTvar node, io.leaderli.rule.RuleContext data) {
+        defaultVisit(node, data);
+    }
+
+    public void visit(ASTtest node, io.leaderli.rule.RuleContext data) {
         defaultVisit(node, data);
     }
 }
-/* JavaCC - OriginalChecksum=c2408d0fb59d9db6de1a41de0f79bfec (do not edit this line) */
+/* JavaCC - OriginalChecksum=4f59973cf1af1057c0741f6c51a404b3 (do not edit this line) */

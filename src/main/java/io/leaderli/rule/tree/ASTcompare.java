@@ -12,9 +12,9 @@ public class ASTcompare extends SimpleNode {
     }
 
     /** Accept the visitor. **/
-    public void jjtAccept(RuleParserVisitor visitor, StringBuilder data) {
+    public void jjtAccept(RuleParserVisitor visitor, io.leaderli.rule.RuleContext data) {
 
         visitor.visit(this, data);
     }
 }
-/* JavaCC - OriginalChecksum=b32940a0448461fb971301998e631817 (do not edit this line) */
+/* JavaCC - OriginalChecksum=b465c6bf3e99e8e1dd432fb7bb80ecfc (do not edit this line) */

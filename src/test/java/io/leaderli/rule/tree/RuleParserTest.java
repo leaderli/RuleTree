@@ -62,6 +62,8 @@ class RuleParserTest {
         context.putType("b", "TIME");
         SimpleNode node = RuleParser.test("a=1", context);
         NodeUtil.dump(node);
+        node = RuleParser.test("a=[1]", context);
+        NodeUtil.dump(node);
         node = RuleParser.test("a=[1,2]", context);
         NodeUtil.dump(node);
 

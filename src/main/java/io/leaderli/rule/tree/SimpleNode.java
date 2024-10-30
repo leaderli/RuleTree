@@ -61,12 +61,12 @@ public class SimpleNode implements Node {
     }
 
     /** Accept the visitor. **/
-    public void jjtAccept(RuleParserVisitor visitor, StringBuilder data) {
+    public void jjtAccept(RuleParserVisitor visitor, io.leaderli.rule.RuleContext data) {
         visitor.visit(this, data);
     }
 
     /** Accept the visitor. **/
-    public Object childrenAccept(RuleParserVisitor visitor, StringBuilder data) {
+    public Object childrenAccept(RuleParserVisitor visitor, io.leaderli.rule.RuleContext data) {
         if (children != null) {
             for (int i = 0; i < children.length; ++i) {
                 children[i].jjtAccept(visitor, data);
@@ -110,4 +110,4 @@ public class SimpleNode implements Node {
     }
 }
 
-/* JavaCC - OriginalChecksum=17bcd726b701446ff9de32e29c4f3aa9 (do not edit this line) */
+/* JavaCC - OriginalChecksum=d6c22121b23306774953b548e4d225b3 (do not edit this line) */

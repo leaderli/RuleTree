@@ -2,8 +2,11 @@ options {
   STATIC = false;
   MULTI=true;
   VISITOR=true;
-  VISITOR_DATA_TYPE="StringBuilder";
+  VISITOR_DATA_TYPE="io.leaderli.rule.RuleContext";
   VISITOR_RETURN_TYPE="void";
+  DEBUG_PARSER = true;
+//  DEBUG_TOKEN_MANAGER = true;
+//  DEBUG_LOOKAHEAD = true;
 }
 PARSER_BEGIN(RuleParser)
 package io.leaderli.rule.tree;
@@ -36,7 +39,7 @@ SKIP : {
     | "\f"
 }
 TOKEN : {
-     <TRUE:"true">
+      <TRUE:"true">
     | <FALSE:"false">
     | <AND:"AND"|"and">
     | <OR:"OR"|"or">
@@ -45,12 +48,14 @@ TOKEN : {
     | <DOUBLE:<INT>( "." ["0"-"9"])+>
     | <PERCENT:(<DOUBLE>|<INT>)"%">
     | <TIME:["0"-"2"]["0"-"9"]":"["0"-"5"]["0"-"9"]":"["0"-"5"]["0"-"9"]>
-    | < GT: ">" >
-    | < LT: "<" >
-    | < LE: "<=" >
-    | < GE: ">=" >
-    | < EQ: "=" >:COMPARE_STATE
-    | < NE: "!=" >:COMPARE_STATE
+    | <GT: ">" >
+    | <LT: "<" >
+    | <LE: "<=" >
+    | <GE: ">=" >
+    | <EQ: "=" >:COMPARE_STATE
+    | <NE: "!=" >:COMPARE_STATE
+    | <LPAREN: "(" >
+    | <RPAREN: ")" >
     | <SEMICOLON: ";">
     | <IDENTIFIER: (["a"-"z"]|["A"-"Z"]|"_")(["a"-"z"]|["A"-"Z"]|["0"-"9"]|"_")*>
 }
@@ -60,7 +65,18 @@ TOKEN : {
 | <_DOUBLE:<DOUBLE>> :DEFAULT
 | <_PERCENT:<PERCENT>> :DEFAULT
 | <_TIME:<TIME>> :DEFAULT
-| <STRING_LITERAL: (~["\n","\r","\t"])+>:DEFAULT
+| <LBRACKET: "[" >:ARR_STATE
+| <STRING_LITERAL: "'"(~["\n","\r","\t"])+"'">:DEFAULT
+}
+<ARR_STATE>
+TOKEN : {
+  <COMMA: "," >
+| <_INT2:  <INT>>
+| <_TIME2:  <TIME>>
+| <_DOUBLE2:<DOUBLE>>
+| <_PERCENT2:<PERCENT>>
+| <RBRACKET: "]" >  :DEFAULT
+| <STRING_LITERAL2: <STRING_LITERAL>>
 }
 
 
@@ -85,21 +101,21 @@ void term():{}{
          <TRUE>{jjtThis.jjtSetValue(true);}
        | <FALSE>{jjtThis.jjtSetValue(false);}
        | compare()
-       | "(" expr() ")"{jjtThis.jjtSetValue("()");}
+       | <LPAREN> expr() <RPAREN> {jjtThis.jjtSetValue("()");}
        | <NOT> term() #neg
 }
 
 void time_value():{Token t;}{
-    (t=<TIME>|t=<_TIME>) {jjtThis.jjtSetValue(t.image);}
+    (t=<TIME>|t=<_TIME>|t=<_TIME2> ) {jjtThis.jjtSetValue(t.image);}
 }
 void int_value():{Token t;}{
-   (t=<INT>|t=<_INT>)  {jjtThis.jjtSetValue(Integer.parseInt(t.image));}
+   (t=<INT>|t=<_INT>|t=<_INT2>)  {jjtThis.jjtSetValue(Integer.parseInt(t.image));}
 }
 void double_value():{Token t;}{
-   (t=<DOUBLE>|t=<_DOUBLE>)  {jjtThis.jjtSetValue(Double.parseDouble(t.image));}
+   (t=<DOUBLE>|t=<_DOUBLE>|t=<_DOUBLE2> )  {jjtThis.jjtSetValue(Double.parseDouble(t.image));}
 }
 void percent_value():{Token t;}{
-  (t=<PERCENT>|t=<_PERCENT>) {jjtThis.jjtSetValue(Double.parseDouble(t.image.replace("%","")) / 100);}
+  (t=<PERCENT>|t=<_PERCENT>|t=<_PERCENT2>) {jjtThis.jjtSetValue(Double.parseDouble(t.image.replace("%","")) / 100);}
 }
 void num(String type) #void:{Token t;}{
       int_value() {
@@ -113,7 +129,8 @@ void num(String type) #void:{Token t;}{
     }
 }
 void num_arr(String type) #void:{Token t;}{
-     num(type) |("[" num(type) (","num(type))*"]")
+     num(type)
+    | (<LBRACKET> num(type) (<COMMA> num(type))*<RBRACKET>) #arr
 }
 void compare() :{Token name;String type;}{
     {type=var();
@@ -135,7 +152,8 @@ void operator(String type) :{String op;}{
 //    num(type)
 }
 void str_operator():{String op;}{
-    (<EQ>{jjtThis.jjtSetValue("=");}|<NE>{jjtThis.jjtSetValue("!=");})( <STRING_LITERAL> |("["<STRING_LITERAL> (","<STRING_LITERAL>)*"]"))
+    num(null)
+//    (<EQ>{jjtThis.jjtSetValue("=");}|<NE>{jjtThis.jjtSetValue("!=");})( <STRING_LITERAL> |(<LBRACKET><STRING_LITERAL> (<COMMA><STRING_LITERAL>)*<RBRACKET>))
 }
 
 String var() :{Token t;}{

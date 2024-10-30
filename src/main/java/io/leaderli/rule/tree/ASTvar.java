@@ -12,9 +12,9 @@ public class ASTvar extends SimpleNode {
     }
 
     /** Accept the visitor. **/
-    public void jjtAccept(RuleParserVisitor visitor, StringBuilder data) {
+    public void jjtAccept(RuleParserVisitor visitor, io.leaderli.rule.RuleContext data) {
 
         visitor.visit(this, data);
     }
 }
-/* JavaCC - OriginalChecksum=da1db5ee246a847cd674eafeecfadc9f (do not edit this line) */
+/* JavaCC - OriginalChecksum=08b52a1b44fc2ed0cbf0111ece81b9d8 (do not edit this line) */

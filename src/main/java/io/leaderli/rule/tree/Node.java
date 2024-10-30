@@ -42,6 +42,6 @@ public interface Node {
     public int getId();
 
     /** Accept the visitor. **/
-    public void jjtAccept(RuleParserVisitor visitor, StringBuilder data);
+    public void jjtAccept(RuleParserVisitor visitor, io.leaderli.rule.RuleContext data);
 }
-/* JavaCC - OriginalChecksum=af9d16a9058f9c842be9bd34fb2a7edb (do not edit this line) */
+/* JavaCC - OriginalChecksum=b9999e0d12218a1e0af5723f328f8d88 (do not edit this line) */

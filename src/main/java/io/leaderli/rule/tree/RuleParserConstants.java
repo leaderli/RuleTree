@@ -39,29 +39,52 @@ public interface RuleParserConstants {
     /** RegularExpression Id. */
     int NE = 20;
     /** RegularExpression Id. */
-    int SEMICOLON = 21;
+    int LPAREN = 21;
     /** RegularExpression Id. */
-    int IDENTIFIER = 22;
+    int RPAREN = 22;
     /** RegularExpression Id. */
-    int _INT = 23;
+    int SEMICOLON = 23;
     /** RegularExpression Id. */
-    int _DOUBLE = 24;
+    int IDENTIFIER = 24;
     /** RegularExpression Id. */
-    int _PERCENT = 25;
+    int _INT = 25;
     /** RegularExpression Id. */
-    int _TIME = 26;
+    int _DOUBLE = 26;
     /** RegularExpression Id. */
-    int STRING_LITERAL = 27;
+    int _PERCENT = 27;
+    /** RegularExpression Id. */
+    int _TIME = 28;
+    /** RegularExpression Id. */
+    int LBRACKET = 29;
+    /** RegularExpression Id. */
+    int STRING_LITERAL = 30;
+    /** RegularExpression Id. */
+    int COMMA = 31;
+    /** RegularExpression Id. */
+    int _INT2 = 32;
+    /** RegularExpression Id. */
+    int _TIME2 = 33;
+    /** RegularExpression Id. */
+    int _DOUBLE2 = 34;
+    /** RegularExpression Id. */
+    int _PERCENT2 = 35;
+    /** RegularExpression Id. */
+    int RBRACKET = 36;
+    /** RegularExpression Id. */
+    int STRING_LITERAL2 = 37;
 
     /** Lexical state. */
     int DEFAULT = 0;
     /** Lexical state. */
     int COMPARE_STATE = 1;
+    /** Lexical state. */
+    int ARR_STATE = 2;
 
     /** Literal token values. */
     String[] tokenImage = { "<EOF>", "\" \"", "\"\\t\"", "\"\\n\"", "\"\\r\"", "\"\\f\"", "\"true\"", "\"false\"",
             "<AND>", "<OR>", "<NOT>", "<INT>", "<DOUBLE>", "<PERCENT>", "<TIME>", "\">\"", "\"<\"", "\"<=\"", "\">=\"",
-            "\"=\"", "\"!=\"", "\";\"", "<IDENTIFIER>", "<_INT>", "<_DOUBLE>", "<_PERCENT>", "<_TIME>",
-            "<STRING_LITERAL>", "\"rule:\"", "\"(\"", "\")\"", "\"[\"", "\",\"", "\"]\"", };
+            "\"=\"", "\"!=\"", "\"(\"", "\")\"", "\";\"", "<IDENTIFIER>", "<_INT>", "<_DOUBLE>", "<_PERCENT>",
+            "<_TIME>", "\"[\"", "<STRING_LITERAL>", "\",\"", "<_INT2>", "<_TIME2>", "<_DOUBLE2>", "<_PERCENT2>",
+            "\"]\"", "<STRING_LITERAL2>", "\"rule:\"", };
 
 }

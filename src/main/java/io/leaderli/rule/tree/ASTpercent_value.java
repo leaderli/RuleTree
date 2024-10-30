@@ -12,9 +12,9 @@ public class ASTpercent_value extends SimpleNode {
     }
 
     /** Accept the visitor. **/
-    public void jjtAccept(RuleParserVisitor visitor, StringBuilder data) {
+    public void jjtAccept(RuleParserVisitor visitor, io.leaderli.rule.RuleContext data) {
 
         visitor.visit(this, data);
     }
 }
-/* JavaCC - OriginalChecksum=d0bcdf07191bf10756c7b42ad8787a38 (do not edit this line) */
+/* JavaCC - OriginalChecksum=0aab6a9ccb82b2e9d4b0fe5fe0b3dc5b (do not edit this line) */

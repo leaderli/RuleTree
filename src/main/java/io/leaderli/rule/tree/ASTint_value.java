@@ -12,9 +12,9 @@ public class ASTint_value extends SimpleNode {
     }
 
     /** Accept the visitor. **/
-    public void jjtAccept(RuleParserVisitor visitor, StringBuilder data) {
+    public void jjtAccept(RuleParserVisitor visitor, io.leaderli.rule.RuleContext data) {
 
         visitor.visit(this, data);
     }
 }
-/* JavaCC - OriginalChecksum=0da31f84440064a0b2e86e95a02517b7 (do not edit this line) */
+/* JavaCC - OriginalChecksum=a965a1e6e5b9e382f499eb1827be3dfb (do not edit this line) */

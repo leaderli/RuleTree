@@ -12,9 +12,9 @@ public class ASTterm extends SimpleNode {
     }
 
     /** Accept the visitor. **/
-    public void jjtAccept(RuleParserVisitor visitor, StringBuilder data) {
+    public void jjtAccept(RuleParserVisitor visitor, io.leaderli.rule.RuleContext data) {
 
         visitor.visit(this, data);
     }
 }
-/* JavaCC - OriginalChecksum=8d6b0c51407f6582bdeed4145a0b5e53 (do not edit this line) */
+/* JavaCC - OriginalChecksum=437c991eb21b3e0a527fcbe7c419cc96 (do not edit this line) */

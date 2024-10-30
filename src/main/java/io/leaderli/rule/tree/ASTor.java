@@ -12,9 +12,9 @@ public class ASTor extends SimpleNode {
     }
 
     /** Accept the visitor. **/
-    public void jjtAccept(RuleParserVisitor visitor, StringBuilder data) {
+    public void jjtAccept(RuleParserVisitor visitor, io.leaderli.rule.RuleContext data) {
 
         visitor.visit(this, data);
     }
 }
-/* JavaCC - OriginalChecksum=00fae0b16d08bbf46062343a0f786283 (do not edit this line) */
+/* JavaCC - OriginalChecksum=f9f0193291646a0ab818a0f67e6f064b (do not edit this line) */

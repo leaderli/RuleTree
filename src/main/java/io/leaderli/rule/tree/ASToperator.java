@@ -12,9 +12,9 @@ public class ASToperator extends SimpleNode {
     }
 
     /** Accept the visitor. **/
-    public void jjtAccept(RuleParserVisitor visitor, StringBuilder data) {
+    public void jjtAccept(RuleParserVisitor visitor, io.leaderli.rule.RuleContext data) {
 
         visitor.visit(this, data);
     }
 }
-/* JavaCC - OriginalChecksum=85afc7342a85e962aedd0cac8da7962f (do not edit this line) */
+/* JavaCC - OriginalChecksum=a8ae2bccc273e916168e37c2890a5941 (do not edit this line) */

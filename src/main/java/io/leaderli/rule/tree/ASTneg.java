@@ -12,9 +12,9 @@ public class ASTneg extends SimpleNode {
     }
 
     /** Accept the visitor. **/
-    public void jjtAccept(RuleParserVisitor visitor, StringBuilder data) {
+    public void jjtAccept(RuleParserVisitor visitor, io.leaderli.rule.RuleContext data) {
 
         visitor.visit(this, data);
     }
 }
-/* JavaCC - OriginalChecksum=dc29fbd72ab697a1c3f103b4124b91da (do not edit this line) */
+/* JavaCC - OriginalChecksum=dfdb45136da80ff989068839c830627c (do not edit this line) */

@@ -12,9 +12,9 @@ public class ASTtime_value extends SimpleNode {
     }
 
     /** Accept the visitor. **/
-    public void jjtAccept(RuleParserVisitor visitor, StringBuilder data) {
+    public void jjtAccept(RuleParserVisitor visitor, io.leaderli.rule.RuleContext data) {
 
         visitor.visit(this, data);
     }
 }
-/* JavaCC - OriginalChecksum=76c64ac8d4dfac27358aadb03784bcb6 (do not edit this line) */
+/* JavaCC - OriginalChecksum=769896c2ec93663afa882cd8f0575aae (do not edit this line) */
