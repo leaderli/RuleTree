@@ -17,4 +17,4 @@ public class ASTrule extends SimpleNode {
         visitor.visit(this, data);
     }
 }
-/* JavaCC - OriginalChecksum=6bf6b08a4a6065e8736db21cc1229f6c (do not edit this line) */
+/* JavaCC - OriginalChecksum=5f13b805323c7171d0be3fece7a3b7c1 (do not edit this line) */

@@ -3,6 +3,8 @@
 package io.leaderli.rule.tree;
 
 import java.io.StringReader;
+import io.leaderli.litool.core.exception.LiAssertUtil;
+import io.leaderli.rule.RuleContext;
 
 /** Token Manager. */
 @SuppressWarnings("unused")
@@ -19,28 +21,28 @@ public class RuleParserTokenManager implements RuleParserConstants {
     private final int jjStopStringLiteralDfa_0(int pos, long active0) {
         switch (pos) {
         case 0:
-            if ((active0 & 0x400000c0L) != 0L) {
-                jjmatchedKind = 24;
+            if ((active0 & 0x100000c0L) != 0L) {
+                jjmatchedKind = 22;
                 return 25;
             }
             return -1;
         case 1:
-            if ((active0 & 0x400000c0L) != 0L) {
-                jjmatchedKind = 24;
+            if ((active0 & 0x100000c0L) != 0L) {
+                jjmatchedKind = 22;
                 jjmatchedPos = 1;
                 return 25;
             }
             return -1;
         case 2:
-            if ((active0 & 0x400000c0L) != 0L) {
-                jjmatchedKind = 24;
+            if ((active0 & 0x100000c0L) != 0L) {
+                jjmatchedKind = 22;
                 jjmatchedPos = 2;
                 return 25;
             }
             return -1;
         case 3:
-            if ((active0 & 0x40000080L) != 0L) {
-                jjmatchedKind = 24;
+            if ((active0 & 0x10000080L) != 0L) {
+                jjmatchedKind = 22;
                 jjmatchedPos = 3;
                 return 25;
             }
@@ -67,27 +69,29 @@ public class RuleParserTokenManager implements RuleParserConstants {
         case 33:
             return jjMoveStringLiteralDfa1_0(0x100000L);
         case 40:
-            return jjStopAtPos(0, 31);
+            return jjStopAtPos(0, 29);
         case 41:
+            return jjStopAtPos(0, 30);
+        case 44:
             return jjStopAtPos(0, 32);
-        case 43:
-            return jjStopAtPos(0, 21);
-        case 45:
-            return jjStopAtPos(0, 22);
         case 59:
-            return jjStopAtPos(0, 23);
+            return jjStopAtPos(0, 21);
         case 60:
             jjmatchedKind = 16;
             return jjMoveStringLiteralDfa1_0(0x20000L);
         case 61:
-            return jjMoveStringLiteralDfa1_0(0x80000L);
+            return jjStopAtPos(0, 19);
         case 62:
             jjmatchedKind = 15;
             return jjMoveStringLiteralDfa1_0(0x40000L);
+        case 91:
+            return jjStopAtPos(0, 31);
+        case 93:
+            return jjStopAtPos(0, 33);
         case 102:
             return jjMoveStringLiteralDfa1_0(0x80L);
         case 114:
-            return jjMoveStringLiteralDfa1_0(0x40000000L);
+            return jjMoveStringLiteralDfa1_0(0x10000000L);
         case 116:
             return jjMoveStringLiteralDfa1_0(0x40L);
         default:
@@ -108,8 +112,6 @@ public class RuleParserTokenManager implements RuleParserConstants {
                 return jjStopAtPos(1, 17);
             else if ((active0 & 0x40000L) != 0L)
                 return jjStopAtPos(1, 18);
-            else if ((active0 & 0x80000L) != 0L)
-                return jjStopAtPos(1, 19);
             else if ((active0 & 0x100000L) != 0L)
                 return jjStopAtPos(1, 20);
             break;
@@ -118,7 +120,7 @@ public class RuleParserTokenManager implements RuleParserConstants {
         case 114:
             return jjMoveStringLiteralDfa2_0(active0, 0x40L);
         case 117:
-            return jjMoveStringLiteralDfa2_0(active0, 0x40000000L);
+            return jjMoveStringLiteralDfa2_0(active0, 0x10000000L);
         default:
             break;
         }
@@ -136,7 +138,7 @@ public class RuleParserTokenManager implements RuleParserConstants {
         }
         switch (curChar) {
         case 108:
-            return jjMoveStringLiteralDfa3_0(active0, 0x40000080L);
+            return jjMoveStringLiteralDfa3_0(active0, 0x10000080L);
         case 117:
             return jjMoveStringLiteralDfa3_0(active0, 0x40L);
         default:
@@ -158,7 +160,7 @@ public class RuleParserTokenManager implements RuleParserConstants {
         case 101:
             if ((active0 & 0x40L) != 0L)
                 return jjStartNfaWithStates_0(3, 6, 25);
-            return jjMoveStringLiteralDfa4_0(active0, 0x40000000L);
+            return jjMoveStringLiteralDfa4_0(active0, 0x10000000L);
         case 115:
             return jjMoveStringLiteralDfa4_0(active0, 0x80L);
         default:
@@ -178,8 +180,8 @@ public class RuleParserTokenManager implements RuleParserConstants {
         }
         switch (curChar) {
         case 58:
-            if ((active0 & 0x40000000L) != 0L)
-                return jjStopAtPos(4, 30);
+            if ((active0 & 0x10000000L) != 0L)
+                return jjStopAtPos(4, 28);
             break;
         case 101:
             if ((active0 & 0x80L) != 0L)
@@ -267,8 +269,8 @@ public class RuleParserTokenManager implements RuleParserConstants {
                     case 25:
                         if ((0x3ff000000000000L & l) == 0L)
                             break;
-                        if (kind > 24)
-                            kind = 24;
+                        if (kind > 22)
+                            kind = 22;
                         jjstateSet[jjnewStateCnt++] = 25;
                         break;
                     case 26:
@@ -345,8 +347,8 @@ public class RuleParserTokenManager implements RuleParserConstants {
                     switch (jjstateSet[--i]) {
                     case 2:
                         if ((0x7fffffe87fffffeL & l) != 0L) {
-                            if (kind > 24)
-                                kind = 24;
+                            if (kind > 22)
+                                kind = 22;
                             {
                                 jjCheckNAdd(25);
                             }
@@ -428,8 +430,8 @@ public class RuleParserTokenManager implements RuleParserConstants {
                     case 25:
                         if ((0x7fffffe87fffffeL & l) == 0L)
                             break;
-                        if (kind > 24)
-                            kind = 24; {
+                        if (kind > 22)
+                            kind = 22; {
                         jjCheckNAdd(25);
                     }
                         break;
@@ -484,21 +486,21 @@ public class RuleParserTokenManager implements RuleParserConstants {
                     switch (jjstateSet[--i]) {
                     case 0:
                         if ((0xffffffffffffd9ffL & l) != 0L) {
-                            if (kind > 29)
-                                kind = 29;
+                            if (kind > 27)
+                                kind = 27;
                             {
                                 jjCheckNAdd(8);
                             }
                         }
                         if ((0x3fe000000000000L & l) != 0L) {
-                            if (kind > 25)
-                                kind = 25;
+                            if (kind > 23)
+                                kind = 23;
                             {
                                 jjCheckNAddStates(10, 16);
                             }
                         } else if (curChar == 48) {
-                            if (kind > 25)
-                                kind = 25;
+                            if (kind > 23)
+                                kind = 23;
                             {
                                 jjCheckNAddStates(17, 19);
                             }
@@ -531,22 +533,22 @@ public class RuleParserTokenManager implements RuleParserConstants {
                             jjstateSet[jjnewStateCnt++] = 7;
                         break;
                     case 7:
-                        if ((0x3ff000000000000L & l) != 0L && kind > 28)
-                            kind = 28;
+                        if ((0x3ff000000000000L & l) != 0L && kind > 26)
+                            kind = 26;
                         break;
                     case 8:
                         if ((0xffffffffffffd9ffL & l) == 0L)
                             break;
-                        if (kind > 29)
-                            kind = 29; {
+                        if (kind > 27)
+                            kind = 27; {
                         jjCheckNAdd(8);
                     }
                         break;
                     case 9:
                         if (curChar != 48)
                             break;
-                        if (kind > 25)
-                            kind = 25; {
+                        if (kind > 23)
+                            kind = 23; {
                         jjCheckNAddStates(17, 19);
                     }
                         break;
@@ -557,8 +559,8 @@ public class RuleParserTokenManager implements RuleParserConstants {
                     case 11:
                         if ((0x3ff000000000000L & l) == 0L)
                             break;
-                        if (kind > 26)
-                            kind = 26; {
+                        if (kind > 24)
+                            kind = 24; {
                         jjCheckNAdd(10);
                     }
                         break;
@@ -572,22 +574,22 @@ public class RuleParserTokenManager implements RuleParserConstants {
                         }
                         break;
                     case 14:
-                        if (curChar == 37 && kind > 27)
-                            kind = 27;
+                        if (curChar == 37 && kind > 25)
+                            kind = 25;
                         break;
                     case 15:
                         if ((0x3fe000000000000L & l) == 0L)
                             break;
-                        if (kind > 25)
-                            kind = 25; {
+                        if (kind > 23)
+                            kind = 23; {
                         jjCheckNAddStates(10, 16);
                     }
                         break;
                     case 16:
                         if ((0x3ff000000000000L & l) == 0L)
                             break;
-                        if (kind > 25)
-                            kind = 25; {
+                        if (kind > 23)
+                            kind = 23; {
                         jjCheckNAdd(16);
                     }
                         break;
@@ -616,7 +618,7 @@ public class RuleParserTokenManager implements RuleParserConstants {
                     switch (jjstateSet[--i]) {
                     case 0:
                     case 8:
-                        kind = 29; {
+                        kind = 27; {
                         jjCheckNAdd(8);
                     }
                         break;
@@ -633,8 +635,8 @@ public class RuleParserTokenManager implements RuleParserConstants {
                     case 8:
                         if ((jjbitVec0[i2] & l2) == 0L)
                             break;
-                        if (kind > 29)
-                            kind = 29; {
+                        if (kind > 27)
+                            kind = 27; {
                         jjCheckNAdd(8);
                     }
                         break;
@@ -661,9 +663,9 @@ public class RuleParserTokenManager implements RuleParserConstants {
 
     /** Token literal values. */
     public static final String[] jjstrLiteralImages = { "", null, null, null, null, null, "\164\162\165\145",
-            "\146\141\154\163\145", null, null, null, null, null, null, null, "\76", "\74", "\74\75", "\76\75",
-            "\75\75", "\41\75", "\53", "\55", "\73", null, null, null, null, null, null, "\162\165\154\145\72", "\50",
-            "\51", };
+            "\146\141\154\163\145", null, null, null, null, null, null, null, "\76", "\74", "\74\75", "\76\75", "\75",
+            "\41\75", "\73", null, null, null, null, null, null, "\162\165\154\145\72", "\50", "\51", "\133", "\54",
+            "\135", };
 
     protected Token jjFillToken() {
         final Token t;
@@ -871,8 +873,8 @@ public class RuleParserTokenManager implements RuleParserConstants {
 
     /** Lex State array. */
     public static final int[] jjnewLexState = { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-            -1, 1, 1, -1, -1, -1, -1, 0, 0, 0, 0, 0, -1, -1, -1, };
-    static final long[] jjtoToken = { 0x1ffffffc1L, };
+            -1, 1, 1, -1, -1, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1, -1, };
+    static final long[] jjtoToken = { 0x3ffffffc1L, };
     static final long[] jjtoSkip = { 0x3eL, };
     static final long[] jjtoSpecial = { 0x0L, };
     static final long[] jjtoMore = { 0x0L, };

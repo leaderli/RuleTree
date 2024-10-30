@@ -8,9 +8,20 @@ options {
 PARSER_BEGIN(RuleParser)
 package io.leaderli.rule.tree;
 import java.io.StringReader;
+import io.leaderli.litool.core.exception.LiAssertUtil;import io.leaderli.rule.RuleContext;
+
 public class RuleParser{
+    private RuleContext context;
+    public void setRuleContext(RuleContext context) {
+        this.context = context;
+    }
     public static SimpleNode test(String expr) throws ParseException {
         RuleParser demo = new RuleParser(new StringReader(expr));
+        return (SimpleNode) demo.test().jjtGetChild(0);
+    }
+    public static SimpleNode test(String expr,RuleContext context) throws ParseException {
+        RuleParser demo = new RuleParser(new StringReader(expr));
+        demo.context = context;
         return (SimpleNode) demo.test().jjtGetChild(0);
     }
  }
@@ -38,10 +49,8 @@ TOKEN : {
     | < LT: "<" >
     | < LE: "<=" >
     | < GE: ">=" >
-    | < EQ: "==" >:COMPARE_STATE
+    | < EQ: "=" >:COMPARE_STATE
     | < NE: "!=" >:COMPARE_STATE
-    | < PLUS: "+" >
-    | < MINUS: "-" >
     | <SEMICOLON: ";">
     | <IDENTIFIER: (["a"-"z"]|["A"-"Z"]|"_")(["a"-"z"]|["A"-"Z"]|["0"-"9"]|"_")*>
 }
@@ -75,34 +84,101 @@ void expr()#void:{}{
 void term():{}{
          <TRUE>{jjtThis.jjtSetValue(true);}
        | <FALSE>{jjtThis.jjtSetValue(false);}
-       | compare2(){jjtThis.jjtSetValue("compare2");}
+       | compare()
        | "(" expr() ")"{jjtThis.jjtSetValue("()");}
        | <NOT> term() #neg
 }
-void num():{Token t;}{
-   ( t=<INT>|t=<DOUBLE>|t=<PERCENT>){
-        System.out.println(t.kind);
-        String value = t.image;
-        if(value.endsWith("%")){
-            jjtThis.jjtSetValue(Double.parseDouble(value.substring(0, value.length()-1)) / 100);
-        }else {
-            jjtThis.jjtSetValue(Double.parseDouble(value));
+
+void time_value():{Token t;}{
+    (t=<TIME>|t=<_TIME>) {jjtThis.jjtSetValue(t.image);}
+}
+void int_value():{Token t;}{
+   (t=<INT>|t=<_INT>)  {jjtThis.jjtSetValue(Integer.parseInt(t.image));}
+}
+void double_value():{Token t;}{
+   (t=<DOUBLE>|t=<_DOUBLE>)  {jjtThis.jjtSetValue(Double.parseDouble(t.image));}
+}
+void percent_value():{Token t;}{
+  (t=<PERCENT>|t=<_PERCENT>) {jjtThis.jjtSetValue(Double.parseDouble(t.image.replace("%","")) / 100);}
+}
+void num(String type) #void:{Token t;}{
+      int_value() {
+        LiAssertUtil.assertTrue(type==null ||"INT".equals(type));
+     }
+    | double_value(){
+        LiAssertUtil.assertTrue(type==null |"DOUBLE".equals(type));
+    }
+    | percent_value(){
+        LiAssertUtil.assertTrue(type==null ||"PERCENT".equals(type));
+    }
+}
+void num_arr(String type) #void:{Token t;}{
+     num(type) |("[" num(type) (","num(type))*"]")
+}
+void compare() :{Token name;String type;}{
+    {type=var();
+        if("STR".equals(type)){
+            str_operator();
+//            num_arr(type);
+        }else{
+            operator(type);
+            num_arr(type);
         }
     }
+//    name=<IDENTIFIER>(<EQ>|<NE>)(<_INT>|<_DOUBLE> |<_PERCENT> |<_TIME> |<STRING_LITERAL>)
 }
-void str():{Token t;}{
-    t=<TIME> {
+
+void operator(String type) :{String op;}{
+      (<EQ>{jjtThis.jjtSetValue("=");}|<NE>{jjtThis.jjtSetValue("!=");})
+//      (num(type) |("[" num(type) (","num(type))*"]"))
+    | (<GT>{jjtThis.jjtSetValue(">");}|<GE>{jjtThis.jjtSetValue(">=");}|<LT>{jjtThis.jjtSetValue("<");}|<LE>{jjtThis.jjtSetValue("<=");})
+//    num(type)
+}
+void str_operator():{String op;}{
+    (<EQ>{jjtThis.jjtSetValue("=");}|<NE>{jjtThis.jjtSetValue("!=");})( <STRING_LITERAL> |("["<STRING_LITERAL> (","<STRING_LITERAL>)*"]"))
+}
+
+String var() :{Token t;}{
+
+   t=<IDENTIFIER>{
         jjtThis.jjtSetValue(t.image);
-    }
-}
-void compare2():{Token name;}{
-    name=<IDENTIFIER>(<EQ>|<NE>)(<_INT>|<_DOUBLE> |<_PERCENT> |<_TIME> |<STRING_LITERAL>)
+       return context.getType(t.image);
+   }
+//    {
+//          if("STR".equals(type)){
+//               int_value();
+//          } else if("DOUBLE".equals(type)){
+//               double_value();
+//          }else if("PERCENT".equals(type)){
+//               percent_value();
+//          }else {
+//               throw new ParseException(type+" unsupported +、- " );
+//          }
+//      }
+//   {
+//       if("INT".equals(type)){
+//            int_value();
+//       } else if("DOUBLE".equals(type)){
+//            double_value();
+//       }else if("PERCENT".equals(type)){
+//            percent_value();
+//       }else {
+//            throw new ParseException(type+" unsupported +、- " );
+//       }
+//   }
 }
 
 // test
 
 SimpleNode test() :{}{
-    (num()|expr()) <EOF>{
+    (
+         num(null)
+        | time_value()
+        | LOOKAHEAD(2)expr()
+        | var()
+    )
+    <EOF>
+    {
         return jjtThis;
     }
 }

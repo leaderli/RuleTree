@@ -17,4 +17,4 @@ public class ASTtest extends SimpleNode {
         visitor.visit(this, data);
     }
 }
-/* JavaCC - OriginalChecksum=18d1792f5de44d0b2222f8d765b75b06 (do not edit this line) */
+/* JavaCC - OriginalChecksum=5443cfb13ad653bacc88932e34400570 (do not edit this line) */

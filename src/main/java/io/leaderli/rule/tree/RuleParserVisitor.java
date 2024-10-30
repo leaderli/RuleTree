@@ -16,12 +16,22 @@ public interface RuleParserVisitor {
 
     public void visit(ASTneg node, StringBuilder data);
 
-    public void visit(ASTnum node, StringBuilder data);
+    public void visit(ASTtime_value node, StringBuilder data);
 
-    public void visit(ASTstr node, StringBuilder data);
+    public void visit(ASTint_value node, StringBuilder data);
 
-    public void visit(ASTcompare2 node, StringBuilder data);
+    public void visit(ASTdouble_value node, StringBuilder data);
+
+    public void visit(ASTpercent_value node, StringBuilder data);
+
+    public void visit(ASTcompare node, StringBuilder data);
+
+    public void visit(ASToperator node, StringBuilder data);
+
+    public void visit(ASTstr_operator node, StringBuilder data);
+
+    public void visit(ASTvar node, StringBuilder data);
 
     public void visit(ASTtest node, StringBuilder data);
 }
-/* JavaCC - OriginalChecksum=763300e6ab8cbf054f35a21c10330fe3 (do not edit this line) */
+/* JavaCC - OriginalChecksum=065337774c761b2d7eca8eb59afbdbdd (do not edit this line) */

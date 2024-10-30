@@ -39,23 +39,19 @@ public interface RuleParserConstants {
     /** RegularExpression Id. */
     int NE = 20;
     /** RegularExpression Id. */
-    int PLUS = 21;
+    int SEMICOLON = 21;
     /** RegularExpression Id. */
-    int MINUS = 22;
+    int IDENTIFIER = 22;
     /** RegularExpression Id. */
-    int SEMICOLON = 23;
+    int _INT = 23;
     /** RegularExpression Id. */
-    int IDENTIFIER = 24;
+    int _DOUBLE = 24;
     /** RegularExpression Id. */
-    int _INT = 25;
+    int _PERCENT = 25;
     /** RegularExpression Id. */
-    int _DOUBLE = 26;
+    int _TIME = 26;
     /** RegularExpression Id. */
-    int _PERCENT = 27;
-    /** RegularExpression Id. */
-    int _TIME = 28;
-    /** RegularExpression Id. */
-    int STRING_LITERAL = 29;
+    int STRING_LITERAL = 27;
 
     /** Lexical state. */
     int DEFAULT = 0;
@@ -65,7 +61,7 @@ public interface RuleParserConstants {
     /** Literal token values. */
     String[] tokenImage = { "<EOF>", "\" \"", "\"\\t\"", "\"\\n\"", "\"\\r\"", "\"\\f\"", "\"true\"", "\"false\"",
             "<AND>", "<OR>", "<NOT>", "<INT>", "<DOUBLE>", "<PERCENT>", "<TIME>", "\">\"", "\"<\"", "\"<=\"", "\">=\"",
-            "\"==\"", "\"!=\"", "\"+\"", "\"-\"", "\";\"", "<IDENTIFIER>", "<_INT>", "<_DOUBLE>", "<_PERCENT>",
-            "<_TIME>", "<STRING_LITERAL>", "\"rule:\"", "\"(\"", "\")\"", };
+            "\"=\"", "\"!=\"", "\";\"", "<IDENTIFIER>", "<_INT>", "<_DOUBLE>", "<_PERCENT>", "<_TIME>",
+            "<STRING_LITERAL>", "\"rule:\"", "\"(\"", "\")\"", "\"[\"", "\",\"", "\"]\"", };
 
 }
