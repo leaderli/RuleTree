@@ -16,24 +16,14 @@ public interface RuleParserVisitor {
 
     public void visit(ASTneg node, io.leaderli.rule.RuleContext data);
 
-    public void visit(ASTtime_value node, io.leaderli.rule.RuleContext data);
-
-    public void visit(ASTint_value node, io.leaderli.rule.RuleContext data);
-
-    public void visit(ASTdouble_value node, io.leaderli.rule.RuleContext data);
-
-    public void visit(ASTpercent_value node, io.leaderli.rule.RuleContext data);
-
-    public void visit(ASTarr node, io.leaderli.rule.RuleContext data);
+    public void visit(ASTnum node, io.leaderli.rule.RuleContext data);
 
     public void visit(ASTcompare node, io.leaderli.rule.RuleContext data);
 
     public void visit(ASToperator node, io.leaderli.rule.RuleContext data);
 
-    public void visit(ASTstr_operator node, io.leaderli.rule.RuleContext data);
-
     public void visit(ASTvar node, io.leaderli.rule.RuleContext data);
 
     public void visit(ASTtest node, io.leaderli.rule.RuleContext data);
 }
-/* JavaCC - OriginalChecksum=3f06101919dd8c76e22d68da63ed4c91 (do not edit this line) */
+/* JavaCC - OriginalChecksum=a7d43b1a863f2943cd1fd00b06847958 (do not edit this line) */

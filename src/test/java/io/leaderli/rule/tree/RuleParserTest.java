@@ -50,8 +50,10 @@ class RuleParserTest {
         Assertions.assertThrows(IllegalStateException.class, () -> NodeUtil.dump(RuleParser.test("c", context)));
         Assertions.assertThrows(ParseException.class, () -> NodeUtil.dump(RuleParser.test("b+1", context)));
         Assertions.assertThrows(ParseException.class, () -> NodeUtil.dump(RuleParser.test("a+1.0", context)));
-        NodeUtil.dump(RuleParser.test("a+1", context));
-        NodeUtil.dump(RuleParser.test("a-1", context));
+        NodeUtil.dump(RuleParser.test("a+1=1", context));
+        NodeUtil.dump(RuleParser.test("a-1=1", context));
+        NodeUtil.dump(RuleParser.test("a+a=1", context));
+        NodeUtil.dump(RuleParser.test("a-a=1", context));
 
     }
 
@@ -62,9 +64,7 @@ class RuleParserTest {
         context.putType("b", "TIME");
         SimpleNode node = RuleParser.test("a=1", context);
         NodeUtil.dump(node);
-        node = RuleParser.test("a=[1]", context);
-        NodeUtil.dump(node);
-        node = RuleParser.test("a=[1,2]", context);
+        node = RuleParser.test("a=1", context);
         NodeUtil.dump(node);
 
     }

@@ -35,23 +35,7 @@ public class RuleParserDefaultVisitor implements RuleParserVisitor {
         defaultVisit(node, data);
     }
 
-    public void visit(ASTtime_value node, io.leaderli.rule.RuleContext data) {
-        defaultVisit(node, data);
-    }
-
-    public void visit(ASTint_value node, io.leaderli.rule.RuleContext data) {
-        defaultVisit(node, data);
-    }
-
-    public void visit(ASTdouble_value node, io.leaderli.rule.RuleContext data) {
-        defaultVisit(node, data);
-    }
-
-    public void visit(ASTpercent_value node, io.leaderli.rule.RuleContext data) {
-        defaultVisit(node, data);
-    }
-
-    public void visit(ASTarr node, io.leaderli.rule.RuleContext data) {
+    public void visit(ASTnum node, io.leaderli.rule.RuleContext data) {
         defaultVisit(node, data);
     }
 
@@ -63,10 +47,6 @@ public class RuleParserDefaultVisitor implements RuleParserVisitor {
         defaultVisit(node, data);
     }
 
-    public void visit(ASTstr_operator node, io.leaderli.rule.RuleContext data) {
-        defaultVisit(node, data);
-    }
-
     public void visit(ASTvar node, io.leaderli.rule.RuleContext data) {
         defaultVisit(node, data);
     }
@@ -75,4 +55,4 @@ public class RuleParserDefaultVisitor implements RuleParserVisitor {
         defaultVisit(node, data);
     }
 }
-/* JavaCC - OriginalChecksum=4f59973cf1af1057c0741f6c51a404b3 (do not edit this line) */
+/* JavaCC - OriginalChecksum=de113dcfecbf735bbd5be9cd3446a0be (do not edit this line) */

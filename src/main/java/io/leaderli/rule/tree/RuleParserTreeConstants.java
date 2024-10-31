@@ -9,18 +9,13 @@ public interface RuleParserTreeConstants {
     public int JJTOR = 4;
     public int JJTTERM = 5;
     public int JJTNEG = 6;
-    public int JJTTIME_VALUE = 7;
-    public int JJTINT_VALUE = 8;
-    public int JJTDOUBLE_VALUE = 9;
-    public int JJTPERCENT_VALUE = 10;
-    public int JJTARR = 11;
-    public int JJTCOMPARE = 12;
-    public int JJTOPERATOR = 13;
-    public int JJTSTR_OPERATOR = 14;
-    public int JJTVAR = 15;
-    public int JJTTEST = 16;
+    public int JJTNUM = 7;
+    public int JJTCOMPARE = 8;
+    public int JJTOPERATOR = 9;
+    public int JJTVAR = 10;
+    public int JJTTEST = 11;
 
-    public String[] jjtNodeName = { "Start", "rule", "void", "and", "or", "term", "neg", "time_value", "int_value",
-            "double_value", "percent_value", "arr", "compare", "operator", "str_operator", "var", "test", };
+    public String[] jjtNodeName = { "Start", "rule", "void", "and", "or", "term", "neg", "num", "compare", "operator",
+            "var", "test", };
 }
-/* JavaCC - OriginalChecksum=9865fdb6dd6843b0ffc06419b42eb95d (do not edit this line) */
+/* JavaCC - OriginalChecksum=97daf42e1c3080000a0144215b867487 (do not edit this line) */

@@ -17,4 +17,4 @@ public class ASTvar extends SimpleNode {
         visitor.visit(this, data);
     }
 }
-/* JavaCC - OriginalChecksum=08b52a1b44fc2ed0cbf0111ece81b9d8 (do not edit this line) */
+/* JavaCC - OriginalChecksum=12c05dfe010cb2e757c9a93ded0c243d (do not edit this line) */

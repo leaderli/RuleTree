@@ -17,4 +17,4 @@ public class ASTterm extends SimpleNode {
         visitor.visit(this, data);
     }
 }
-/* JavaCC - OriginalChecksum=437c991eb21b3e0a527fcbe7c419cc96 (do not edit this line) */
+/* JavaCC - OriginalChecksum=0b12c691ff2a74f51be5488d460251bd (do not edit this line) */

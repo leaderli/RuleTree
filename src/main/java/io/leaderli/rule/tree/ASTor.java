@@ -17,4 +17,4 @@ public class ASTor extends SimpleNode {
         visitor.visit(this, data);
     }
 }
-/* JavaCC - OriginalChecksum=f9f0193291646a0ab818a0f67e6f064b (do not edit this line) */
+/* JavaCC - OriginalChecksum=8e40d33bd1fd3dcc0f887893982ad522 (do not edit this line) */

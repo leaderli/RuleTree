@@ -11,7 +11,9 @@ options {
 PARSER_BEGIN(RuleParser)
 package io.leaderli.rule.tree;
 import java.io.StringReader;
-import io.leaderli.litool.core.exception.LiAssertUtil;import io.leaderli.rule.RuleContext;
+import io.leaderli.litool.core.exception.LiAssertUtil;
+import io.leaderli.litool.core.meta.LiTuple;import io.leaderli.litool.core.text.StringUtils;
+import io.leaderli.rule.RuleContext;
 
 public class RuleParser{
     private RuleContext context;
@@ -52,31 +54,12 @@ TOKEN : {
     | <LT: "<" >
     | <LE: "<=" >
     | <GE: ">=" >
-    | <EQ: "=" >:COMPARE_STATE
-    | <NE: "!=" >:COMPARE_STATE
+    | <EQ: "=" >
+    | <NE: "!=" >
     | <LPAREN: "(" >
     | <RPAREN: ")" >
     | <SEMICOLON: ";">
     | <IDENTIFIER: (["a"-"z"]|["A"-"Z"]|"_")(["a"-"z"]|["A"-"Z"]|["0"-"9"]|"_")*>
-}
-<COMPARE_STATE>
-TOKEN : {
- <_INT:<INT>>:DEFAULT
-| <_DOUBLE:<DOUBLE>> :DEFAULT
-| <_PERCENT:<PERCENT>> :DEFAULT
-| <_TIME:<TIME>> :DEFAULT
-| <LBRACKET: "[" >:ARR_STATE
-| <STRING_LITERAL: "'"(~["\n","\r","\t"])+"'">:DEFAULT
-}
-<ARR_STATE>
-TOKEN : {
-  <COMMA: "," >
-| <_INT2:  <INT>>
-| <_TIME2:  <TIME>>
-| <_DOUBLE2:<DOUBLE>>
-| <_PERCENT2:<PERCENT>>
-| <RBRACKET: "]" >  :DEFAULT
-| <STRING_LITERAL2: <STRING_LITERAL>>
 }
 
 
@@ -100,98 +83,55 @@ void expr()#void:{}{
 void term():{}{
          <TRUE>{jjtThis.jjtSetValue(true);}
        | <FALSE>{jjtThis.jjtSetValue(false);}
-       | compare()
-       | <LPAREN> expr() <RPAREN> {jjtThis.jjtSetValue("()");}
        | <NOT> term() #neg
+       | <LPAREN> expr() <RPAREN> {jjtThis.jjtSetValue("()");}
+       | compare()
 }
 
-void time_value():{Token t;}{
-    (t=<TIME>|t=<_TIME>|t=<_TIME2> ) {jjtThis.jjtSetValue(t.image);}
-}
-void int_value():{Token t;}{
-   (t=<INT>|t=<_INT>|t=<_INT2>)  {jjtThis.jjtSetValue(Integer.parseInt(t.image));}
-}
-void double_value():{Token t;}{
-   (t=<DOUBLE>|t=<_DOUBLE>|t=<_DOUBLE2> )  {jjtThis.jjtSetValue(Double.parseDouble(t.image));}
-}
-void percent_value():{Token t;}{
-  (t=<PERCENT>|t=<_PERCENT>|t=<_PERCENT2>) {jjtThis.jjtSetValue(Double.parseDouble(t.image.replace("%","")) / 100);}
-}
-void num(String type) #void:{Token t;}{
-      int_value() {
-        LiAssertUtil.assertTrue(type==null ||"INT".equals(type));
-     }
-    | double_value(){
-        LiAssertUtil.assertTrue(type==null |"DOUBLE".equals(type));
-    }
-    | percent_value(){
-        LiAssertUtil.assertTrue(type==null ||"PERCENT".equals(type));
+void num() :{Token t;}{
+    (t=<INT> |t=<DOUBLE> |t=<PERCENT> |t=<TIME> ){
+       String value = t.image;
+       switch (t.kind){
+            case INT:
+                jjtThis.jjtSetValue(LiTuple.of("INT",Integer.parseInt(value)));
+                break;
+            case DOUBLE:
+                jjtThis.jjtSetValue(LiTuple.of("DOUBLE",Double.parseDouble(value)));
+                break;
+            case PERCENT:
+                jjtThis.jjtSetValue(LiTuple.of("PERCENT",Double.parseDouble(value.replace("%","")) / 100));
+                break;
+            case TIME:
+                jjtThis.jjtSetValue(LiTuple.of("TIME",value));
+                break;
+            default:
+                throw new ParseException("unsupported token " + tokenImage[t.kind] );
+       }
     }
 }
-void num_arr(String type) #void:{Token t;}{
-     num(type)
-    | (<LBRACKET> num(type) (<COMMA> num(type))*<RBRACKET>) #arr
-}
+
 void compare() :{Token name;String type;}{
-    {type=var();
-        if("STR".equals(type)){
-            str_operator();
-//            num_arr(type);
-        }else{
-            operator(type);
-            num_arr(type);
-        }
+    var()(("+"|"-")(num() |var()))?operator() num()
+    {
+        // 校验所有元素类型是否匹配
+
     }
-//    name=<IDENTIFIER>(<EQ>|<NE>)(<_INT>|<_DOUBLE> |<_PERCENT> |<_TIME> |<STRING_LITERAL>)
 }
 
-void operator(String type) :{String op;}{
-      (<EQ>{jjtThis.jjtSetValue("=");}|<NE>{jjtThis.jjtSetValue("!=");})
-//      (num(type) |("[" num(type) (","num(type))*"]"))
-    | (<GT>{jjtThis.jjtSetValue(">");}|<GE>{jjtThis.jjtSetValue(">=");}|<LT>{jjtThis.jjtSetValue("<");}|<LE>{jjtThis.jjtSetValue("<=");})
-//    num(type)
-}
-void str_operator():{String op;}{
-    num(null)
-//    (<EQ>{jjtThis.jjtSetValue("=");}|<NE>{jjtThis.jjtSetValue("!=");})( <STRING_LITERAL> |(<LBRACKET><STRING_LITERAL> (<COMMA><STRING_LITERAL>)*<RBRACKET>))
+
+void operator() :{Token t;}{
+      (t=<EQ>|t=<NE>|t=<GT>|t=<GE>|t=<LT>|t=<LE>){ jjtThis.jjtSetValue(t.image);}
 }
 
-String var() :{Token t;}{
-
-   t=<IDENTIFIER>{
-        jjtThis.jjtSetValue(t.image);
-       return context.getType(t.image);
-   }
-//    {
-//          if("STR".equals(type)){
-//               int_value();
-//          } else if("DOUBLE".equals(type)){
-//               double_value();
-//          }else if("PERCENT".equals(type)){
-//               percent_value();
-//          }else {
-//               throw new ParseException(type+" unsupported +、- " );
-//          }
-//      }
-//   {
-//       if("INT".equals(type)){
-//            int_value();
-//       } else if("DOUBLE".equals(type)){
-//            double_value();
-//       }else if("PERCENT".equals(type)){
-//            percent_value();
-//       }else {
-//            throw new ParseException(type+" unsupported +、- " );
-//       }
-//   }
+void var() :{Token t;}{
+   t=<IDENTIFIER>{jjtThis.jjtSetValue(LiTuple.of(context.getType(t.image),t.image));}
 }
 
 // test
 
 SimpleNode test() :{}{
     (
-         num(null)
-        | time_value()
+         num()
         | LOOKAHEAD(2)expr()
         | var()
     )
@@ -200,17 +140,4 @@ SimpleNode test() :{}{
         return jjtThis;
     }
 }
-//void var2():{Token t;}{
-//    t=<IDENTIFIER>{
-//      String name  = t.image;
-//            if("a".equals(name)){
-//                    num();
-//            }else {
-//                str();
-//            }
-//    }
-//}SimpleNode test2() :{}{
-//      var2() <EOF>{
-//        return jjtThis;
-//    }
-//}
+

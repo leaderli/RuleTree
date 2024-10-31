@@ -17,4 +17,4 @@ public class ASToperator extends SimpleNode {
         visitor.visit(this, data);
     }
 }
-/* JavaCC - OriginalChecksum=a8ae2bccc273e916168e37c2890a5941 (do not edit this line) */
+/* JavaCC - OriginalChecksum=729c04d01a0ad38d94c810888f5f4351 (do not edit this line) */
