@@ -2,7 +2,7 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=true,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package io.leaderli.rule.tree;
 
-public class SimpleNode implements Node {
+public class SimpleNode<T> implements Node {
 
     protected Node parent;
     protected Node[] children;

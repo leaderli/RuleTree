@@ -20,10 +20,12 @@ public interface RuleParserVisitor {
 
     public void visit(ASTcompare node, io.leaderli.rule.RuleContext data);
 
+    public void visit(ASTmath node, io.leaderli.rule.RuleContext data);
+
     public void visit(ASToperator node, io.leaderli.rule.RuleContext data);
 
     public void visit(ASTvar node, io.leaderli.rule.RuleContext data);
 
     public void visit(ASTtest node, io.leaderli.rule.RuleContext data);
 }
-/* JavaCC - OriginalChecksum=a7d43b1a863f2943cd1fd00b06847958 (do not edit this line) */
+/* JavaCC - OriginalChecksum=46fdc5309d4a0fd8b93cd4b49baa4ffe (do not edit this line) */

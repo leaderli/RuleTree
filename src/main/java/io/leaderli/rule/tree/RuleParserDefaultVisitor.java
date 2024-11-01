@@ -43,6 +43,10 @@ public class RuleParserDefaultVisitor implements RuleParserVisitor {
         defaultVisit(node, data);
     }
 
+    public void visit(ASTmath node, io.leaderli.rule.RuleContext data) {
+        defaultVisit(node, data);
+    }
+
     public void visit(ASToperator node, io.leaderli.rule.RuleContext data) {
         defaultVisit(node, data);
     }
@@ -55,4 +59,4 @@ public class RuleParserDefaultVisitor implements RuleParserVisitor {
         defaultVisit(node, data);
     }
 }
-/* JavaCC - OriginalChecksum=de113dcfecbf735bbd5be9cd3446a0be (do not edit this line) */
+/* JavaCC - OriginalChecksum=200b41574b8748d4414d040c697af73c (do not edit this line) */

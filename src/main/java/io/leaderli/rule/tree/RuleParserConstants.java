@@ -39,13 +39,17 @@ public interface RuleParserConstants {
     /** RegularExpression Id. */
     int NE = 20;
     /** RegularExpression Id. */
-    int LPAREN = 21;
+    int PLUS = 21;
     /** RegularExpression Id. */
-    int RPAREN = 22;
+    int MINUS = 22;
     /** RegularExpression Id. */
-    int SEMICOLON = 23;
+    int LPAREN = 23;
     /** RegularExpression Id. */
-    int IDENTIFIER = 24;
+    int RPAREN = 24;
+    /** RegularExpression Id. */
+    int SEMICOLON = 25;
+    /** RegularExpression Id. */
+    int IDENTIFIER = 26;
 
     /** Lexical state. */
     int DEFAULT = 0;
@@ -53,6 +57,6 @@ public interface RuleParserConstants {
     /** Literal token values. */
     String[] tokenImage = { "<EOF>", "\" \"", "\"\\t\"", "\"\\n\"", "\"\\r\"", "\"\\f\"", "\"true\"", "\"false\"",
             "<AND>", "<OR>", "<NOT>", "<INT>", "<DOUBLE>", "<PERCENT>", "<TIME>", "\">\"", "\"<\"", "\"<=\"", "\">=\"",
-            "\"=\"", "\"!=\"", "\"(\"", "\")\"", "\";\"", "<IDENTIFIER>", "\"rule:\"", "\"+\"", "\"-\"", };
+            "\"=\"", "\"!=\"", "\"+\"", "\"-\"", "\"(\"", "\")\"", "\";\"", "<IDENTIFIER>", "\"rule:\"", };
 
 }

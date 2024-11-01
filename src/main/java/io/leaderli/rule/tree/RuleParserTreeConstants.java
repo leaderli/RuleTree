@@ -11,11 +11,12 @@ public interface RuleParserTreeConstants {
     public int JJTNEG = 6;
     public int JJTNUM = 7;
     public int JJTCOMPARE = 8;
-    public int JJTOPERATOR = 9;
-    public int JJTVAR = 10;
-    public int JJTTEST = 11;
+    public int JJTMATH = 9;
+    public int JJTOPERATOR = 10;
+    public int JJTVAR = 11;
+    public int JJTTEST = 12;
 
-    public String[] jjtNodeName = { "Start", "rule", "void", "and", "or", "term", "neg", "num", "compare", "operator",
-            "var", "test", };
+    public String[] jjtNodeName = { "Start", "rule", "void", "and", "or", "term", "neg", "num", "compare", "math",
+            "operator", "var", "test", };
 }
-/* JavaCC - OriginalChecksum=97daf42e1c3080000a0144215b867487 (do not edit this line) */
+/* JavaCC - OriginalChecksum=cfd3234e04501fe259ee180004e7312b (do not edit this line) */

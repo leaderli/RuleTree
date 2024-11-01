@@ -44,9 +44,14 @@
                                     <directory>src/main/java</directory>
                                     <includes>
                                         <include>
-                                            io/leaderli/rule/tree/
+<!--                                            io/leaderli/rule/tree/-->
                                         </include>
                                     </includes>
+                                    <excludes>
+                                        <exclude>
+                                            io/leaderli/rule/tree/AST*
+                                        </exclude>
+                                    </excludes>
                                 </fileset>
                             </filesets>
                         </configuration>

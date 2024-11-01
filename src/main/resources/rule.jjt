@@ -56,6 +56,8 @@ TOKEN : {
     | <GE: ">=" >
     | <EQ: "=" >
     | <NE: "!=" >
+    | <PLUS: "+" >
+    | <MINUS: "-" >
     | <LPAREN: "(" >
     | <RPAREN: ")" >
     | <SEMICOLON: ";">
@@ -111,20 +113,25 @@ void num() :{Token t;}{
 }
 
 void compare() :{Token name;String type;}{
-    var()(("+"|"-")(num() |var()))?operator() num()
+    var(){}(math() (num() |var()))?operator() num()
     {
         // 校验所有元素类型是否匹配
+        System.out.println(jjtThis.children);
 
     }
 }
 
+void math():{Token t;}{
+    (t=<PLUS> |t=<MINUS> ){ jjtThis.jjtSetValue(t.image);}
+}
+
 
 void operator() :{Token t;}{
-      (t=<EQ>|t=<NE>|t=<GT>|t=<GE>|t=<LT>|t=<LE>){ jjtThis.jjtSetValue(t.image);}
+    (t=<EQ>|t=<NE>|t=<GT>|t=<GE>|t=<LT>|t=<LE>){ jjtThis.jjtSetValue(t.image);}
 }
 
 void var() :{Token t;}{
-   t=<IDENTIFIER>{jjtThis.jjtSetValue(LiTuple.of(context.getType(t.image),t.image));}
+    t=<IDENTIFIER>{jjtThis.jjtSetValue(LiTuple.of(context.getType(t.image),t.image));}
 }
 
 // test

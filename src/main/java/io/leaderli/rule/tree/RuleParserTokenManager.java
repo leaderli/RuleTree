@@ -23,28 +23,28 @@ public class RuleParserTokenManager implements RuleParserConstants {
     private final int jjStopStringLiteralDfa_0(int pos, long active0) {
         switch (pos) {
         case 0:
-            if ((active0 & 0x20000c0L) != 0L) {
-                jjmatchedKind = 24;
+            if ((active0 & 0x80000c0L) != 0L) {
+                jjmatchedKind = 26;
                 return 25;
             }
             return -1;
         case 1:
-            if ((active0 & 0x20000c0L) != 0L) {
-                jjmatchedKind = 24;
+            if ((active0 & 0x80000c0L) != 0L) {
+                jjmatchedKind = 26;
                 jjmatchedPos = 1;
                 return 25;
             }
             return -1;
         case 2:
-            if ((active0 & 0x20000c0L) != 0L) {
-                jjmatchedKind = 24;
+            if ((active0 & 0x80000c0L) != 0L) {
+                jjmatchedKind = 26;
                 jjmatchedPos = 2;
                 return 25;
             }
             return -1;
         case 3:
-            if ((active0 & 0x2000080L) != 0L) {
-                jjmatchedKind = 24;
+            if ((active0 & 0x8000080L) != 0L) {
+                jjmatchedKind = 26;
                 jjmatchedPos = 3;
                 return 25;
             }
@@ -71,15 +71,15 @@ public class RuleParserTokenManager implements RuleParserConstants {
         case 33:
             return jjMoveStringLiteralDfa1_0(0x100000L);
         case 40:
-            return jjStopAtPos(0, 21);
-        case 41:
-            return jjStopAtPos(0, 22);
-        case 43:
-            return jjStopAtPos(0, 26);
-        case 45:
-            return jjStopAtPos(0, 27);
-        case 59:
             return jjStopAtPos(0, 23);
+        case 41:
+            return jjStopAtPos(0, 24);
+        case 43:
+            return jjStopAtPos(0, 21);
+        case 45:
+            return jjStopAtPos(0, 22);
+        case 59:
+            return jjStopAtPos(0, 25);
         case 60:
             jjmatchedKind = 16;
             return jjMoveStringLiteralDfa1_0(0x20000L);
@@ -91,7 +91,7 @@ public class RuleParserTokenManager implements RuleParserConstants {
         case 102:
             return jjMoveStringLiteralDfa1_0(0x80L);
         case 114:
-            return jjMoveStringLiteralDfa1_0(0x2000000L);
+            return jjMoveStringLiteralDfa1_0(0x8000000L);
         case 116:
             return jjMoveStringLiteralDfa1_0(0x40L);
         default:
@@ -120,7 +120,7 @@ public class RuleParserTokenManager implements RuleParserConstants {
         case 114:
             return jjMoveStringLiteralDfa2_0(active0, 0x40L);
         case 117:
-            return jjMoveStringLiteralDfa2_0(active0, 0x2000000L);
+            return jjMoveStringLiteralDfa2_0(active0, 0x8000000L);
         default:
             break;
         }
@@ -138,7 +138,7 @@ public class RuleParserTokenManager implements RuleParserConstants {
         }
         switch (curChar) {
         case 108:
-            return jjMoveStringLiteralDfa3_0(active0, 0x2000080L);
+            return jjMoveStringLiteralDfa3_0(active0, 0x8000080L);
         case 117:
             return jjMoveStringLiteralDfa3_0(active0, 0x40L);
         default:
@@ -160,7 +160,7 @@ public class RuleParserTokenManager implements RuleParserConstants {
         case 101:
             if ((active0 & 0x40L) != 0L)
                 return jjStartNfaWithStates_0(3, 6, 25);
-            return jjMoveStringLiteralDfa4_0(active0, 0x2000000L);
+            return jjMoveStringLiteralDfa4_0(active0, 0x8000000L);
         case 115:
             return jjMoveStringLiteralDfa4_0(active0, 0x80L);
         default:
@@ -180,8 +180,8 @@ public class RuleParserTokenManager implements RuleParserConstants {
         }
         switch (curChar) {
         case 58:
-            if ((active0 & 0x2000000L) != 0L)
-                return jjStopAtPos(4, 25);
+            if ((active0 & 0x8000000L) != 0L)
+                return jjStopAtPos(4, 27);
             break;
         case 101:
             if ((active0 & 0x80L) != 0L)
@@ -269,8 +269,8 @@ public class RuleParserTokenManager implements RuleParserConstants {
                     case 25:
                         if ((0x3ff000000000000L & l) == 0L)
                             break;
-                        if (kind > 24)
-                            kind = 24;
+                        if (kind > 26)
+                            kind = 26;
                         jjstateSet[jjnewStateCnt++] = 25;
                         break;
                     case 26:
@@ -347,8 +347,8 @@ public class RuleParserTokenManager implements RuleParserConstants {
                     switch (jjstateSet[--i]) {
                     case 2:
                         if ((0x7fffffe87fffffeL & l) != 0L) {
-                            if (kind > 24)
-                                kind = 24;
+                            if (kind > 26)
+                                kind = 26;
                             {
                                 jjCheckNAdd(25);
                             }
@@ -430,8 +430,8 @@ public class RuleParserTokenManager implements RuleParserConstants {
                     case 25:
                         if ((0x7fffffe87fffffeL & l) == 0L)
                             break;
-                        if (kind > 24)
-                            kind = 24; {
+                        if (kind > 26)
+                            kind = 26; {
                         jjCheckNAdd(25);
                     }
                         break;
@@ -468,7 +468,7 @@ public class RuleParserTokenManager implements RuleParserConstants {
     /** Token literal values. */
     public static final String[] jjstrLiteralImages = { "", null, null, null, null, null, "\164\162\165\145",
             "\146\141\154\163\145", null, null, null, null, null, null, null, "\76", "\74", "\74\75", "\76\75", "\75",
-            "\41\75", "\50", "\51", "\73", null, "\162\165\154\145\72", "\53", "\55", };
+            "\41\75", "\53", "\55", "\50", "\51", "\73", null, "\162\165\154\145\72", };
 
     protected Token jjFillToken() {
         final Token t;

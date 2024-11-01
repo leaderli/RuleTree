@@ -1,5 +1,7 @@
 package io.leaderli.rule;
 
+import io.leaderli.litool.core.meta.LiTuple;
+import io.leaderli.rule.tree.Node;
 import io.leaderli.rule.tree.RuleParserTreeConstants;
 import io.leaderli.rule.tree.SimpleNode;
 
@@ -23,5 +25,11 @@ public class NodeUtil {
                 dump(children, prefix + " ");
             }
         }
+    }
+
+    public static String getChildrenNodeType(Node node, int index) {
+        SimpleNode simpleNode = (SimpleNode) node.jjtGetChild(0);
+        Object o = simpleNode.jjtGetValue();
+        return ((LiTuple<String, Object>) ((SimpleNode) node.children[0]).jjtGetValue())._2;
     }
 }
