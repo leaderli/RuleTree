@@ -122,13 +122,14 @@ void num() #void:{}{
 void compare() :{Token name;String type;}{
     var()
     {
-    type = NodeUtil.getCurrentChildrenNumNodeType(jjtree);
-}
+        type = NodeUtil.getCurrentChildrenNumNodeType(jjtree);
+    }
     (math() (num() |var())
-    {
-    LiAssertUtil.assertTrue(StringUtils.equalsAny(type,"INT","DOUBLE"),"only <INT>,<DOUBLE> support '+','-");
-    LiAssertUtil.assertTrue(StringUtils.equalsAny(type, NodeUtil.getCurrentChildrenNumNodeType(jjtree)),"should use type <"+type+">");
-})?
+        {
+            LiAssertUtil.assertTrue(StringUtils.equalsAny(type,"INT","DOUBLE"),"only <INT>,<DOUBLE> support '+','-");
+            LiAssertUtil.assertTrue(StringUtils.equalsAny(type, NodeUtil.getCurrentChildrenNumNodeType(jjtree)),"should use type <"+type+">");
+        }
+    )?
     operator()
     {
         //STR 只允许使用 '=' '!='
