@@ -1,18 +1,27 @@
+//noinspection unchecked
 options {
   STATIC = false;
   MULTI=true;
   VISITOR=true;
+//  NODE_PACKAGE ="ast";
+  NODE_PREFIX ="ast_";
   VISITOR_DATA_TYPE="io.leaderli.rule.RuleContext";
   VISITOR_RETURN_TYPE="void";
-  DEBUG_PARSER = true;
+  GENERATE_GENERICS = true;
+//  DEBUG_PARSER = true;
+//  JJTREE_OUTPUT_DIRECTORY="src/main/java/io/leaderli/rule/tree/ast";
 //  DEBUG_TOKEN_MANAGER = true;
 //  DEBUG_LOOKAHEAD = true;
 }
 PARSER_BEGIN(RuleParser)
 package io.leaderli.rule.tree;
-import java.io.StringReader;
+import java.util.Arrays;
+
 import io.leaderli.litool.core.exception.LiAssertUtil;
-import io.leaderli.litool.core.meta.LiTuple;import io.leaderli.litool.core.text.StringUtils;
+import io.leaderli.litool.core.meta.LiTuple;
+import io.leaderli.litool.core.text.StringUtils;
+import io.leaderli.rule.NodeUtil;
+import java.io.StringReader;
 import io.leaderli.rule.RuleContext;
 
 public class RuleParser{
@@ -20,14 +29,13 @@ public class RuleParser{
     public void setRuleContext(RuleContext context) {
         this.context = context;
     }
-    public static SimpleNode test(String expr) throws ParseException {
-        RuleParser demo = new RuleParser(new StringReader(expr));
-        return (SimpleNode) demo.test().jjtGetChild(0);
+    public RuleParser(String rule) {
+       this(new StringReader(rule));
+       this.context = new RuleContext();
     }
-    public static SimpleNode test(String expr,RuleContext context) throws ParseException {
-        RuleParser demo = new RuleParser(new StringReader(expr));
-        demo.context = context;
-        return (SimpleNode) demo.test().jjtGetChild(0);
+    public RuleParser(String rule,RuleContext context) {
+       this(new StringReader(rule));
+       this.context = context;
     }
  }
 PARSER_END(RuleParser)
@@ -72,7 +80,12 @@ SimpleNode Start() :{}{
 }
 void rule():{Token t;}{
     "rule:"
-    t=<INT> { jjtThis.jjtSetValue(Integer.parseInt(t.image));}
+    t=<INT>
+    {
+        int rule = Integer.parseInt(t.image);
+        context.isValidRule(rule);
+        jjtThis.jjtSetValue(rule);
+    }
     expr()
 }
 void expr()#void:{}{
@@ -90,44 +103,69 @@ void term():{}{
        | compare()
 }
 
-void num() :{Token t;}{
-    (t=<INT> |t=<DOUBLE> |t=<PERCENT> |t=<TIME> ){
-       String value = t.image;
-       switch (t.kind){
-            case INT:
-                jjtThis.jjtSetValue(LiTuple.of("INT",Integer.parseInt(value)));
-                break;
-            case DOUBLE:
-                jjtThis.jjtSetValue(LiTuple.of("DOUBLE",Double.parseDouble(value)));
-                break;
-            case PERCENT:
-                jjtThis.jjtSetValue(LiTuple.of("PERCENT",Double.parseDouble(value.replace("%","")) / 100));
-                break;
-            case TIME:
-                jjtThis.jjtSetValue(LiTuple.of("TIME",value));
-                break;
-            default:
-                throw new ParseException("unsupported token " + tokenImage[t.kind] );
-       }
-    }
+void num_int() :{Token t;}{
+    t=<INT> {jjtThis.jjtSetValue(LiTuple.of("INT",Integer.parseInt(t.image)));}
+}
+void num_double() :{Token t;}{
+    t=<DOUBLE> {jjtThis.jjtSetValue(LiTuple.of("DOUBLE",Double.parseDouble(t.image)));}
+}
+void num_percent() :{Token t;}{
+    t=<PERCENT> {jjtThis.jjtSetValue(LiTuple.of("PERCENT",Double.parseDouble(t.image.replace("%","")) / 100));}
+}
+void num_time() :{Token t;}{
+    t=<TIME> {jjtThis.jjtSetValue(LiTuple.of("TIME",t.image));}
+}
+void num() #void:{}{
+    num_int() |num_double() |num_percent() |num_time()
 }
 
 void compare() :{Token name;String type;}{
-    var(){}(math() (num() |var()))?operator() num()
+    var()
     {
-        // 校验所有元素类型是否匹配
-        System.out.println(jjtThis.children);
+    type = NodeUtil.getCurrentChildrenNumNodeType(jjtree);
+}
+    (math() (num() |var())
+    {
+    LiAssertUtil.assertTrue(StringUtils.equalsAny(type,"INT","DOUBLE"),"only <INT>,<DOUBLE> support '+','-");
+    LiAssertUtil.assertTrue(StringUtils.equalsAny(type, NodeUtil.getCurrentChildrenNumNodeType(jjtree)),"should use type <"+type+">");
+})?
+    operator()
+    {
+        //STR 只允许使用 '=' '!='
+       if("STR".equals(type)){
+            int operator= NodeUtil.getCurrentChildrenOperatorNodeValue(jjtree);
+            LiAssertUtil.assertTrue(operator == EQ || operator == NE ,"<STR> only support '=','!=");
+       }
 
+    }
+    num()
+    {
+        // STR 兼容其他类型，不做类型校验
+        if(!"STR".equals(type)){
+            LiAssertUtil.assertTrue(StringUtils.equalsAny(type, NodeUtil.getCurrentChildrenNumNodeType(jjtree)),"should use type <"+type+">");
+        }
+
+    }
+    {
+        //closeNodeScope 会在最后一个代码块前添加，此处可以校验整个compare函数，不要删除，否则上面一段代码无法取到num()节点
+        // 构建执行函数
     }
 }
 
-void math():{Token t;}{
-    (t=<PLUS> |t=<MINUS> ){ jjtThis.jjtSetValue(t.image);}
+//noinspection unchecked
+void math():{}{
+      <PLUS>{ jjtThis.jjtSetValue(PLUS);}
+    | <MINUS>{ jjtThis.jjtSetValue(MINUS);}
 }
 
 
-void operator() :{Token t;}{
-    (t=<EQ>|t=<NE>|t=<GT>|t=<GE>|t=<LT>|t=<LE>){ jjtThis.jjtSetValue(t.image);}
+void operator() :{}{
+      <EQ>{ jjtThis.jjtSetValue(EQ);}
+    | <NE>{ jjtThis.jjtSetValue(NE);}
+    | <GT>{ jjtThis.jjtSetValue(GT);}
+    | <GE>{ jjtThis.jjtSetValue(GE);}
+    | <LT>{ jjtThis.jjtSetValue(LT);}
+    | <LE>{ jjtThis.jjtSetValue(LE);}
 }
 
 void var() :{Token t;}{
@@ -135,7 +173,6 @@ void var() :{Token t;}{
 }
 
 // test
-
 SimpleNode test() :{}{
     (
          num()

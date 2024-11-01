@@ -11,52 +11,64 @@ public class RuleParserDefaultVisitor implements RuleParserVisitor {
         defaultVisit(node, data);
     }
 
-    public void visit(ASTStart node, io.leaderli.rule.RuleContext data) {
+    public void visit(ast_Start node, io.leaderli.rule.RuleContext data) {
         defaultVisit(node, data);
     }
 
-    public void visit(ASTrule node, io.leaderli.rule.RuleContext data) {
+    public void visit(ast_rule node, io.leaderli.rule.RuleContext data) {
         defaultVisit(node, data);
     }
 
-    public void visit(ASTand node, io.leaderli.rule.RuleContext data) {
+    public void visit(ast_and node, io.leaderli.rule.RuleContext data) {
         defaultVisit(node, data);
     }
 
-    public void visit(ASTor node, io.leaderli.rule.RuleContext data) {
+    public void visit(ast_or node, io.leaderli.rule.RuleContext data) {
         defaultVisit(node, data);
     }
 
-    public void visit(ASTterm node, io.leaderli.rule.RuleContext data) {
+    public void visit(ast_term node, io.leaderli.rule.RuleContext data) {
         defaultVisit(node, data);
     }
 
-    public void visit(ASTneg node, io.leaderli.rule.RuleContext data) {
+    public void visit(ast_neg node, io.leaderli.rule.RuleContext data) {
         defaultVisit(node, data);
     }
 
-    public void visit(ASTnum node, io.leaderli.rule.RuleContext data) {
+    public void visit(ast_num_int node, io.leaderli.rule.RuleContext data) {
         defaultVisit(node, data);
     }
 
-    public void visit(ASTcompare node, io.leaderli.rule.RuleContext data) {
+    public void visit(ast_num_double node, io.leaderli.rule.RuleContext data) {
         defaultVisit(node, data);
     }
 
-    public void visit(ASTmath node, io.leaderli.rule.RuleContext data) {
+    public void visit(ast_num_percent node, io.leaderli.rule.RuleContext data) {
         defaultVisit(node, data);
     }
 
-    public void visit(ASToperator node, io.leaderli.rule.RuleContext data) {
+    public void visit(ast_num_time node, io.leaderli.rule.RuleContext data) {
         defaultVisit(node, data);
     }
 
-    public void visit(ASTvar node, io.leaderli.rule.RuleContext data) {
+    public void visit(ast_compare node, io.leaderli.rule.RuleContext data) {
         defaultVisit(node, data);
     }
 
-    public void visit(ASTtest node, io.leaderli.rule.RuleContext data) {
+    public void visit(ast_math node, io.leaderli.rule.RuleContext data) {
+        defaultVisit(node, data);
+    }
+
+    public void visit(ast_operator node, io.leaderli.rule.RuleContext data) {
+        defaultVisit(node, data);
+    }
+
+    public void visit(ast_var node, io.leaderli.rule.RuleContext data) {
+        defaultVisit(node, data);
+    }
+
+    public void visit(ast_test node, io.leaderli.rule.RuleContext data) {
         defaultVisit(node, data);
     }
 }
-/* JavaCC - OriginalChecksum=200b41574b8748d4414d040c697af73c (do not edit this line) */
+/* JavaCC - OriginalChecksum=7b09de8d888048991750db720b620ca5 (do not edit this line) */

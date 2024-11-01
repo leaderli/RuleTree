@@ -7,7 +7,7 @@ public class SimpleNode<T> implements Node {
     protected Node parent;
     protected Node[] children;
     protected int id;
-    protected Object value;
+    protected T value;
     protected RuleParser parser;
 
     public SimpleNode(int i) {
@@ -52,11 +52,11 @@ public class SimpleNode<T> implements Node {
         return (children == null) ? 0 : children.length;
     }
 
-    public void jjtSetValue(Object value) {
+    public void jjtSetValue(T value) {
         this.value = value;
     }
 
-    public Object jjtGetValue() {
+    public T jjtGetValue() {
         return value;
     }
 

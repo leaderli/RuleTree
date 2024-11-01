@@ -4,28 +4,34 @@ package io.leaderli.rule.tree;
 public interface RuleParserVisitor {
     public void visit(SimpleNode node, io.leaderli.rule.RuleContext data);
 
-    public void visit(ASTStart node, io.leaderli.rule.RuleContext data);
+    public void visit(ast_Start node, io.leaderli.rule.RuleContext data);
 
-    public void visit(ASTrule node, io.leaderli.rule.RuleContext data);
+    public void visit(ast_rule node, io.leaderli.rule.RuleContext data);
 
-    public void visit(ASTand node, io.leaderli.rule.RuleContext data);
+    public void visit(ast_and node, io.leaderli.rule.RuleContext data);
 
-    public void visit(ASTor node, io.leaderli.rule.RuleContext data);
+    public void visit(ast_or node, io.leaderli.rule.RuleContext data);
 
-    public void visit(ASTterm node, io.leaderli.rule.RuleContext data);
+    public void visit(ast_term node, io.leaderli.rule.RuleContext data);
 
-    public void visit(ASTneg node, io.leaderli.rule.RuleContext data);
+    public void visit(ast_neg node, io.leaderli.rule.RuleContext data);
 
-    public void visit(ASTnum node, io.leaderli.rule.RuleContext data);
+    public void visit(ast_num_int node, io.leaderli.rule.RuleContext data);
 
-    public void visit(ASTcompare node, io.leaderli.rule.RuleContext data);
+    public void visit(ast_num_double node, io.leaderli.rule.RuleContext data);
 
-    public void visit(ASTmath node, io.leaderli.rule.RuleContext data);
+    public void visit(ast_num_percent node, io.leaderli.rule.RuleContext data);
 
-    public void visit(ASToperator node, io.leaderli.rule.RuleContext data);
+    public void visit(ast_num_time node, io.leaderli.rule.RuleContext data);
 
-    public void visit(ASTvar node, io.leaderli.rule.RuleContext data);
+    public void visit(ast_compare node, io.leaderli.rule.RuleContext data);
 
-    public void visit(ASTtest node, io.leaderli.rule.RuleContext data);
+    public void visit(ast_math node, io.leaderli.rule.RuleContext data);
+
+    public void visit(ast_operator node, io.leaderli.rule.RuleContext data);
+
+    public void visit(ast_var node, io.leaderli.rule.RuleContext data);
+
+    public void visit(ast_test node, io.leaderli.rule.RuleContext data);
 }
-/* JavaCC - OriginalChecksum=46fdc5309d4a0fd8b93cd4b49baa4ffe (do not edit this line) */
+/* JavaCC - OriginalChecksum=d9451a12e77c4c9faa58f2f722cabf80 (do not edit this line) */
