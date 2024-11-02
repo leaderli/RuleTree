@@ -6,7 +6,7 @@ package io.leaderli.rule.tree;
    machinery for constructing the parent and child relationships
    between nodes. */
 
-public interface Node {
+public interface Node<T> {
 
     /**
      * This method is called after the node has been made the current node. It indicates that child nodes can now be
@@ -36,12 +36,18 @@ public interface Node {
      */
     public Node jjtGetChild(int i);
 
-    /** Return the number of children the node has. */
+    /**
+     * Return the number of children the node has.
+     */
     public int jjtGetNumChildren();
 
     public int getId();
 
-    /** Accept the visitor. **/
-    public void jjtAccept(RuleParserVisitor visitor, io.leaderli.rule.RuleContext data);
+    /**
+     * Accept the visitor.
+     **/
+    public Object jjtAccept(RuleParserVisitor visitor, Object data);
+
+    T jjtGetValue();
 }
 /* JavaCC - OriginalChecksum=fb30ddb34376b1cb002b61b59ece243c (do not edit this line) */

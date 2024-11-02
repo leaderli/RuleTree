@@ -2,7 +2,7 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=true,TRACK_TOKENS=false,NODE_PREFIX=ast_,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package io.leaderli.rule.tree;
 
-public class ast_operator extends SimpleNode {
+public class ast_operator extends SimpleNode<Integer> {
     public ast_operator(int id) {
         super(id);
     }
@@ -11,10 +11,11 @@ public class ast_operator extends SimpleNode {
         super(p, id);
     }
 
-    /** Accept the visitor. **/
-    public void jjtAccept(RuleParserVisitor visitor, io.leaderli.rule.RuleContext data) {
-
-        visitor.visit(this, data);
+    /**
+     * Accept the visitor.
+     **/
+    public Object jjtAccept(RuleParserVisitor visitor, Object data) {
+        return visitor.visit(this, data);
     }
 }
 /* JavaCC - OriginalChecksum=828b0de03dee74084f3619192b290b1f (do not edit this line) */

@@ -2,7 +2,9 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=true,TRACK_TOKENS=false,NODE_PREFIX=ast_,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package io.leaderli.rule.tree;
 
-public class ast_num_percent extends SimpleNode {
+import io.leaderli.litool.core.meta.LiTuple;
+
+public class ast_num_percent extends SimpleNode<LiTuple<String, Double>> {
     public ast_num_percent(int id) {
         super(id);
     }
@@ -11,10 +13,11 @@ public class ast_num_percent extends SimpleNode {
         super(p, id);
     }
 
-    /** Accept the visitor. **/
-    public void jjtAccept(RuleParserVisitor visitor, io.leaderli.rule.RuleContext data) {
-
-        visitor.visit(this, data);
+    /**
+     * Accept the visitor.
+     **/
+    public Object jjtAccept(RuleParserVisitor visitor, Object data) {
+        return visitor.visit(this, data);
     }
 }
 /* JavaCC - OriginalChecksum=5ca8ae10b75b3da996048916871979b8 (do not edit this line) */

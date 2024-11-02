@@ -3,37 +3,33 @@ options {
   STATIC = false;
   MULTI=true;
   VISITOR=true;
-//  NODE_PACKAGE ="ast";
   NODE_PREFIX ="ast_";
-  VISITOR_DATA_TYPE="io.leaderli.rule.RuleContext";
-  VISITOR_RETURN_TYPE="void";
+  VISITOR_DATA_TYPE="";
+  VISITOR_RETURN_TYPE="Object";
   GENERATE_GENERICS = true;
 //  DEBUG_PARSER = true;
-//  JJTREE_OUTPUT_DIRECTORY="src/main/java/io/leaderli/rule/tree/ast";
-//  DEBUG_TOKEN_MANAGER = true;
-//  DEBUG_LOOKAHEAD = true;
 }
 PARSER_BEGIN(RuleParser)
 package io.leaderli.rule.tree;
-import java.util.Arrays;
 
 import io.leaderli.litool.core.exception.LiAssertUtil;
 import io.leaderli.litool.core.meta.LiTuple;
 import io.leaderli.litool.core.text.StringUtils;
 import io.leaderli.rule.NodeUtil;
+import io.leaderli.rule.ParserContext;
+
 import java.io.StringReader;
-import io.leaderli.rule.RuleContext;
 
 public class RuleParser{
-    private RuleContext context;
-    public void setRuleContext(RuleContext context) {
+    private ParserContext context;
+    public void setParserContext(ParserContext context) {
         this.context = context;
     }
     public RuleParser(String rule) {
        this(new StringReader(rule));
-       this.context = new RuleContext();
+       this.context = new ParserContext();
     }
-    public RuleParser(String rule,RuleContext context) {
+    public RuleParser(String rule,ParserContext context) {
        this(new StringReader(rule));
        this.context = context;
     }
@@ -73,7 +69,7 @@ TOKEN : {
 }
 
 
-SimpleNode Start() :{}{
+SimpleNode entry() :{}{
     (rule()) +<EOF>{
         return jjtThis;
     }
@@ -88,19 +84,20 @@ void rule():{Token t;}{
     }
     expr()
 }
-void expr()#void:{}{
+void expr():{}{
     term() (
-         <AND>#and term()
-       | <OR>#or term()
+         <AND>{jjtThis.jjtSetValue(AND);}#and term()
+       | <OR>{jjtThis.jjtSetValue(OR);}#or term()
     )*
 }
 
 void term():{}{
-         <TRUE>{jjtThis.jjtSetValue(true);}
-       | <FALSE>{jjtThis.jjtSetValue(false);}
-       | <NOT> term() #neg
-       | <LPAREN> expr() <RPAREN> {jjtThis.jjtSetValue("()");}
-       | compare()
+
+         <TRUE>{jjtThis.jjtSetValue(TRUE);}
+       | <FALSE>{jjtThis.jjtSetValue(FALSE);}
+       | <NOT> term() {jjtThis.jjtSetValue(NOT);}
+       | <LPAREN> expr() <RPAREN> {jjtThis.jjtSetValue(LPAREN);}
+       | compare() {jjtThis.jjtSetValue(0);}
 }
 
 void num_int() :{Token t;}{
@@ -124,7 +121,7 @@ void compare() :{Token name;String type;}{
     {
         type = NodeUtil.getCurrentChildrenNumNodeType(jjtree);
     }
-    (math() (num() |var())
+    (math() var()
         {
             LiAssertUtil.assertTrue(StringUtils.equalsAny(type,"INT","DOUBLE"),"only <INT>,<DOUBLE> support '+','-");
             LiAssertUtil.assertTrue(StringUtils.equalsAny(type, NodeUtil.getCurrentChildrenNumNodeType(jjtree)),"should use type <"+type+">");
@@ -141,10 +138,13 @@ void compare() :{Token name;String type;}{
     }
     num()
     {
-        // STR 兼容其他类型，不做类型校验
-        if(!"STR".equals(type)){
-            LiAssertUtil.assertTrue(StringUtils.equalsAny(type, NodeUtil.getCurrentChildrenNumNodeType(jjtree)),"should use type <"+type+">");
+
+        // STR 对数据进行类型转换
+        if("STR".equals(type)){
+            SimpleNode<LiTuple<String, ?>> simpleNode = (SimpleNode<LiTuple<String,?>>) jjtree.peekNode();
+            simpleNode.jjtSetValue(LiTuple.of(type,simpleNode.jjtGetValue()._2+""));
         }
+        LiAssertUtil.assertTrue(StringUtils.equalsAny(type, NodeUtil.getCurrentChildrenNumNodeType(jjtree)),"should use type <"+type+">");
 
     }
     {
@@ -155,8 +155,8 @@ void compare() :{Token name;String type;}{
 
 //noinspection unchecked
 void math():{}{
-      <PLUS>{ jjtThis.jjtSetValue(PLUS);}
-    | <MINUS>{ jjtThis.jjtSetValue(MINUS);}
+      <PLUS>{ jjtThis.jjtSetValue(PLUS);}{}
+    | <MINUS>{ jjtThis.jjtSetValue(MINUS);}{}
 }
 
 
@@ -177,8 +177,7 @@ void var() :{Token t;}{
 SimpleNode test() :{}{
     (
          num()
-        | LOOKAHEAD(2)expr()
-        | var()
+        |expr()
     )
     <EOF>
     {

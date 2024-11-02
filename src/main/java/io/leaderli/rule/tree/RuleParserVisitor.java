@@ -2,36 +2,36 @@
 package io.leaderli.rule.tree;
 
 public interface RuleParserVisitor {
-    public void visit(SimpleNode node, io.leaderli.rule.RuleContext data);
+    public Object visit(SimpleNode node, Object data);
 
-    public void visit(ast_Start node, io.leaderli.rule.RuleContext data);
+    public Object visit(ast_entry node, Object data);
 
-    public void visit(ast_rule node, io.leaderli.rule.RuleContext data);
+    public Object visit(ast_rule node, Object data);
 
-    public void visit(ast_and node, io.leaderli.rule.RuleContext data);
+    public Object visit(ast_expr node, Object data);
 
-    public void visit(ast_or node, io.leaderli.rule.RuleContext data);
+    public Object visit(ast_and node, Object data);
 
-    public void visit(ast_term node, io.leaderli.rule.RuleContext data);
+    public Object visit(ast_or node, Object data);
 
-    public void visit(ast_neg node, io.leaderli.rule.RuleContext data);
+    public Object visit(ast_term node, Object data);
 
-    public void visit(ast_num_int node, io.leaderli.rule.RuleContext data);
+    public Object visit(ast_num_int node, Object data);
 
-    public void visit(ast_num_double node, io.leaderli.rule.RuleContext data);
+    public Object visit(ast_num_double node, Object data);
 
-    public void visit(ast_num_percent node, io.leaderli.rule.RuleContext data);
+    public Object visit(ast_num_percent node, Object data);
 
-    public void visit(ast_num_time node, io.leaderli.rule.RuleContext data);
+    public Object visit(ast_num_time node, Object data);
 
-    public void visit(ast_compare node, io.leaderli.rule.RuleContext data);
+    public Object visit(ast_compare node, Object data);
 
-    public void visit(ast_math node, io.leaderli.rule.RuleContext data);
+    public Object visit(ast_math node, Object data);
 
-    public void visit(ast_operator node, io.leaderli.rule.RuleContext data);
+    public Object visit(ast_operator node, Object data);
 
-    public void visit(ast_var node, io.leaderli.rule.RuleContext data);
+    public Object visit(ast_var node, Object data);
 
-    public void visit(ast_test node, io.leaderli.rule.RuleContext data);
+    public Object visit(ast_test node, Object data);
 }
-/* JavaCC - OriginalChecksum=d9451a12e77c4c9faa58f2f722cabf80 (do not edit this line) */
+/* JavaCC - OriginalChecksum=b576851f5d49f6ef6114f9d42f727226 (do not edit this line) */

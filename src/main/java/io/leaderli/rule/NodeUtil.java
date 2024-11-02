@@ -1,7 +1,9 @@
 package io.leaderli.rule;
 
 import io.leaderli.litool.core.meta.LiTuple;
-import io.leaderli.rule.tree.*;
+import io.leaderli.rule.tree.JJTRuleParserState;
+import io.leaderli.rule.tree.RuleParserTreeConstants;
+import io.leaderli.rule.tree.SimpleNode;
 
 @SuppressWarnings("unchecked")
 public class NodeUtil {

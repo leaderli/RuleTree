@@ -2,24 +2,24 @@
 package io.leaderli.rule.tree;
 
 public interface RuleParserTreeConstants {
-    public int JJTSTART = 0;
+    public int JJTENTRY = 0;
     public int JJTRULE = 1;
-    public int JJTVOID = 2;
+    public int JJTEXPR = 2;
     public int JJTAND = 3;
     public int JJTOR = 4;
     public int JJTTERM = 5;
-    public int JJTNEG = 6;
-    public int JJTNUM_INT = 7;
-    public int JJTNUM_DOUBLE = 8;
-    public int JJTNUM_PERCENT = 9;
-    public int JJTNUM_TIME = 10;
+    public int JJTNUM_INT = 6;
+    public int JJTNUM_DOUBLE = 7;
+    public int JJTNUM_PERCENT = 8;
+    public int JJTNUM_TIME = 9;
+    public int JJTVOID = 10;
     public int JJTCOMPARE = 11;
     public int JJTMATH = 12;
     public int JJTOPERATOR = 13;
     public int JJTVAR = 14;
     public int JJTTEST = 15;
 
-    public String[] jjtNodeName = { "Start", "rule", "void", "and", "or", "term", "neg", "num_int", "num_double",
-            "num_percent", "num_time", "compare", "math", "operator", "var", "test", };
+    public String[] jjtNodeName = { "entry", "rule", "expr", "and", "or", "term", "num_int", "num_double",
+            "num_percent", "num_time", "void", "compare", "math", "operator", "var", "test", };
 }
-/* JavaCC - OriginalChecksum=60e507b7d1a1539fc3bc1d38db61f88a (do not edit this line) */
+/* JavaCC - OriginalChecksum=52ffc990b20578d40e0a7bbaa851b0d8 (do not edit this line) */

@@ -2,23 +2,11 @@ package io.leaderli.rule.tree;
 
 import io.leaderli.litool.core.exception.AssertException;
 import io.leaderli.rule.NodeUtil;
-import io.leaderli.rule.RuleContext;
+import io.leaderli.rule.ParserContext;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.io.StringReader;
-
 class RuleParserTest {
-    public static SimpleNode<?> test(String expr) throws ParseException {
-        RuleParser demo = new RuleParser(expr, null);
-        return (SimpleNode<?>) demo.test().jjtGetChild(0);
-    }
-
-    public static SimpleNode<?> test(String expr, RuleContext context) throws ParseException {
-        RuleParser demo = new RuleParser(expr, context);
-        return (SimpleNode<?>) demo.test().jjtGetChild(0);
-    }
-
     @Test
     void test() throws ParseException {
 
@@ -33,6 +21,11 @@ class RuleParserTest {
         Assertions.assertEquals(0.0, test("0%").jjtGetValue());
         Assertions.assertThrows(ParseException.class, () -> test("00"));
         Assertions.assertThrows(ParseException.class, () -> test("01"));
+    }
+
+    public static SimpleNode<?> test(String expr) throws ParseException {
+        RuleParser demo = new RuleParser(expr, null);
+        return (SimpleNode<?>) demo.test().jjtGetChild(0);
     }
 
     @Test
@@ -52,7 +45,7 @@ class RuleParserTest {
     @Test
     void testVar() throws ParseException {
 
-        RuleContext context = new RuleContext();
+        ParserContext context = new ParserContext();
         context.putType("a", "INT");
         context.putType("b", "TIME");
         NodeUtil.dump(test("a", context));
@@ -67,9 +60,14 @@ class RuleParserTest {
 
     }
 
+    public static SimpleNode<?> test(String expr, ParserContext context) throws ParseException {
+        RuleParser demo = new RuleParser(expr, context);
+        return (SimpleNode<?>) demo.test().jjtGetChild(0);
+    }
+
     @Test
     void testCompare2() throws ParseException {
-        RuleContext context = new RuleContext();
+        ParserContext context = new ParserContext();
         context.putType("a", "INT");
         context.putType("b", "TIME");
         SimpleNode node = test("a=1", context);
@@ -81,23 +79,29 @@ class RuleParserTest {
 
     @Test
     void testExpr() throws ParseException {
-        NodeUtil.dump(test("true"));
-        NodeUtil.dump(test("false"));
-        NodeUtil.dump(test("true and false"));
-        NodeUtil.dump(test("false or true"));
-        NodeUtil.dump(test("not false or true"));
-        NodeUtil.dump(test("not (false or true)"));
+        NodeUtil.dump(expr("true"));
+        NodeUtil.dump(expr("false"));
+        NodeUtil.dump(expr("true and false"));
+        NodeUtil.dump(expr("false or true"));
+        NodeUtil.dump(expr("false or false or true and true "));
+        NodeUtil.dump(expr("not false or true"));
+        NodeUtil.dump(expr("not (false or true)"));
 
+    }
+
+    public static SimpleNode<?> expr(String expr) throws ParseException {
+        RuleParser demo = new RuleParser(expr, null);
+        return (SimpleNode<?>) demo.test();
     }
 
     @Test
     void testStart() throws ParseException {
-        RuleContext context = new RuleContext();
+        ParserContext context = new ParserContext();
         context.addRule(1, 2);
-        RuleParser ruleParser = new RuleParser("rule:1 true", context);
-        NodeUtil.dump(ruleParser.Start());
+        RuleParser ruleParser = new RuleParser("rule:1 true and not (false or true)", context);
+        NodeUtil.dump(ruleParser.entry());
         Assertions.assertThrows(UnsupportedOperationException.class, () -> {
-            new RuleParser("rule:3 true", context).Start();
+            new RuleParser("rule:3 true", context).entry();
         });
     }
 }
