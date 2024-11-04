@@ -10,6 +10,7 @@ import io.leaderli.rule.ParserContext;
 
 import java.io.StringReader;
 
+@SuppressWarnings("all")
 public class RuleParser/* @bgen(jjtree) */ implements RuleParserTreeConstants, RuleParserConstants {/* @bgen(jjtree) */
     protected JJTRuleParserState jjtree = new JJTRuleParserState();
     private ParserContext context;
@@ -411,13 +412,13 @@ public class RuleParser/* @bgen(jjtree) */ implements RuleParserTreeConstants, R
             }
             operator();
             // STR 只允许使用 '=' '!='
-            if ("STR".equals(type)) {
+            if ("TIME".equals(type)) {
                 int operator = NodeUtil.getCurrentChildrenOperatorNodeValue(jjtree);
-                LiAssertUtil.assertTrue(operator == EQ || operator == NE, "<STR> only support '=','!=");
+                LiAssertUtil.assertTrue(operator == EQ || operator == NE, "<TIME> only support '=','!=");
             }
             num();
             // STR 对数据进行类型转换
-            if ("STR".equals(type)) {
+            if ("TIME".equals(type)) {
                 SimpleNode<LiTuple<String, ?>> simpleNode = (SimpleNode<LiTuple<String, ?>>) jjtree.peekNode();
                 simpleNode.jjtSetValue(LiTuple.of(type, simpleNode.jjtGetValue()._2 + ""));
             }

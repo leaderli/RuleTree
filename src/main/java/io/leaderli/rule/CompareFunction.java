@@ -140,7 +140,7 @@ public class CompareFunction<T> implements Function<RuleContext, Boolean> {
             right = ((LiTuple<String, T>) ((node.jjtGetChild(4)).jjtGetValue()))._2;
         }
         switch (var._1) {
-        case "STR":
+        case "TIME":
             return new StrCompareFunction(name, math_operator, math_var_name, compare_operator, (String) right);
         case "INT":
             return new IntCompareFunction(name, math_operator, math_var_name, compare_operator, (Integer) right);

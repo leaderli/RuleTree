@@ -20,6 +20,7 @@ import io.leaderli.rule.ParserContext;
 
 import java.io.StringReader;
 
+@SuppressWarnings("all")
 public class RuleParser{
     private ParserContext context;
     public void setParserContext(ParserContext context) {

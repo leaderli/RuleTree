@@ -8,16 +8,6 @@ public class StrCompareFunction extends CompareFunction<String> {
     }
 
     @Override
-    public boolean eq(String a, String b) {
-        return StringUtils.equals(a, b);
-    }
-
-    @Override
-    public boolean ne(String a, String b) {
-        return !StringUtils.equals(a, b);
-    }
-
-    @Override
     public boolean gt(String a, String b) {
         return StringUtils.compare(a, b) > 0;
     }
