@@ -34,15 +34,8 @@ public class CodeGeneratorContextVisitor implements RuleParserVisitor {
         node.jjtGetChild(0).jjtAccept(this, data);
         String expr = sb.substring(start);
         sb.append("){\r\n");
-        sb.append("\t\t context.debug(")
-                .append(result)
-                .append(" + ")
-                .append("\"")
-                .append(":")
-                .append(expr.replace("\"", "\\\""))
-                .append("\"")
-                .append(");\r\n");
-
+        sb.append("\t\t context.debug(").append(result).append(" + ").append("\"").append(":")
+                .append(expr.replace("\"", "\\\"")).append("\"").append(");\r\n");
 
         sb.append("\t\t return ").append(result).append(";\r\n");
         sb.append("\t}\r\n\r\n");
@@ -54,7 +47,7 @@ public class CodeGeneratorContextVisitor implements RuleParserVisitor {
     public Object visit(ast_expr node, Object data) {
         StringBuilder sb = (StringBuilder) data;
         node.jjtGetChild(0).jjtAccept(this, data);
-        for (int i = 0; i < node.jjtGetNumChildren() - 2; ) {
+        for (int i = 0; i < node.jjtGetNumChildren() - 2;) {
             node.jjtGetChild(++i).jjtAccept(this, data);
             node.jjtGetChild(++i).jjtAccept(this, data);
         }
@@ -151,37 +144,38 @@ public class CodeGeneratorContextVisitor implements RuleParserVisitor {
             right = ((LiTuple<String, Object>) ((node.jjtGetChild(4)).jjtGetValue()))._2;
         }
         switch (var._1) {
-            case "TIME":
-                sb.append("context.compare(");
+        case "TIME":
+        case "STR":
+            sb.append("context.compare(");
+            sb.append(" ");
+            sb.append(name);
+            sb.append(", ");
+            sb.append(" \"");
+            sb.append(right);
+            sb.append("\") ");
+            sb.append(getOperatorCodeValue(compare_operator));
+            sb.append(" 0");
+            break;
+        case "PERCENT":
+        case "INT":
+        case "DOUBLE":
+            sb.append(" ");
+            sb.append(name);
+            sb.append(" ");
+            if (math_operator == PLUS || math_operator == MINUS) {
+                sb.append(getOperatorCodeValue(math_operator));
                 sb.append(" ");
-                sb.append(name);
-                sb.append(", ");
-                sb.append(" \"");
-                sb.append(right);
-                sb.append("\") ");
-                sb.append(getOperatorCodeValue(compare_operator));
-                sb.append(" 0");
-                break;
-            case "PERCENT":
-            case "INT":
-            case "DOUBLE":
+                sb.append(math_var_name);
                 sb.append(" ");
-                sb.append(name);
-                sb.append(" ");
-                if (math_operator == PLUS || math_operator == MINUS) {
-                    sb.append(getOperatorCodeValue(math_operator));
-                    sb.append(" ");
-                    sb.append(math_var_name);
-                    sb.append(" ");
-                }
-                sb.append(getOperatorCodeValue(compare_operator));
-                sb.append(" ");
-                sb.append(right);
-                sb.append(" ");
-                break;
+            }
+            sb.append(getOperatorCodeValue(compare_operator));
+            sb.append(" ");
+            sb.append(right);
+            sb.append(" ");
+            break;
 
-            default:
-                throw new UnsupportedOperationException("unsupported var type " + var._1);
+        default:
+            throw new UnsupportedOperationException("unsupported var type " + var._1);
         }
         return null;
     }
@@ -208,30 +202,30 @@ public class CodeGeneratorContextVisitor implements RuleParserVisitor {
 
     public String getOperatorCodeValue(int operator) {
         switch (operator) {
-            case PLUS:
-                return "+";
-            case MINUS:
-                return "-";
-            case EQ:
-                return "==";
-            case NE:
-                return "!=";
-            case GT: {
-                return ">";
-            }
-            case GE: {
-                return ">=";
+        case PLUS:
+            return "+";
+        case MINUS:
+            return "-";
+        case EQ:
+            return "==";
+        case NE:
+            return "!=";
+        case GT: {
+            return ">";
+        }
+        case GE: {
+            return ">=";
 
-            }
-            case LT: {
-                return "<";
+        }
+        case LT: {
+            return "<";
 
-            }
-            case LE: {
-                return "<=";
-            }
-            default:
-                throw new UnsupportedOperationException(tokenImage[operator]);
+        }
+        case LE: {
+            return "<=";
+        }
+        default:
+            throw new UnsupportedOperationException(tokenImage[operator]);
         }
 
     }

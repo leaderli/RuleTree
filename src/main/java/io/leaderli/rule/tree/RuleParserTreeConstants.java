@@ -22,4 +22,4 @@ public interface RuleParserTreeConstants {
     public String[] jjtNodeName = { "entry", "rule", "expr", "and", "or", "term", "num_int", "num_double",
             "num_percent", "num_time", "void", "compare", "math", "operator", "var", "test", };
 }
-/* JavaCC - OriginalChecksum=52ffc990b20578d40e0a7bbaa851b0d8 (do not edit this line) */
+/* JavaCC - OriginalChecksum=186d26de06d581ef193baabd833ae018 (do not edit this line) */

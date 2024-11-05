@@ -400,8 +400,8 @@ public class RuleParser/* @bgen(jjtree) */ implements RuleParserTreeConstants, R
             case MINUS: {
                 math();
                 var();
-                LiAssertUtil.assertTrue(StringUtils.equalsAny(type, "INT", "DOUBLE"),
-                        "only <INT>,<DOUBLE> support '+','-");
+                LiAssertUtil.assertTrue(StringUtils.equalsAny(type, "INT", "DOUBLE", "PERCENT"),
+                        "only <INT>,<DOUBLE>,<PERCENT> support '+','-");
                 LiAssertUtil.assertTrue(StringUtils.equalsAny(type, NodeUtil.getCurrentChildrenNumNodeType(jjtree)),
                         "should use type <" + type + ">");
                 break;
@@ -412,13 +412,13 @@ public class RuleParser/* @bgen(jjtree) */ implements RuleParserTreeConstants, R
             }
             operator();
             // STR 只允许使用 '=' '!='
-            if ("TIME".equals(type)) {
+            if ("STR".equals(type)) {
                 int operator = NodeUtil.getCurrentChildrenOperatorNodeValue(jjtree);
-                LiAssertUtil.assertTrue(operator == EQ || operator == NE, "<TIME> only support '=','!=");
+                LiAssertUtil.assertTrue(operator == EQ || operator == NE, "<STR> only support '=','!=");
             }
             num();
             // STR 对数据进行类型转换
-            if ("TIME".equals(type)) {
+            if ("STR".equals(type)) {
                 SimpleNode<LiTuple<String, ?>> simpleNode = (SimpleNode<LiTuple<String, ?>>) jjtree.peekNode();
                 simpleNode.jjtSetValue(LiTuple.of(type, simpleNode.jjtGetValue()._2 + ""));
             }

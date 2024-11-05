@@ -141,6 +141,7 @@ public class CompareFunction<T> implements Function<RuleContext, Boolean> {
         }
         switch (var._1) {
         case "TIME":
+        case "STR":
             return new StrCompareFunction(name, math_operator, math_var_name, compare_operator, (String) right);
         case "INT":
             return new IntCompareFunction(name, math_operator, math_var_name, compare_operator, (Integer) right);

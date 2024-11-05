@@ -124,7 +124,7 @@ void compare() :{Token name;String type;}{
     }
     (math() var()
         {
-            LiAssertUtil.assertTrue(StringUtils.equalsAny(type,"INT","DOUBLE"),"only <INT>,<DOUBLE> support '+','-");
+            LiAssertUtil.assertTrue(StringUtils.equalsAny(type,"INT","DOUBLE","PERCENT"),"only <INT>,<DOUBLE>,<PERCENT> support '+','-");
             LiAssertUtil.assertTrue(StringUtils.equalsAny(type, NodeUtil.getCurrentChildrenNumNodeType(jjtree)),"should use type <"+type+">");
         }
     )?
