@@ -6,57 +6,105 @@ package io.leaderli.rule.tree;
  */
 public interface RuleParserConstants {
 
-    /** End of File. */
+    /**
+     * End of File.
+     */
     int EOF = 0;
-    /** RegularExpression Id. */
+    /**
+     * RegularExpression Id.
+     */
     int TRUE = 6;
-    /** RegularExpression Id. */
+    /**
+     * RegularExpression Id.
+     */
     int FALSE = 7;
-    /** RegularExpression Id. */
+    /**
+     * RegularExpression Id.
+     */
     int AND = 8;
-    /** RegularExpression Id. */
+    /**
+     * RegularExpression Id.
+     */
     int OR = 9;
-    /** RegularExpression Id. */
+    /**
+     * RegularExpression Id.
+     */
     int NOT = 10;
-    /** RegularExpression Id. */
+    /**
+     * RegularExpression Id.
+     */
     int INT = 11;
-    /** RegularExpression Id. */
+    /**
+     * RegularExpression Id.
+     */
     int DOUBLE = 12;
-    /** RegularExpression Id. */
+    /**
+     * RegularExpression Id.
+     */
     int PERCENT = 13;
-    /** RegularExpression Id. */
+    /**
+     * RegularExpression Id.
+     */
     int TIME = 14;
-    /** RegularExpression Id. */
+    /**
+     * RegularExpression Id.
+     */
     int GT = 15;
-    /** RegularExpression Id. */
+    /**
+     * RegularExpression Id.
+     */
     int LT = 16;
-    /** RegularExpression Id. */
+    /**
+     * RegularExpression Id.
+     */
     int LE = 17;
-    /** RegularExpression Id. */
+    /**
+     * RegularExpression Id.
+     */
     int GE = 18;
-    /** RegularExpression Id. */
+    /**
+     * RegularExpression Id.
+     */
     int EQ = 19;
-    /** RegularExpression Id. */
+    /**
+     * RegularExpression Id.
+     */
     int NE = 20;
-    /** RegularExpression Id. */
+    /**
+     * RegularExpression Id.
+     */
     int PLUS = 21;
-    /** RegularExpression Id. */
+    /**
+     * RegularExpression Id.
+     */
     int MINUS = 22;
-    /** RegularExpression Id. */
+    /**
+     * RegularExpression Id.
+     */
     int LPAREN = 23;
-    /** RegularExpression Id. */
+    /**
+     * RegularExpression Id.
+     */
     int RPAREN = 24;
-    /** RegularExpression Id. */
+    /**
+     * RegularExpression Id.
+     */
     int SEMICOLON = 25;
-    /** RegularExpression Id. */
+    /**
+     * RegularExpression Id.
+     */
     int IDENTIFIER = 26;
 
-    /** Lexical state. */
+    /**
+     * Lexical state.
+     */
     int DEFAULT = 0;
 
-    /** Literal token values. */
-    String[] tokenImage = { "<EOF>", "\" \"", "\"\\t\"", "\"\\n\"", "\"\\r\"", "\"\\f\"", "\"true\"", "\"false\"",
+    /**
+     * Literal token values.
+     */
+    String[] tokenImage = {"<EOF>", "\" \"", "\"\\t\"", "\"\\n\"", "\"\\r\"", "\"\\f\"", "\"true\"", "\"false\"",
             "<AND>", "<OR>", "<NOT>", "<INT>", "<DOUBLE>", "<PERCENT>", "<TIME>", "\">\"", "\"<\"", "\"<=\"", "\">=\"",
-            "\"=\"", "\"!=\"", "\"+\"", "\"-\"", "\"(\"", "\")\"", "\";\"", "<IDENTIFIER>", "\"rule:\"", };
+            "\"=\"", "\"!=\"", "\"+\"", "\"-\"", "\"(\"", "\")\"", "\";\"", "<IDENTIFIER>", "\"rule:\"",};
 
 }

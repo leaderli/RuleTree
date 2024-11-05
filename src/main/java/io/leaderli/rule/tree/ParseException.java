@@ -5,7 +5,7 @@ package io.leaderli.rule.tree;
 /**
  * This exception is thrown when parse errors are encountered. You can explicitly create objects of this exception type
  * by calling the method generateParseException in the generated parser.
- *
+ * <p>
  * You can modify this class to customize your error reporting mechanisms so long as you retain the public fields.
  */
 public class ParseException extends Exception {
@@ -20,6 +20,21 @@ public class ParseException extends Exception {
      * The end of line string for this machine.
      */
     protected static String EOL = System.getProperty("line.separator", "\n");
+    /**
+     * This is the last token that has been consumed successfully. If this object has been created due to a parse error,
+     * the token following this token will (therefore) be the first error token.
+     */
+    public Token currentToken;
+    /**
+     * Each entry in this array is an array of integers. Each array of integers represents a sequence of tokens (by
+     * their ordinal values) that is expected at this point of the parse.
+     */
+    public int[][] expectedTokenSequences;
+    /**
+     * This is a reference to the "tokenImage" array of the generated parser within which the parse error occurred. This
+     * array is defined in the generated ...Constants interface.
+     */
+    public String[] tokenImage;
 
     /**
      * This constructor is used by the method "generateParseException" in the generated parser. Calling this constructor
@@ -32,40 +47,6 @@ public class ParseException extends Exception {
         expectedTokenSequences = expectedTokenSequencesVal;
         tokenImage = tokenImageVal;
     }
-
-    /**
-     * The following constructors are for use by you for whatever purpose you can think of. Constructing the exception
-     * in this manner makes the exception behave in the normal way - i.e., as documented in the class "Throwable". The
-     * fields "errorToken", "expectedTokenSequences", and "tokenImage" do not contain relevant information. The JavaCC
-     * generated code does not use these constructors.
-     */
-
-    public ParseException() {
-        super();
-    }
-
-    /** Constructor with message. */
-    public ParseException(String message) {
-        super(message);
-    }
-
-    /**
-     * This is the last token that has been consumed successfully. If this object has been created due to a parse error,
-     * the token following this token will (therefore) be the first error token.
-     */
-    public Token currentToken;
-
-    /**
-     * Each entry in this array is an array of integers. Each array of integers represents a sequence of tokens (by
-     * their ordinal values) that is expected at this point of the parse.
-     */
-    public int[][] expectedTokenSequences;
-
-    /**
-     * This is a reference to the "tokenImage" array of the generated parser within which the parse error occurred. This
-     * array is defined in the generated ...Constants interface.
-     */
-    public String[] tokenImage;
 
     /**
      * It uses "currentToken" and "expectedTokenSequences" to generate a parse error message and returns it. If this
@@ -131,41 +112,59 @@ public class ParseException extends Exception {
         char ch;
         for (int i = 0; i < str.length(); i++) {
             switch (str.charAt(i)) {
-            case '\b':
-                retval.append("\\b");
-                continue;
-            case '\t':
-                retval.append("\\t");
-                continue;
-            case '\n':
-                retval.append("\\n");
-                continue;
-            case '\f':
-                retval.append("\\f");
-                continue;
-            case '\r':
-                retval.append("\\r");
-                continue;
-            case '\"':
-                retval.append("\\\"");
-                continue;
-            case '\'':
-                retval.append("\\\'");
-                continue;
-            case '\\':
-                retval.append("\\\\");
-                continue;
-            default:
-                if ((ch = str.charAt(i)) < 0x20 || ch > 0x7e) {
-                    String s = "0000" + Integer.toString(ch, 16);
-                    retval.append("\\u" + s.substring(s.length() - 4, s.length()));
-                } else {
-                    retval.append(ch);
-                }
-                continue;
+                case '\b':
+                    retval.append("\\b");
+                    continue;
+                case '\t':
+                    retval.append("\\t");
+                    continue;
+                case '\n':
+                    retval.append("\\n");
+                    continue;
+                case '\f':
+                    retval.append("\\f");
+                    continue;
+                case '\r':
+                    retval.append("\\r");
+                    continue;
+                case '\"':
+                    retval.append("\\\"");
+                    continue;
+                case '\'':
+                    retval.append("\\\'");
+                    continue;
+                case '\\':
+                    retval.append("\\\\");
+                    continue;
+                default:
+                    if ((ch = str.charAt(i)) < 0x20 || ch > 0x7e) {
+                        String s = "0000" + Integer.toString(ch, 16);
+                        retval.append("\\u" + s.substring(s.length() - 4, s.length()));
+                    } else {
+                        retval.append(ch);
+                    }
+                    continue;
             }
         }
         return retval.toString();
+    }
+
+    /**
+     * The following constructors are for use by you for whatever purpose you can think of. Constructing the exception
+     * in this manner makes the exception behave in the normal way - i.e., as documented in the class "Throwable". The
+     * fields "errorToken", "expectedTokenSequences", and "tokenImage" do not contain relevant information. The JavaCC
+     * generated code does not use these constructors.
+     */
+
+    public ParseException() {
+        super();
+    }
+
+    /**
+     * Constructor with message.
+     */
+    public ParseException(String message) {
+        super(message);
     }
 
 }

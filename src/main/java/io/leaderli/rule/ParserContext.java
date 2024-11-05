@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 public class ParserContext {
 
     private final Map<String, String> var_type = new HashMap<>();
     private final List<Integer> ruleSet = new ArrayList<>();
+    public boolean debug = false;
+    private Consumer<String> debugConsumer = System.out::print;
 
     public void addRule(int... rules) {
         for (int rule : rules) {
@@ -33,5 +36,11 @@ public class ParserContext {
             throw new UnsupportedOperationException("var " + name + " not exist");
         }
         return type;
+    }
+
+    public void debug(String msg) {
+        if (debug) {
+            debugConsumer.accept(msg);
+        }
     }
 }

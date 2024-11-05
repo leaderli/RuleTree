@@ -65,12 +65,12 @@ public class SimpleNode<T> implements Node<T> {
         return visitor.visit(this, data);
     }
 
-    public void jjtSetValue(T value) {
-        this.value = value;
-    }
-
     public T jjtGetValue() {
         return value;
+    }
+
+    public void jjtSetValue(T value) {
+        this.value = value;
     }
 
     /*

@@ -20,12 +20,13 @@ class RuleContextVisitorTest {
     void test() throws ParseException, IOException, CannotCompileException, InstantiationException,
             IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         ParserContext context = new ParserContext();
+        context.debug = true;
         context.putType("a", "INT");
         context.putType("b", "INT");
         context.putType("c", "TIME");
-        context.addRule(1, 2, 3);
+        context.addRule(1, 2, -1);
         RuleParser ruleParser = new RuleParser(
-                "rule:1 true and not (false or a > 5) and a + b > 1 rule:2 true and not (false or true) and a = 1 or c = 1 rule:3 true",
+                "rule:1 true and not (false or a > 5) and a + b > 1 rule:2 true and not (false or true) and a = 1 or c = 10:10:10 rule:-1 true",
                 context);
         ast_entry entry = (ast_entry) ruleParser.entry();
         // EntryFunction entryFunction = (EntryFunction) entry.jjtAccept(new RuleContextVisitor(), EntryFunction.class);
@@ -86,18 +87,18 @@ class RuleContextVisitorTest {
 
             String localVarType;
             switch (context.getType(k)) {
-            case "TIME":
-                localVarType = "String";
-                break;
-            case "INT":
-                localVarType = "int";
-                break;
-            case "PERCENT":
-            case "DOUBLE":
-                localVarType = "double";
-                break;
-            default:
-                throw new UnsupportedOperationException();
+                case "TIME":
+                    localVarType = "String";
+                    break;
+                case "INT":
+                    localVarType = "int";
+                    break;
+                case "PERCENT":
+                case "DOUBLE":
+                    localVarType = "double";
+                    break;
+                default:
+                    throw new UnsupportedOperationException();
             }
             sb.append("\t");
             sb.append(localVarType);

@@ -2,13 +2,13 @@
 package io.leaderli.rule.tree;
 
 public class RuleParserDefaultVisitor implements RuleParserVisitor {
+    public Object visit(SimpleNode node, Object data) {
+        return defaultVisit(node, data);
+    }
+
     public Object defaultVisit(SimpleNode node, Object data) {
         node.childrenAccept(this, data);
         return data;
-    }
-
-    public Object visit(SimpleNode node, Object data) {
-        return defaultVisit(node, data);
     }
 
     public Object visit(ast_entry node, Object data) {

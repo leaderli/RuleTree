@@ -41,10 +41,16 @@ public class JJTRuleParserState {
         return nodes.get(0);
     }
 
-    /* Pushes a node on to the stack. */
-    public void pushNode(Node n) {
-        nodes.add(n);
-        ++sp;
+    /* Returns the node currently on the top of the stack. */
+    public Node peekNode() {
+        return nodes.get(nodes.size() - 1);
+    }
+
+    public void clearNodeScope(Node n) {
+        while (sp > mk) {
+            popNode();
+        }
+        mk = marks.remove(marks.size() - 1);
     }
 
     /*
@@ -55,25 +61,6 @@ public class JJTRuleParserState {
             mk = marks.remove(marks.size() - 1);
         }
         return nodes.remove(nodes.size() - 1);
-    }
-
-    /* Returns the node currently on the top of the stack. */
-    public Node peekNode() {
-        return nodes.get(nodes.size() - 1);
-    }
-
-    /*
-     * Returns the number of children on the stack in the current node scope.
-     */
-    public int nodeArity() {
-        return sp - mk;
-    }
-
-    public void clearNodeScope(Node n) {
-        while (sp > mk) {
-            popNode();
-        }
-        mk = marks.remove(marks.size() - 1);
     }
 
     public void openNodeScope(Node n) {
@@ -98,6 +85,12 @@ public class JJTRuleParserState {
         node_created = true;
     }
 
+    /* Pushes a node on to the stack. */
+    public void pushNode(Node n) {
+        nodes.add(n);
+        ++sp;
+    }
+
     /*
      * A conditional node is constructed if its condition is true. All the nodes that have been pushed since the node
      * was opened are made children of the conditional node, which is then pushed on to the stack. If the condition is
@@ -119,6 +112,13 @@ public class JJTRuleParserState {
             mk = marks.remove(marks.size() - 1);
             node_created = false;
         }
+    }
+
+    /*
+     * Returns the number of children on the stack in the current node scope.
+     */
+    public int nodeArity() {
+        return sp - mk;
     }
 }
 /* JavaCC - OriginalChecksum=ce9700ff1de70a7bf7fd58d54cceb39d (do not edit this line) */

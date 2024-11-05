@@ -57,11 +57,6 @@ public class ExprFunction implements Function<RuleContext, Boolean> {
         return result;
     }
 
-    @Override
-    public String toString() {
-        return toString(operators.length);
-    }
-
     public String toString(int end) {
         StringBuilder toString = new StringBuilder();
         toString.append(terms[0]);
@@ -71,5 +66,10 @@ public class ExprFunction implements Function<RuleContext, Boolean> {
         }
 
         return toString.toString();
+    }
+
+    @Override
+    public String toString() {
+        return toString(operators.length);
     }
 }

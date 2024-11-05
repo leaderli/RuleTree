@@ -27,6 +27,39 @@ public class CompareFunction<T> implements Function<RuleContext, Boolean> {
         this.right = right;
     }
 
+    @SuppressWarnings("unchecked")
+    public static <T> CompareFunction instance(ast_compare node) {
+        LiTuple<String, String> var = ((ast_var) node.jjtGetChild(0)).jjtGetValue();
+        String name = var._2;
+        int operator1 = (int) (node.jjtGetChild(1)).jjtGetValue();
+        String math_var_name = "";
+        int compare_operator;
+        int math_operator = 0;
+        T right;
+        if (operator1 != PLUS && operator1 != MINUS) {
+            compare_operator = operator1;
+            right = ((LiTuple<String, T>) ((node.jjtGetChild(2)).jjtGetValue()))._2;
+        } else {
+            math_operator = operator1;
+            math_var_name = ((ast_var) node.jjtGetChild(2)).jjtGetValue()._2;
+            compare_operator = ((ast_operator) node.jjtGetChild(3)).jjtGetValue();
+            ;
+            right = ((LiTuple<String, T>) ((node.jjtGetChild(4)).jjtGetValue()))._2;
+        }
+        switch (var._1) {
+            case "TIME":
+            case "STR":
+                return new StrCompareFunction(name, math_operator, math_var_name, compare_operator, (String) right);
+            case "INT":
+                return new IntCompareFunction(name, math_operator, math_var_name, compare_operator, (Integer) right);
+            case "DOUBLE":
+            case "PERCENT":
+                return new DoubleCompareFunction(name, math_operator, math_var_name, compare_operator, (Double) right);
+            default:
+                throw new UnsupportedOperationException("unsupported var type " + var._1);
+        }
+    }
+
     @Override
     public Boolean apply(RuleContext context) {
         T left = context.getVarValue(name);
@@ -39,27 +72,29 @@ public class CompareFunction<T> implements Function<RuleContext, Boolean> {
             System.out.println(this);
         }
         switch (compare_operator) {
-        case EQ:
-            return eq(left, right);
-        case NE:
-            return ne(left, right);
-        case GT:
-            return gt(left, right);
-        case GE:
-            return ge(left, right);
-        case LT:
-            return lt(left, right);
-        case LE:
-            return le(left, right);
-        default:
-            throw new UnsupportedOperationException(
-                    RuleParserConstants.tokenImage[compare_operator] + " is not supported");
+            case EQ:
+                return eq(left, right);
+            case NE:
+                return ne(left, right);
+            case GT:
+                return gt(left, right);
+            case GE:
+                return ge(left, right);
+            case LT:
+                return lt(left, right);
+            case LE:
+                return le(left, right);
+            default:
+                throw new UnsupportedOperationException(
+                        RuleParserConstants.tokenImage[compare_operator] + " is not supported");
         }
     }
 
     public T plus(T a, T b) {
         throw new UnsupportedOperationException();
     }
+
+    ;
 
     public T minus(T a, T b) {
         throw new UnsupportedOperationException();
@@ -101,8 +136,6 @@ public class CompareFunction<T> implements Function<RuleContext, Boolean> {
         throw new UnsupportedOperationException();
     }
 
-    ;
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -118,38 +151,5 @@ public class CompareFunction<T> implements Function<RuleContext, Boolean> {
         sb.append(right);
 
         return sb.toString();
-    }
-
-    @SuppressWarnings("unchecked")
-    public static <T> CompareFunction instance(ast_compare node) {
-        LiTuple<String, String> var = ((ast_var) node.jjtGetChild(0)).jjtGetValue();
-        String name = var._2;
-        int operator1 = (int) (node.jjtGetChild(1)).jjtGetValue();
-        String math_var_name = "";
-        int compare_operator;
-        int math_operator = 0;
-        T right;
-        if (operator1 != PLUS && operator1 != MINUS) {
-            compare_operator = operator1;
-            right = ((LiTuple<String, T>) ((node.jjtGetChild(2)).jjtGetValue()))._2;
-        } else {
-            math_operator = operator1;
-            math_var_name = ((ast_var) node.jjtGetChild(2)).jjtGetValue()._2;
-            compare_operator = ((ast_operator) node.jjtGetChild(3)).jjtGetValue();
-            ;
-            right = ((LiTuple<String, T>) ((node.jjtGetChild(4)).jjtGetValue()))._2;
-        }
-        switch (var._1) {
-        case "TIME":
-        case "STR":
-            return new StrCompareFunction(name, math_operator, math_var_name, compare_operator, (String) right);
-        case "INT":
-            return new IntCompareFunction(name, math_operator, math_var_name, compare_operator, (Integer) right);
-        case "DOUBLE":
-        case "PERCENT":
-            return new DoubleCompareFunction(name, math_operator, math_var_name, compare_operator, (Double) right);
-        default:
-            throw new UnsupportedOperationException("unsupported var type " + var._1);
-        }
     }
 }

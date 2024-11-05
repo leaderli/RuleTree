@@ -1,6 +1,7 @@
 package io.leaderli.rule.tree;
 
 import io.leaderli.litool.core.exception.AssertException;
+import io.leaderli.litool.core.meta.LiTuple;
 import io.leaderli.rule.NodeUtil;
 import io.leaderli.rule.ParserContext;
 import org.junit.jupiter.api.Assertions;
@@ -10,27 +11,30 @@ class RuleParserTest {
     @Test
     void test() throws ParseException {
 
-        Assertions.assertEquals(0, test("0").jjtGetValue());
-        Assertions.assertEquals(0.0, test("0.0").jjtGetValue());
-        Assertions.assertEquals(0.0, test("0.0%").jjtGetValue());
-        Assertions.assertEquals(0.01, test("1%").jjtGetValue());
-        Assertions.assertEquals(1, test("1").jjtGetValue());
-        Assertions.assertEquals(1.0, test("1.0").jjtGetValue());
-        Assertions.assertEquals(1.0, test("1.0").jjtGetValue());
-        Assertions.assertEquals(0.01, test("1.0%").jjtGetValue());
-        Assertions.assertEquals(0.0, test("0%").jjtGetValue());
+        Assertions.assertEquals(LiTuple.of("INT", 0), test("0").jjtGetValue());
+        Assertions.assertEquals(LiTuple.of("INT", -1), test("-1").jjtGetValue());
+        Assertions.assertEquals(LiTuple.of("DOUBLE", 0.0), test("0.0").jjtGetValue());
+        Assertions.assertEquals(LiTuple.of("DOUBLE", -0.1), test("-0.1").jjtGetValue());
+        Assertions.assertEquals(LiTuple.of("PERCENT", 0.0), test("0.0%").jjtGetValue());
+        Assertions.assertEquals(LiTuple.of("PERCENT", 0.01), test("1%").jjtGetValue());
+        Assertions.assertEquals(LiTuple.of("PERCENT", -0.01), test("-1%").jjtGetValue());
+        Assertions.assertEquals(LiTuple.of("INT", 1), test("1").jjtGetValue());
+        Assertions.assertEquals(LiTuple.of("DOUBLE", 1.0), test("1.0").jjtGetValue());
+        Assertions.assertEquals(LiTuple.of("DOUBLE", 1.0), test("1.0").jjtGetValue());
+        Assertions.assertEquals(LiTuple.of("PERCENT", 0.01), test("1.0%").jjtGetValue());
+        Assertions.assertEquals(LiTuple.of("PERCENT", 0.0), test("0%").jjtGetValue());
         Assertions.assertThrows(ParseException.class, () -> test("00"));
         Assertions.assertThrows(ParseException.class, () -> test("01"));
     }
 
     public static SimpleNode<?> test(String expr) throws ParseException {
-        RuleParser demo = new RuleParser(expr, null);
+        RuleParser demo = new RuleParser(expr, new ParserContext());
         return (SimpleNode<?>) demo.test().jjtGetChild(0);
     }
 
     @Test
     void testTime() throws ParseException {
-        Assertions.assertEquals("20:20:20", test("20:20:20").jjtGetValue());
+        Assertions.assertEquals(LiTuple.of("TIME", "20:20:20"), test("20:20:20").jjtGetValue());
         Assertions.assertThrows(Throwable.class, () -> test("35:20:20"));
         Assertions.assertThrows(Throwable.class, () -> test(""));
 
@@ -48,15 +52,24 @@ class RuleParserTest {
         ParserContext context = new ParserContext();
         context.putType("a", "INT");
         context.putType("b", "TIME");
-        NodeUtil.dump(test("a", context));
-        NodeUtil.dump(test("b", context));
-        Assertions.assertThrows(IllegalStateException.class, () -> NodeUtil.dump(test("c", context)));
-        Assertions.assertThrows(AssertException.class, () -> NodeUtil.dump(test("b+1", context)));
-        Assertions.assertThrows(AssertException.class, () -> NodeUtil.dump(test("a+1.0", context)));
-        NodeUtil.dump(test("a+1=1", context));
-        NodeUtil.dump(test("a-1=1", context));
-        NodeUtil.dump(test("a+a=1", context));
-        NodeUtil.dump(test("a-a=1", context));
+        context.putType("c", "STR");
+        context.putType("d", "PERCENT");
+        Assertions.assertThrows(ParseException.class, () -> NodeUtil.dump(test("b+1>1", context)));
+        Assertions.assertThrows(AssertException.class, () -> NodeUtil.dump(test("a>1.0", context)));
+        Assertions.assertThrows(UnsupportedOperationException.class, () -> NodeUtil.dump(test("z>1", context)));
+        test("a=1", context);
+        test("a=-1", context);
+        test("c=1", context);
+        test("d=1%", context);
+        test("a+a=1", context);
+        test("a-a=1", context);
+        test("b=10:10:10", context);
+        test("b>10:10:10", context);
+        test("b>10:10:10", context);
+        Assertions.assertThrows(ParseException.class, () -> NodeUtil.dump(test("b-10:10:10>10:10:10", context)));
+        Assertions.assertThrows(ParseException.class, () -> NodeUtil.dump(test("b-10:10:10>10:10:10", context)));
+        Assertions.assertThrows(AssertException.class, () -> NodeUtil.dump(test("c>1", context)));
+        Assertions.assertThrows(AssertException.class, () -> NodeUtil.dump(test("d>1", context)));
 
     }
 
@@ -90,7 +103,7 @@ class RuleParserTest {
     }
 
     public static SimpleNode<?> expr(String expr) throws ParseException {
-        RuleParser demo = new RuleParser(expr, null);
+        RuleParser demo = new RuleParser(expr, new ParserContext());
         return (SimpleNode<?>) demo.test();
     }
 

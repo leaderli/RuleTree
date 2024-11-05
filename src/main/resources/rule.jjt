@@ -51,7 +51,7 @@ TOKEN : {
     | <AND:"AND"|"and">
     | <OR:"OR"|"or">
     | <NOT:"NOT"|"not">
-    | <INT: "0"|(["1"-"9"] (["0"-"9"])*) >
+    | <INT: (<MINUS>)?("0"|(["1"-"9"] (["0"-"9"])*)) >
     | <DOUBLE:<INT>( "." ["0"-"9"])+>
     | <PERCENT:(<DOUBLE>|<INT>)"%">
     | <TIME:["0"-"2"]["0"-"9"]":"["0"-"5"]["0"-"9"]":"["0"-"5"]["0"-"9"]>
@@ -80,38 +80,42 @@ void rule():{Token t;}{
     t=<INT>
     {
         int rule = Integer.parseInt(t.image);
+        context.debug("rule:"+rule+"\r\n");
         context.isValidRule(rule);
         jjtThis.jjtSetValue(rule);
     }
     expr()
+    {
+        context.debug("\r\n");
+    }
 }
 void expr():{}{
     term() (
-         <AND>{jjtThis.jjtSetValue(AND);}#and term()
-       | <OR>{jjtThis.jjtSetValue(OR);}#or term()
+         <AND>{context.debug(" and ");jjtThis.jjtSetValue(AND);}#and term()
+       | <OR>{context.debug(" or ");jjtThis.jjtSetValue(OR);}#or term()
     )*
 }
 
 void term():{}{
 
-         <TRUE>{jjtThis.jjtSetValue(TRUE);}
-       | <FALSE>{jjtThis.jjtSetValue(FALSE);}
-       | <NOT> term() {jjtThis.jjtSetValue(NOT);}
-       | <LPAREN> expr() <RPAREN> {jjtThis.jjtSetValue(LPAREN);}
+         <TRUE>{context.debug("true");jjtThis.jjtSetValue(TRUE);}
+       | <FALSE>{context.debug("false");jjtThis.jjtSetValue(FALSE);}
+       | <NOT> {context.debug(" not ");}term() {jjtThis.jjtSetValue(NOT);}
+       | <LPAREN> {context.debug(" ( ");}expr() <RPAREN> {context.debug(" ) ");jjtThis.jjtSetValue(LPAREN);}
        | compare() {jjtThis.jjtSetValue(0);}
 }
 
 void num_int() :{Token t;}{
-    t=<INT> {jjtThis.jjtSetValue(LiTuple.of("INT",Integer.parseInt(t.image)));}
+    t=<INT> {context.debug(t.image);jjtThis.jjtSetValue(LiTuple.of("INT",Integer.parseInt(t.image)));}
 }
 void num_double() :{Token t;}{
-    t=<DOUBLE> {jjtThis.jjtSetValue(LiTuple.of("DOUBLE",Double.parseDouble(t.image)));}
+    t=<DOUBLE> {context.debug(t.image);jjtThis.jjtSetValue(LiTuple.of("DOUBLE",Double.parseDouble(t.image)));}
 }
 void num_percent() :{Token t;}{
-    t=<PERCENT> {jjtThis.jjtSetValue(LiTuple.of("PERCENT",Double.parseDouble(t.image.replace("%","")) / 100));}
+    t=<PERCENT> {context.debug(t.image);jjtThis.jjtSetValue(LiTuple.of("PERCENT",Double.parseDouble(t.image.replace("%","")) / 100));}
 }
 void num_time() :{Token t;}{
-    t=<TIME> {jjtThis.jjtSetValue(LiTuple.of("TIME",t.image));}
+    t=<TIME> {context.debug(t.image);jjtThis.jjtSetValue(LiTuple.of("TIME",t.image));}
 }
 void num() #void:{}{
     num_int() |num_double() |num_percent() |num_time()
@@ -124,7 +128,7 @@ void compare() :{Token name;String type;}{
     }
     (math() var()
         {
-            LiAssertUtil.assertTrue(StringUtils.equalsAny(type,"INT","DOUBLE","PERCENT"),"only <INT>,<DOUBLE>,<PERCENT> support '+','-");
+            LiAssertUtil.assertTrue(StringUtils.equalsAny(type,"INT","DOUBLE","PERCENT"),"only <INT>,<DOUBLE>,<PERCENT> support '+','-'");
             LiAssertUtil.assertTrue(StringUtils.equalsAny(type, NodeUtil.getCurrentChildrenNumNodeType(jjtree)),"should use type <"+type+">");
         }
     )?
@@ -133,7 +137,7 @@ void compare() :{Token name;String type;}{
         //STR 只允许使用 '=' '!='
        if("STR".equals(type)){
             int operator= NodeUtil.getCurrentChildrenOperatorNodeValue(jjtree);
-            LiAssertUtil.assertTrue(operator == EQ || operator == NE ,"<STR> only support '=','!=");
+            LiAssertUtil.assertTrue(operator == EQ || operator == NE ,"<STR> only support '=','!= :"+jjtThis);
        }
 
     }
@@ -156,22 +160,26 @@ void compare() :{Token name;String type;}{
 
 //noinspection unchecked
 void math():{}{
-      <PLUS>{ jjtThis.jjtSetValue(PLUS);}{}
-    | <MINUS>{ jjtThis.jjtSetValue(MINUS);}{}
+      <PLUS>{context.debug(" + ");jjtThis.jjtSetValue(PLUS);}{}
+    | <MINUS>{context.debug(" - ");jjtThis.jjtSetValue(MINUS);}{}
 }
 
 
 void operator() :{}{
-      <EQ>{ jjtThis.jjtSetValue(EQ);}
-    | <NE>{ jjtThis.jjtSetValue(NE);}
-    | <GT>{ jjtThis.jjtSetValue(GT);}
-    | <GE>{ jjtThis.jjtSetValue(GE);}
-    | <LT>{ jjtThis.jjtSetValue(LT);}
-    | <LE>{ jjtThis.jjtSetValue(LE);}
+      <EQ>{context.debug(" = "); jjtThis.jjtSetValue(EQ);}
+    | <NE>{context.debug(" != "); jjtThis.jjtSetValue(NE);}
+    | <GT>{context.debug(" > "); jjtThis.jjtSetValue(GT);}
+    | <GE>{context.debug(" >= "); jjtThis.jjtSetValue(GE);}
+    | <LT>{context.debug(" < "); jjtThis.jjtSetValue(LT);}
+    | <LE>{context.debug(" <= "); jjtThis.jjtSetValue(LE);}
 }
 
 void var() :{Token t;}{
-    t=<IDENTIFIER>{jjtThis.jjtSetValue(LiTuple.of(context.getType(t.image),t.image));}
+    t=<IDENTIFIER>
+    {
+    context.debug(context.getType(t.image)+" "+t.image);
+    jjtThis.jjtSetValue(LiTuple.of(context.getType(t.image),t.image));
+    }
 }
 
 // test
