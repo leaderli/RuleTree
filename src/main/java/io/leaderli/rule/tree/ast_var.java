@@ -3,7 +3,6 @@
 package io.leaderli.rule.tree;
 
 import io.leaderli.litool.core.meta.LiTuple;
-import io.leaderli.rule.RuleContext;
 
 public class ast_var extends SimpleNode<LiTuple<String, String>> {
     public ast_var(int id) {

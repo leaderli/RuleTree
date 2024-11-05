@@ -82,7 +82,7 @@ public class SimpleNode<T> implements Node<T> {
     /**
      * Accept the visitor.
      **/
-    @SuppressWarnings({ "ReassignedVariable", "rawtypes", "unchecked" })
+    @SuppressWarnings({"ReassignedVariable", "rawtypes", "unchecked"})
     public Object[] childrenAccept(RuleParserVisitor visitor, Object data) {
         if (children != null) {
             Object[] rs = new Object[children.length];
