@@ -5,10 +5,13 @@ import io.leaderli.litool.core.text.StringUtils;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 
 public class RuleContext {
 
-    public boolean debug;
+    public boolean isDebug;
+    private Consumer<String> debugConsumer = System.out::print;
+
     private Map<String, Object> vars = Collections.unmodifiableMap(new HashMap<>());
 
     public void initVars(Map<String, Object> vars) {
@@ -36,7 +39,13 @@ public class RuleContext {
         return StringUtils.compare(a, b);
     }
 
+    public void setDebugConsumer(Consumer<String> debugConsumer) {
+        this.debugConsumer = debugConsumer;
+    }
+
     public void debug(String expr) {
-        System.out.println(expr);
+        if (isDebug) {
+            this.debugConsumer.accept(expr);
+        }
     }
 }

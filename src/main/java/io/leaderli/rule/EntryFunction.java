@@ -16,7 +16,7 @@ public class EntryFunction implements Function<RuleContext, Integer> {
 
             RuleFunction rule = rules[i];
             boolean match = rule.expr.apply(context);
-            if (context.debug) {
+            if (context.isDebug) {
                 System.out.println((i + 1) + ". " + rule);
             }
             if (match) {

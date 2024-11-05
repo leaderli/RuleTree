@@ -1,5 +1,8 @@
 package io.leaderli.rule;
 
+import io.leaderli.litool.core.exception.LiAssertUtil;
+import io.leaderli.litool.core.text.StringUtils;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +22,7 @@ public class ParserContext {
         }
     }
 
-    public void setDebugConsumer(Consumer<String> debugConsumer ){
+    public void setDebugConsumer(Consumer<String> debugConsumer) {
         this.debugConsumer = debugConsumer;
     }
 
@@ -39,7 +42,12 @@ public class ParserContext {
         if (type == null) {
             throw new UnsupportedOperationException("var " + name + " not exist");
         }
+        LiAssertUtil.assertTrue(StringUtils.equalsAny(type, "INT", "STR", "DOUBLE", "PERCENT", "TIME"), "var type  " + type + " is not supported");
         return type;
+    }
+
+    public Map<String,String> getAllParameter(){
+        return  new HashMap<>(var_type);
     }
 
     public void debug(String msg) {

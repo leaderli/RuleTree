@@ -33,7 +33,7 @@ public class ExprFunction implements Function<RuleContext, Boolean> {
             int op = operators[i];
             if (op == AND) {
                 if (!result) {
-                    if (context.debug) {
+                    if (context.isDebug) {
                         System.out.println(toString(i + 1));
                     }
                     return false;
@@ -42,7 +42,7 @@ public class ExprFunction implements Function<RuleContext, Boolean> {
                 }
             } else if (op == OR) {
                 if (result) {
-                    if (context.debug) {
+                    if (context.isDebug) {
                         System.out.println(toString(i + 1));
                     }
                     return true;
@@ -51,7 +51,7 @@ public class ExprFunction implements Function<RuleContext, Boolean> {
                 }
             }
         }
-        if (context.debug) {
+        if (context.isDebug) {
             System.out.println(this);
         }
         return result;

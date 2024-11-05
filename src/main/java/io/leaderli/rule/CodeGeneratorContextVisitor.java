@@ -34,8 +34,10 @@ public class CodeGeneratorContextVisitor implements RuleParserVisitor {
         node.jjtGetChild(0).jjtAccept(this, data);
         String expr = sb.substring(start);
         sb.append("){\r\n");
-        sb.append("\t\t context.debug(").append(result).append(" + ").append("\"").append(":")
-                .append(expr.replace("\"", "\\\"")).append("\"").append(");\r\n");
+        sb.append("\t\t context.debug(\"rule:")
+                .append(result)
+                .append("\\r\\n")
+                .append(expr.replace("\"", "\\\"")).append("\\r\\n\"").append(");\r\n");
 
         sb.append("\t\t return ").append(result).append(";\r\n");
         sb.append("\t}\r\n\r\n");

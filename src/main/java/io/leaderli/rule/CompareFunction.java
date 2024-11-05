@@ -68,7 +68,7 @@ public class CompareFunction<T> implements Function<RuleContext, Boolean> {
         } else if (math_operator == MINUS) {
             left = minus(left, context.getVarValue(math_var_name));
         }
-        if (context.debug) {
+        if (context.isDebug) {
             System.out.println(this);
         }
         switch (compare_operator) {
