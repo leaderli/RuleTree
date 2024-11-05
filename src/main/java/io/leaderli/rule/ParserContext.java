@@ -10,13 +10,17 @@ public class ParserContext {
 
     private final Map<String, String> var_type = new HashMap<>();
     private final List<Integer> ruleSet = new ArrayList<>();
-    public boolean debug = false;
+    public boolean isDebug = false;
     private Consumer<String> debugConsumer = System.out::print;
 
     public void addRule(int... rules) {
         for (int rule : rules) {
             ruleSet.add(rule);
         }
+    }
+
+    public void setDebugConsumer(Consumer<String> debugConsumer ){
+        this.debugConsumer = debugConsumer;
     }
 
     public void isValidRule(int rule) {
@@ -39,7 +43,7 @@ public class ParserContext {
     }
 
     public void debug(String msg) {
-        if (debug) {
+        if (isDebug) {
             debugConsumer.accept(msg);
         }
     }

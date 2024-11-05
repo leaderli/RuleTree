@@ -10,17 +10,16 @@ import javassist.CtClass;
 import javassist.CtMethod;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
 class RuleContextVisitorTest {
 
     @Test
-    void test() throws ParseException, IOException, CannotCompileException, InstantiationException,
+    void test() throws ParseException, CannotCompileException, InstantiationException,
             IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         ParserContext context = new ParserContext();
-        context.debug = true;
+        context.isDebug = true;
         context.putType("a", "INT");
         context.putType("b", "INT");
         context.putType("c", "TIME");
@@ -121,7 +120,7 @@ class RuleContextVisitorTest {
         entry.jjtAccept(new CodeGeneratorContextVisitor(), sb);
         sb.append("\tthrow new IllegalStateException(\"not match rule found\");\n");
         sb.append("}");
-        System.out.println(sb.toString());
+        System.out.println(sb);
         ctClass.addMethod(CtMethod.make(sb.toString(), ctClass));
         Class<?> clazz = ctClass.toClass();
         Object o = clazz.newInstance();
