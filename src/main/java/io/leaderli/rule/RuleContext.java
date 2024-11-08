@@ -31,7 +31,7 @@ public class RuleContext {
         return getVarValue(name);
     }
 
-    public int getDoubleValue(String name) {
+    public double getDoubleValue(String name) {
         return getVarValue(name);
     }
 

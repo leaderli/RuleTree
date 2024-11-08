@@ -22,6 +22,7 @@ public class RuleClassGenerator {
             String localVarType;
             switch (type) {
                 case "TIME":
+                case "STR":
                     localVarType = "String";
                     break;
                 case "INT":
@@ -32,7 +33,7 @@ public class RuleClassGenerator {
                     localVarType = "double";
                     break;
                 default:
-                    throw new UnsupportedOperationException();
+                    throw new UnsupportedOperationException(type);
             }
             sb.append("\t");
             sb.append(localVarType);
