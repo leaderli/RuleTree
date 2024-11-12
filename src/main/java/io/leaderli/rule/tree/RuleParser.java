@@ -665,6 +665,7 @@ public class RuleParser/* @bgen(jjtree) */ implements RuleParserTreeConstants, R
             jjtree.closeNodeScope(jjtn000, true);
             jjtc000 = false;
             context.debug(context.getType(t.image) + " " + t.image);
+            context.addNeededParameter(t.image);
             jjtn000.jjtSetValue(LiTuple.of(context.getType(t.image), t.image));
         } finally {
             if (jjtc000) {

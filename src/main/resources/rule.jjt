@@ -177,7 +177,9 @@ void operator() :{}{
 void var() :{Token t;}{
     t=<IDENTIFIER>
     {
+
     context.debug(context.getType(t.image)+" "+t.image);
+    context.addNeededParameter(t.image);
     jjtThis.jjtSetValue(LiTuple.of(context.getType(t.image),t.image));
     }
 }

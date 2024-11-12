@@ -14,10 +14,11 @@ public class RuleClassGenerator {
 
         ClassPool classPool = ClassPool.getDefault();
 
-        CtClass ctClass = classPool.makeClass("io.leaderli.rule.RuleExecutorImpl" + ruleNo, classPool.get("io.leaderli.rule.RuleExecutor"));// Create class
+        CtClass ctClass = classPool.makeClass("io.leaderli.rule.RuleExecutorImpl" + ruleNo,
+                classPool.get("io.leaderli.rule.RuleExecutor"));// Create class
         StringBuilder sb = new StringBuilder();
         sb.append("public int apply(io.leaderli.rule.RuleContext context){\r\n\r\n");
-        parserContext.getAllParameter().forEach((name, type) -> {
+        parserContext.getNeededParameter().forEach((name, type) -> {
 
             String localVarType;
             switch (type) {
@@ -53,7 +54,7 @@ public class RuleClassGenerator {
         entry.jjtAccept(new CodeGeneratorContextVisitor(), sb);
         sb.append("\tthrow new IllegalStateException(\"not match rule found\");\n");
         sb.append("}");
-        parserContext.debug(sb +"\r\n");
+        parserContext.debug(sb + "\r\n");
         ctClass.addMethod(CtMethod.make(sb.toString(), ctClass));
         return (RuleExecutor) ctClass.toClass().newInstance();
     }
