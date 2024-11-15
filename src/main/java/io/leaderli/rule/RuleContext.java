@@ -9,6 +9,10 @@ import java.util.function.Consumer;
 
 public class RuleContext {
 
+    /**
+     * 每个规则匹配 + 1
+     */
+    public int step;
     public boolean isDebug;
     private Consumer<String> debugConsumer = System.out::print;
 
@@ -44,8 +48,10 @@ public class RuleContext {
     }
 
     public void debug(String expr) {
-        if (isDebug) {
-            this.debugConsumer.accept(expr);
-        }
+
+    }
+
+    public void recordStep() {
+        step++;
     }
 }

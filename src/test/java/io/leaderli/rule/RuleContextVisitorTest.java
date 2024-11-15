@@ -36,6 +36,7 @@ class RuleContextVisitorTest {
         ruleContext.initVars(vars);
         System.out.println("------------------");
         System.out.println(ruleExecutor.apply(ruleContext));
+        System.out.println(ruleContext.step);
 
         // System.out.println(entryFunction.apply(ruleContext));
 
