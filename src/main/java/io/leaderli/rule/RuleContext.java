@@ -48,7 +48,7 @@ public class RuleContext {
     }
 
     public void debug(String expr) {
-
+        this.debugConsumer.accept(expr);
     }
 
     public void recordStep() {
