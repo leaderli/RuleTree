@@ -43,10 +43,13 @@ public class RuleClassGenerator {
             sb.append(" = ");
             sb.append(" ");
             if ("int".equals(localVarType)) {
+                sb.append("context.debug(\"int:").append(name).append("\");\r\n");
                 sb.append("context.getIntValue(\"").append(name).append("\");\r\n");
             } else if ("double".equals(localVarType)) {
+                sb.append("context.debug(\"double:").append(name).append("\");\r\n");
                 sb.append("context.getDoubleValue(\"").append(name).append("\");\r\n");
             } else {
+                sb.append("context.debug(\"string:").append(name).append("\");\r\n");
                 sb.append("context.getStringValue(\"").append(name).append("\");\r\n");
             }
             sb.append("\r\n");
