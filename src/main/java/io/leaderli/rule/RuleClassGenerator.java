@@ -14,7 +14,8 @@ public class RuleClassGenerator {
 
         ClassPool classPool = ClassPool.getDefault();
 
-        CtClass ctClass = classPool.makeClass("io.leaderli.rule.RuleExecutorImpl" + ruleNo,
+        CtClass ctClass = classPool.makeClass("io.leaderli.rule.RuleExecutorImpl_" + ruleNo + "_" + System.currentTimeMillis(),
+
                 classPool.get("io.leaderli.rule.RuleExecutor"));// Create class
         StringBuilder sb = new StringBuilder();
         sb.append("public int apply(io.leaderli.rule.RuleContext context){\r\n\r\n");
@@ -36,6 +37,13 @@ public class RuleClassGenerator {
                 default:
                     throw new UnsupportedOperationException(type);
             }
+            if ("int".equals(localVarType)) {
+                sb.append("context.debug(\"int:").append(name).append("\");\r\n");
+            } else if ("double".equals(localVarType)) {
+                sb.append("context.debug(\"double:").append(name).append("\");\r\n");
+            } else {
+                sb.append("context.debug(\"string:").append(name).append("\");\r\n");
+            }
             sb.append("\t");
             sb.append(localVarType);
             sb.append(" ");
@@ -43,13 +51,10 @@ public class RuleClassGenerator {
             sb.append(" = ");
             sb.append(" ");
             if ("int".equals(localVarType)) {
-                sb.append("context.debug(\"int:").append(name).append("\");\r\n");
                 sb.append("context.getIntValue(\"").append(name).append("\");\r\n");
             } else if ("double".equals(localVarType)) {
-                sb.append("context.debug(\"double:").append(name).append("\");\r\n");
                 sb.append("context.getDoubleValue(\"").append(name).append("\");\r\n");
             } else {
-                sb.append("context.debug(\"string:").append(name).append("\");\r\n");
                 sb.append("context.getStringValue(\"").append(name).append("\");\r\n");
             }
             sb.append("\r\n");
