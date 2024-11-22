@@ -13,9 +13,7 @@ public class RuleClassGenerator {
         ast_entry entry = (ast_entry) ruleParser.entry();
 
         ClassPool classPool = ClassPool.getDefault();
-
         CtClass ctClass = classPool.makeClass("io.leaderli.rule.RuleExecutorImpl_" + ruleNo + "_" + System.currentTimeMillis(),
-
                 classPool.get("io.leaderli.rule.RuleExecutor"));// Create class
         StringBuilder sb = new StringBuilder();
         sb.append("public int apply(io.leaderli.rule.RuleContext context){\r\n\r\n");
@@ -38,11 +36,11 @@ public class RuleClassGenerator {
                     throw new UnsupportedOperationException(type);
             }
             if ("int".equals(localVarType)) {
-                sb.append("context.debug(\"int:").append(name).append("\");\r\n");
+                sb.append("\tcontext.debug(\"int:").append(name).append("\");\r\n");
             } else if ("double".equals(localVarType)) {
-                sb.append("context.debug(\"double:").append(name).append("\");\r\n");
+                sb.append("\tcontext.debug(\"double:").append(name).append("\");\r\n");
             } else {
-                sb.append("context.debug(\"string:").append(name).append("\");\r\n");
+                sb.append("\tcontext.debug(\"string:").append(name).append("\");\r\n");
             }
             sb.append("\t");
             sb.append(localVarType);
