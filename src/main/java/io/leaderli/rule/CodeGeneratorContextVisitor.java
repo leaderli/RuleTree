@@ -29,6 +29,7 @@ public class CodeGeneratorContextVisitor implements RuleParserVisitor {
     public Object visit(ast_rule node, Object data) {
         int result = node.jjtGetValue();
         StringBuilder sb = (StringBuilder) data;
+        sb.append("\t context.recordStep();\r\n");
         sb.append("\tif(");
         int start = sb.length();
         node.jjtGetChild(0).jjtAccept(this, data);
@@ -38,7 +39,6 @@ public class CodeGeneratorContextVisitor implements RuleParserVisitor {
         sb.append("\t\t context.debug(\"rule:").append(result).append("\\r\\n").append(expr.replace("\"", "\\\""))
                 .append("\\r\\n\"").append(");\r\n");
 
-        sb.append("\t\t context.recordStep();\r\n");
         sb.append("\t\t return ").append(result).append(";\r\n");
         sb.append("\t}\r\n\r\n");
         return null;
