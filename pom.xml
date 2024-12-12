@@ -27,15 +27,30 @@
         <dependency>
             <groupId>io.leaderli.litool</groupId>
             <artifactId>litool-core</artifactId>
-            <version>2.3.4</version>
         </dependency>
         <dependency>
             <groupId>io.leaderli.litool</groupId>
             <artifactId>litool-test</artifactId>
-            <version>2.3.4</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.leaderli.litool</groupId>
+            <artifactId>litool-json</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.leaderli.litool</groupId>
+                <artifactId>litool-dependency</artifactId>
+                <version>release</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <build>
         <plugins>
             <plugin>
