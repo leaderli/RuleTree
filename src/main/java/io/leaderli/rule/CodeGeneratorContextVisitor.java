@@ -47,11 +47,10 @@ public class CodeGeneratorContextVisitor implements RuleParserVisitor {
 
     @Override
     public Object visit(ast_expr node, Object data) {
-        StringBuilder sb = (StringBuilder) data;
         node.jjtGetChild(0).jjtAccept(this, data);
-        for (int i = 0; i < node.jjtGetNumChildren() - 2; ) {
-            node.jjtGetChild(++i).jjtAccept(this, data);
-            node.jjtGetChild(++i).jjtAccept(this, data);
+        for (int i = 0; i < node.jjtGetNumChildren() - 2;i+=2 ) {
+            node.jjtGetChild(i+1).jjtAccept(this, data);
+            node.jjtGetChild(i+2).jjtAccept(this, data);
         }
         return null;
     }
@@ -129,8 +128,8 @@ public class CodeGeneratorContextVisitor implements RuleParserVisitor {
     @Override
     public Object visit(ast_compare node, Object data) {
         StringBuilder sb = (StringBuilder) data;
-        LiTuple<String, String> var = ((ast_var) node.jjtGetChild(0)).jjtGetValue();
-        String name = var._2;
+        LiTuple<String, String> typeNameTuple = ((ast_var) node.jjtGetChild(0)).jjtGetValue();
+        String name = typeNameTuple._2;
         int operator1 = (int) (node.jjtGetChild(1)).jjtGetValue();
         String math_var_name = "";
         int compare_operator;
@@ -145,7 +144,7 @@ public class CodeGeneratorContextVisitor implements RuleParserVisitor {
             compare_operator = ((ast_operator) node.jjtGetChild(3)).jjtGetValue();
             right = ((LiTuple<String, Object>) ((node.jjtGetChild(4)).jjtGetValue()))._2;
         }
-        switch (var._1) {
+        switch (typeNameTuple._1) {
             case "TIME":
             case "STR":
                 sb.append("context.compare(");
@@ -177,7 +176,7 @@ public class CodeGeneratorContextVisitor implements RuleParserVisitor {
                 break;
 
             default:
-                throw new UnsupportedOperationException("unsupported var type " + var._1);
+                throw new UnsupportedOperationException("unsupported var type " + typeNameTuple._1);
         }
         return null;
     }
